@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TextInput,
+  Dimensions,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
@@ -11,63 +18,156 @@ import TextButton from "../Components/Buttons/TextButton";
 import FlatButton from "../Components/Buttons/FlatButton";
 import { deviceHeight, deviceWidth } from "../Components/Constants";
 
+type dimensionSetterProp = {
+  mobile: any;
+  tabPort: any;
+  tabLand: any;
+};
+
 export default function Login() {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [isTablet, setIsTablet] = useState(false);
-  // const [landScape, setlandScape] = useState("");
+  const [tabPortrait, setTabPortrait] = useState<boolean>(false);
+  const [tabLandscape, setTabLandscape] = useState<boolean>(false);
+  const [screenWidth, setScreenWidth] = useState<number>(deviceWidth)
+  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight)
+
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
 
-  useEffect(() => {
-    if (deviceWidth >= 500) {
-      setIsTablet(true);
-    } else {
-      setIsTablet(false);
+  // Selects value based on screen orientation
+  function dimensionSetter({ mobile, tabPort, tabLand }: dimensionSetterProp) {
+    if (tabPortrait) {
+      return tabPort;
+    } else if (tabLandscape) {
+      return tabLand;
+    } else if (!tabLandscape && !tabPortrait) {
+      return mobile;
     }
+  }
+
+  useEffect(() => {
+
+    // Check for Tablet and its orientation
+    if (deviceWidth >= 450 && deviceHeight >=450 && deviceWidth <= 600) {
+      setTabLandscape(false);
+      setTabPortrait(true);
+    } else if (deviceWidth > 600 && deviceHeight >=450) {
+      setTabPortrait(false);
+      setTabLandscape(true);
+    }
+    
+    // Added listener to keep track of Tablet's orientation
+    Dimensions.addEventListener("change", ({ window }) => {
+      setScreenHeight(window.height)
+      setScreenWidth(window.width)
+      if (window.width >= 450 && window.height >=450 && window.width <= 600) {
+        setTabLandscape(false);
+        setTabPortrait(true);
+      } else if (window.width > 600 && window.height >=450) {
+        setTabPortrait(false);
+        setTabLandscape(true);
+      }
+    });
   }, []);
 
   if (!fontsLoaded) return null;
 
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1 }}
+      contentContainerStyle={{ flexGrow: 1, height: screenHeight }}
       keyboardShouldPersistTaps="handled"
     >
       <LinearGradient
         colors={["#FFFFFF", "#008080"]}
         locations={[0.5, 1]}
-        style={styles.container}
+        style={dimensionSetter({
+          mobile: styles.container,
+          tabPort: styles.container,
+          tabLand: [styles.container, { justifyContent: "flex-start" }],
+        })}
       >
         <ITextKita
-          height={isTablet ? deviceHeight * 0.15 : deviceHeight * 0.18}
-          width={isTablet ? deviceWidth * 0.5 : deviceWidth * 0.6}
-          style={styles.iTextKita}
+          height={dimensionSetter({
+            mobile: screenHeight * 0.18,
+            tabPort: screenHeight * 0.15,
+            tabLand: screenHeight * 0.2,
+          })}
+          width={dimensionSetter({
+            mobile: screenWidth * 0.6,
+            tabPort: screenWidth * 0.5,
+            tabLand: screenWidth * 0.3,
+          })}
+          style={{
+            marginTop: dimensionSetter({
+              mobile: screenHeight * 0.1,
+              tabPort: screenHeight * 0.1,
+              tabLand: screenHeight * 0.07,
+            }),
+            marginBottom: dimensionSetter({
+              mobile: screenHeight * 0.01,
+              tabPort: screenHeight * 0.01,
+              tabLand: null,
+            }),
+          }}
         />
-        <View style={[styles.form, { width: isTablet ? "50%" : "80%" }]}>
+        <View
+          style={[
+            styles.form,
+            {
+              width: dimensionSetter({
+                mobile: "80%",
+                tabPort: "50%",
+                tabLand: "30%",
+              }),
+            },
+          ]}
+        >
           <View
             style={[
               styles.inputField,
-              { height: isTablet ? deviceHeight * 0.05 : deviceHeight * 0.06 },
+              {
+                height: dimensionSetter({
+                  mobile: screenHeight * 0.06,
+                  tabPort: screenHeight * 0.05,
+                  tabLand: screenHeight * 0.06,
+                }),
+              },
             ]}
           >
             <User
-              height={isTablet ? deviceHeight * 0.03 : deviceHeight * 0.05}
-              width={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
+              height={dimensionSetter({
+                mobile: screenHeight * 0.05,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.03,
+              })}
+              width={dimensionSetter({
+                mobile: screenWidth * 0.05,
+                tabPort: screenWidth * 0.03,
+                tabLand: screenWidth * 0.03,
+              })}
               style={{
-                marginHorizontal: isTablet
-                  ? deviceWidth * 0.03
-                  : deviceWidth * 0.05,
+                marginHorizontal: dimensionSetter({
+                  mobile: screenWidth * 0.05,
+                  tabPort: screenWidth * 0.03,
+                  tabLand: screenWidth * 0.01,
+                }),
               }}
             />
             <TextInput
               style={[
                 styles.textInput,
                 {
-                  fontSize: isTablet
-                    ? deviceHeight * 0.02
-                    : deviceHeight * 0.025,
-                  marginTop: isTablet ? null : deviceHeight * 0.01,
+                  fontSize: dimensionSetter({
+                    mobile: screenHeight * 0.025,
+                    tabPort: screenHeight * 0.02,
+                    tabLand: screenHeight * 0.025,
+                  }),
+                  marginTop: dimensionSetter({
+                    mobile: screenHeight * 0.01,
+                    tabPort: null,
+                    tabLand: screenHeight * 0.005,
+                  }),
                 },
               ]}
               placeholder="User Name"
@@ -78,27 +178,53 @@ export default function Login() {
           <View
             style={[
               styles.inputField,
-              { height: isTablet ? deviceHeight * 0.05 : deviceHeight * 0.06 },
+              {
+                height: dimensionSetter({
+                  mobile: screenHeight * 0.06,
+                  tabPort: screenHeight * 0.05,
+                  tabLand: screenHeight * 0.06,
+                }),
+              },
             ]}
           >
             <Key
-              height={isTablet ? deviceHeight * 0.03 : deviceHeight * 0.05}
-              width={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
+              height={dimensionSetter({
+                mobile: screenHeight * 0.05,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.03,
+              })}
+              width={dimensionSetter({
+                mobile: screenWidth * 0.05,
+                tabPort: screenWidth * 0.03,
+                tabLand: screenWidth * 0.03,
+              })}
               style={{
-                marginHorizontal: isTablet
-                  ? deviceWidth * 0.03
-                  : deviceWidth * 0.05,
+                marginHorizontal: dimensionSetter({
+                  mobile: screenWidth * 0.05,
+                  tabPort: screenWidth * 0.03,
+                  tabLand: screenWidth * 0.01,
+                }),
               }}
             />
             <TextInput
               style={[
                 styles.textInput,
                 {
-                  fontSize: isTablet
-                    ? deviceHeight * 0.02
-                    : deviceHeight * 0.025,
-                  marginTop: isTablet ? null : deviceHeight * 0.01,
-                  width: isTablet ? "80%" : "70%",
+                  fontSize: dimensionSetter({
+                    mobile: screenHeight * 0.025,
+                    tabPort: screenHeight * 0.02,
+                    tabLand: screenHeight * 0.025,
+                  }),
+                  marginTop: dimensionSetter({
+                    mobile: screenHeight * 0.01,
+                    tabPort: null,
+                    tabLand: screenHeight * 0.005,
+                  }),
+                  width: dimensionSetter({
+                    mobile: "70%",
+                    tabPort: "80%",
+                    tabLand: "80%",
+                  }),
                 },
               ]}
               placeholder="Password"
@@ -107,9 +233,23 @@ export default function Login() {
               secureTextEntry={secureTextEntry}
             />
             <Hide
-              height={isTablet ? deviceHeight * 0.03 : deviceHeight * 0.05}
-              width={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
-              style={{ marginRight: deviceWidth * 0.04 }}
+              height={dimensionSetter({
+                mobile: screenHeight * 0.05,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.03,
+              })}
+              width={dimensionSetter({
+                mobile: screenWidth * 0.05,
+                tabPort: screenWidth * 0.03,
+                tabLand: screenWidth * 0.03,
+              })}
+              style={{
+                marginRight: dimensionSetter({
+                  mobile: screenWidth * 0.04,
+                  tabPort: screenWidth * 0.04,
+                  tabLand: screenWidth * 0.01,
+                }),
+              }}
               onPress={() =>
                 setSecureTextEntry((current) => (current ? false : true))
               }
@@ -121,21 +261,45 @@ export default function Login() {
             color="#696969"
             title="Reset Password"
             onPressed={() => {}}
-            fontSize={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
-            marginVertical={deviceHeight * 0.03}
+            fontSize={dimensionSetter({
+              mobile: screenWidth * 0.05,
+              tabPort: screenWidth * 0.03,
+              tabLand: screenWidth * 0.02,
+            })}
+            marginVertical={
+              dimensionSetter({
+                mobile: screenHeight * 0.03,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.02,
+              })}
           />
         </View>
         <FlatButton
           title="Login"
+          zIndex={2}
           onPressed={() => {}}
-          titleFontSize={isTablet ? deviceHeight * 0.02 : deviceHeight * 0.028}
+          titleFontSize={dimensionSetter({
+            mobile: screenWidth * 0.05,
+            tabPort: screenWidth * 0.035,
+            tabLand: screenWidth * 0.015,
+          })}
+          paddingHorizontal={dimensionSetter({
+            mobile: screenWidth * 0.08,
+            tabPort: screenWidth * 0.035,
+            tabLand: screenWidth * 0.03,
+          })}
         />
         <View style={styles.registerView}>
           <Text
             style={[
               styles.noAcc,
               {
-                fontSize: isTablet ? deviceWidth * 0.025 : deviceWidth * 0.035,
+                zIndex: 2,
+                fontSize: dimensionSetter({
+                  mobile: screenWidth * 0.035,
+                  tabPort: screenWidth * 0.025,
+                  tabLand: screenWidth * 0.015,
+                }),
               },
             ]}
           >
@@ -145,22 +309,60 @@ export default function Login() {
             title="Register"
             onPressed={() => {}}
             color="#008080"
+            zIndex={2}
             fontWeight="bold"
-            fontSize={isTablet ? deviceWidth * 0.025 : deviceWidth * 0.035}
+            fontSize={dimensionSetter({
+              mobile: screenWidth * 0.035,
+              tabPort: screenWidth * 0.025,
+              tabLand: screenWidth * 0.015,
+            })}
           />
         </View>
-        <TwoPersons
-          height={isTablet ? deviceHeight * 0.3 : deviceHeight * 0.22}
-          width={isTablet ? deviceWidth * 0.95 : deviceWidth * 0.9}
-        />
-        <Text
-          style={[
-            styles.nTech,
-            { fontSize: isTablet ? deviceWidth * 0.025 : deviceWidth * 0.04 },
-          ]}
+        <View
+          style={dimensionSetter({
+            mobile: {alignItems: "center"},
+            tabPort: {alignItems: "center"},
+            tabLand: {
+              zIndex: 1,
+              position: "absolute",
+              bottom: screenHeight * 0.01,
+              alignItems: "center",
+            },
+          })}
         >
-          ⓒ & 2023 NTech Crop.
-        </Text>
+          <TwoPersons
+            height={dimensionSetter({
+              mobile: screenHeight * 0.22,
+              tabPort: screenHeight * 0.3,
+              tabLand: screenHeight * 0.55,
+            })}
+            width={dimensionSetter({
+              mobile: screenWidth * 0.9,
+              tabPort: screenWidth * 0.95,
+              tabLand: screenWidth * 0.95,
+            })}
+          />
+          <Text
+            style={[
+              styles.nTech,
+              {
+                zIndex: 2,
+                marginVertical: dimensionSetter({
+                  mobile: screenHeight * 0.05,
+                  tabPort: screenHeight * 0.05,
+                  tabLand: screenHeight * 0.02,
+                }),
+                fontSize: dimensionSetter({
+                  mobile: screenWidth * 0.04,
+                  tabPort: screenWidth * 0.025,
+                  tabLand: screenWidth * 0.015,
+                }),
+              },
+            ]}
+          >
+            ⓒ & 2023 NTech Crop.
+          </Text>
+        </View>
       </LinearGradient>
     </ScrollView>
   );
@@ -172,10 +374,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     justifyContent: "center",
-  },
-  iTextKita: {
-    marginTop: deviceHeight * 0.1,
-    marginBottom: deviceHeight * 0.01,
   },
   form: {
     alignItems: "center",
@@ -206,12 +404,10 @@ const styles = StyleSheet.create({
   noAcc: {
     color: "#696969",
     fontFamily: "Poppins-Regular",
-    marginTop: deviceHeight * 0.005,
   },
   nTech: {
     color: "white",
     fontSize: deviceWidth * 0.04,
     fontFamily: "Poppins-Regular",
-    marginVertical: deviceHeight * 0.05,
   },
 });

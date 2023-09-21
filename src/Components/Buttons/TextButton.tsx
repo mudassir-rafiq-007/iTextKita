@@ -4,33 +4,35 @@ import { useFonts } from "expo-font/build/FontHooks";
 
 interface propToTextButton {
   title: string;
-  onPressed: () => void;
   color: string;
-  fontSize?: number;
   margin?: number;
-  marginVertical?: number;
-  marginHorizontal?: number;
+  marginTop?: number;
   marginLeft?: number;
   marginRight?: number;
-  marginTop?: number;
   marginBottom?: number;
+  marginVertical?: number;
+  marginHorizontal?: number;
+  fontSize?: number;
   fontWeight?:
-    | "normal"
-    | "bold"
-    | "100"
-    | "200"
-    | "300"
-    | "400"
-    | "500"
-    | "600"
-    | "700"
-    | "800"
-    | "900";
+  | "normal"
+  | "bold"
+  | "100"
+  | "200"
+  | "300"
+  | "400"
+  | "500"
+  | "600"
+  | "700"
+  | "800"
+  | "900";
+  zIndex?: number;
+  onPressed: () => void;
 }
 
 export default function TextButton(props: propToTextButton) {
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
   });
 
   if (!fontsLoaded) return null;
@@ -39,16 +41,16 @@ export default function TextButton(props: propToTextButton) {
       <Text
         style={{
           color: props.color,
-          margin: props.margin ? props.margin : deviceHeight * 0.01,
+          fontFamily: props.fontWeight == "bold" ? "Poppins-Bold" : "Poppins-Regular",
           fontSize: props.fontSize || deviceWidth * 0.04,
-          fontWeight: props.fontWeight,
-          fontFamily: "Poppins-Regular",
-          marginVertical: props.marginVertical,
-          marginHorizontal: props.marginHorizontal,
+          margin: props.margin || deviceHeight * 0.01,
+          marginTop: props.marginTop,
           marginLeft: props.marginLeft,
           marginRight: props.marginRight,
-          marginTop: props.marginTop,
           marginBottom: props.marginBottom,
+          marginVertical: props.marginVertical,
+          marginHorizontal: props.marginHorizontal,
+          zIndex: props.zIndex,
         }}
       >
         {props.title}

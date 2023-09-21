@@ -1,26 +1,27 @@
-import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { deviceHeight, deviceWidth } from "../Constants";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
+import { deviceHeight, deviceWidth } from "../Constants";
 
 interface propType {
   title: string;
+  titleColor?: string;
   titleFontSize?: number;
   bgColor?: string;
-  titleColor?: string;
   margin?: number;
-  marginVertical?: number;
-  marginHorizontal?: number;
+  marginTop?: number;
   marginLeft?: number;
   marginRight?: number;
-  marginTop?: number;
   marginBottom?: number;
+  marginVertical?: number;
+  marginHorizontal?: number;
   padding?: number;
-  paddingVertical?: number;
-  paddingHorizontal?: number;
+  paddingTop?: number;
   paddingLeft?: number;
   paddingRight?: number;
-  paddingTop?: number;
   paddingBottom?: number;
+  paddingVertical?: number;
+  paddingHorizontal?: number;
+  zIndex?: number
   onPressed: () => void;
 }
 export default function FlatButton(props: propType) {
@@ -36,19 +37,20 @@ export default function FlatButton(props: propType) {
         {
           backgroundColor: props.bgColor || "#F6851F",
           margin: props.margin | (deviceHeight * 0.005),
-          marginVertical: props.marginVertical,
-          marginHorizontal: props.marginHorizontal,
+          marginTop: props.marginTop,
           marginLeft: props.marginLeft,
           marginRight: props.marginRight,
-          marginTop: props.marginTop,
           marginBottom: props.marginBottom,
+          marginVertical: props.marginVertical,
+          marginHorizontal: props.marginHorizontal,
           padding: props.padding,
-          paddingVertical: props.paddingVertical | (deviceHeight * 0.002),
-          paddingHorizontal: props.paddingHorizontal | (deviceWidth * 0.08),
+          paddingTop: props.paddingTop,
           paddingLeft: props.paddingLeft,
           paddingRight: props.paddingRight,
-          paddingTop: props.paddingTop,
           paddingBottom: props.paddingBottom,
+          paddingVertical: props.paddingVertical || deviceHeight * 0.002,
+          paddingHorizontal: props.paddingHorizontal || deviceWidth * 0.08,
+          zIndex: props.zIndex
         },
       ]}
       onPress={props.onPressed}
@@ -57,10 +59,10 @@ export default function FlatButton(props: propType) {
         style={[
           styles.buttonText,
           {
-            fontSize: props.titleFontSize || deviceHeight * 0.028,
+            elevation: 20,
             color: props.titleColor || "white",
             fontFamily: "Poppins-Bold",
-            elevation: 20,
+            fontSize: props.titleFontSize || deviceHeight * 0.028,
           },
         ]}
       >
