@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 
 interface propType {
   title: string;
+  titleFontSize?: number;
   bgColor?: string;
   titleColor?: string;
   margin?: number;
@@ -56,6 +57,7 @@ export default function FlatButton(props: propType) {
         style={[
           styles.buttonText,
           {
+            fontSize: props.titleFontSize || deviceHeight * 0.028,
             color: props.titleColor || "white",
             fontFamily: "Poppins-Bold",
             elevation: 20,
@@ -69,7 +71,6 @@ export default function FlatButton(props: propType) {
 }
 const styles = StyleSheet.create({
   buttonText: {
-    fontSize: deviceHeight * 0.028,
     marginTop: deviceHeight * 0.008,
     textAlign: "center",
     elevation: 4,

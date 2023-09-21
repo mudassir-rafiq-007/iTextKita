@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import Key from "../../assets/key.svg";
@@ -13,15 +13,25 @@ import { deviceHeight, deviceWidth } from "../Components/Constants";
 
 export default function Login() {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
+  const [isTablet, setIsTablet] = useState(false);
+  // const [landScape, setlandScape] = useState("");
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
+
+  useEffect(() => {
+    if (deviceWidth >= 500) {
+      setIsTablet(true);
+    } else {
+      setIsTablet(false);
+    }
+  }, []);
 
   if (!fontsLoaded) return null;
 
   return (
     <ScrollView
-      contentContainerStyle={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1 }}
       keyboardShouldPersistTaps="handled"
     >
       <LinearGradient
@@ -30,35 +40,66 @@ export default function Login() {
         style={styles.container}
       >
         <ITextKita
-          height={deviceHeight * 0.18}
-          width={deviceWidth * 0.6}
+          height={isTablet ? deviceHeight * 0.15 : deviceHeight * 0.18}
+          width={isTablet ? deviceWidth * 0.5 : deviceWidth * 0.6}
           style={styles.iTextKita}
         />
-        <View style={styles.form}>
-          <View style={styles.inputField}>
+        <View style={[styles.form, { width: isTablet ? "50%" : "80%" }]}>
+          <View
+            style={[
+              styles.inputField,
+              { height: isTablet ? deviceHeight * 0.05 : deviceHeight * 0.06 },
+            ]}
+          >
             <User
-              height={deviceHeight * 0.05}
-              width={deviceWidth * 0.05}
-              style={{ marginHorizontal: deviceWidth * 0.05 }}
+              height={isTablet ? deviceHeight * 0.03 : deviceHeight * 0.05}
+              width={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
+              style={{
+                marginHorizontal: isTablet
+                  ? deviceWidth * 0.03
+                  : deviceWidth * 0.05,
+              }}
             />
             <TextInput
-              style={[styles.textInput, { fontFamily: "Poppins-Regular" }]}
+              style={[
+                styles.textInput,
+                {
+                  fontSize: isTablet
+                    ? deviceHeight * 0.02
+                    : deviceHeight * 0.025,
+                  marginTop: isTablet ? null : deviceHeight * 0.01,
+                },
+              ]}
               placeholder="User Name"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
             />
           </View>
-          <View style={styles.inputField}>
+          <View
+            style={[
+              styles.inputField,
+              { height: isTablet ? deviceHeight * 0.05 : deviceHeight * 0.06 },
+            ]}
+          >
             <Key
-              height={deviceHeight * 0.05}
-              width={deviceWidth * 0.05}
-              style={{ marginHorizontal: deviceWidth * 0.05 }}
+              height={isTablet ? deviceHeight * 0.03 : deviceHeight * 0.05}
+              width={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
+              style={{
+                marginHorizontal: isTablet
+                  ? deviceWidth * 0.03
+                  : deviceWidth * 0.05,
+              }}
             />
             <TextInput
               style={[
                 styles.textInput,
-                { fontFamily: "Poppins-Regular" },
-                { width: "70%" },
+                {
+                  fontSize: isTablet
+                    ? deviceHeight * 0.02
+                    : deviceHeight * 0.025,
+                  marginTop: isTablet ? null : deviceHeight * 0.01,
+                  width: isTablet ? "80%" : "70%",
+                },
               ]}
               placeholder="Password"
               textAlignVertical="center"
@@ -66,8 +107,8 @@ export default function Login() {
               secureTextEntry={secureTextEntry}
             />
             <Hide
-              height={deviceHeight * 0.05}
-              width={deviceWidth * 0.06}
+              height={isTablet ? deviceHeight * 0.03 : deviceHeight * 0.05}
+              width={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
               style={{ marginRight: deviceWidth * 0.04 }}
               onPress={() =>
                 setSecureTextEntry((current) => (current ? false : true))
@@ -80,22 +121,46 @@ export default function Login() {
             color="#696969"
             title="Reset Password"
             onPressed={() => {}}
-            fontSize={deviceWidth * 0.05}
+            fontSize={isTablet ? deviceWidth * 0.03 : deviceWidth * 0.05}
             marginVertical={deviceHeight * 0.03}
           />
         </View>
-        <FlatButton title="Login" onPressed={() => {}} />
+        <FlatButton
+          title="Login"
+          onPressed={() => {}}
+          titleFontSize={isTablet ? deviceHeight * 0.02 : deviceHeight * 0.028}
+        />
         <View style={styles.registerView}>
-          <Text style={styles.noAcc}>I Don't Have Account?</Text>
+          <Text
+            style={[
+              styles.noAcc,
+              {
+                fontSize: isTablet ? deviceWidth * 0.025 : deviceWidth * 0.035,
+              },
+            ]}
+          >
+            I Don't Have Account?
+          </Text>
           <TextButton
             title="Register"
             onPressed={() => {}}
             color="#008080"
             fontWeight="bold"
+            fontSize={isTablet ? deviceWidth * 0.025 : deviceWidth * 0.035}
           />
         </View>
-        <TwoPersons height={deviceHeight * 0.22} width={deviceWidth * 0.9} />
-        <Text style={styles.nTech}>ⓒ & 2023 NTech Crop.</Text>
+        <TwoPersons
+          height={isTablet ? deviceHeight * 0.3 : deviceHeight * 0.22}
+          width={isTablet ? deviceWidth * 0.95 : deviceWidth * 0.9}
+        />
+        <Text
+          style={[
+            styles.nTech,
+            { fontSize: isTablet ? deviceWidth * 0.025 : deviceWidth * 0.04 },
+          ]}
+        >
+          ⓒ & 2023 NTech Crop.
+        </Text>
       </LinearGradient>
     </ScrollView>
   );
@@ -113,7 +178,6 @@ const styles = StyleSheet.create({
     marginBottom: deviceHeight * 0.01,
   },
   form: {
-    width: "80%",
     alignItems: "center",
     justifyContent: "center",
     gap: deviceHeight * 0.03,
@@ -124,7 +188,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#084A5B",
     textAlignVertical: "center",
-    height: deviceHeight * 0.06,
   },
   textInput: {
     flex: 1,
@@ -132,8 +195,7 @@ const styles = StyleSheet.create({
     color: "#c7c6c5",
     justifyContent: "center",
     textAlignVertical: "center",
-    fontSize: deviceHeight * 0.025,
-    marginTop: deviceHeight * 0.008,
+    fontFamily: "Poppins-Regular",
     marginHorizontal: deviceWidth * 0.01,
   },
   registerView: {
@@ -143,7 +205,6 @@ const styles = StyleSheet.create({
   },
   noAcc: {
     color: "#696969",
-    fontSize: deviceWidth * 0.035,
     fontFamily: "Poppins-Regular",
     marginTop: deviceHeight * 0.005,
   },
