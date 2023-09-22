@@ -33,7 +33,7 @@ type loginProps = {
   };
 };
 
-export default function Login(props: loginProps) {
+export default function SignUp(props: loginProps) {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [tabPortrait, setTabPortrait] = useState<boolean>(false);
   const [tabLandscape, setTabLandscape] = useState<boolean>(false);
@@ -53,6 +53,135 @@ export default function Login(props: loginProps) {
     } else if (!tabLandscape && !tabPortrait) {
       return mobile;
     }
+  }
+
+  function inputFieldStyle() {
+    return [
+      styles.inputField,
+      {
+        height: dimensionSetter({
+          mobile: screenHeight * 0.05,
+          tabPort: screenHeight * 0.05,
+          tabLand: screenHeight * 0.06,
+        }),
+      },
+    ];
+  }
+
+  function inputTextStyle() {
+    return [
+      styles.textInput,
+      {
+        fontSize: dimensionSetter({
+          mobile: screenHeight * 0.022,
+          tabPort: screenHeight * 0.02,
+          tabLand: screenHeight * 0.025,
+        }),
+        marginTop: dimensionSetter({
+          mobile: screenHeight * 0.005,
+          tabPort: screenHeight * 0.01,
+          tabLand: screenHeight * 0.005,
+        }),
+      },
+    ];
+  }
+
+  function inputPasswordStyle() {
+    return [
+      styles.textInput,
+      {
+        fontSize: dimensionSetter({
+          mobile: screenHeight * 0.023,
+          tabPort: screenHeight * 0.02,
+          tabLand: screenHeight * 0.025,
+        }),
+        marginTop: dimensionSetter({
+          mobile: screenHeight * 0.01,
+          tabPort: screenHeight * 0.01,
+          tabLand: screenHeight * 0.005,
+        }),
+        width: dimensionSetter({
+          mobile: "70%",
+          tabPort: "80%",
+          tabLand: "80%",
+        }),
+      },
+    ];
+  }
+
+  function KeyIcon() {
+    return (
+      <Key
+        height={dimensionSetter({
+          mobile: screenHeight * 0.05,
+          tabPort: screenHeight * 0.03,
+          tabLand: screenHeight * 0.03,
+        })}
+        width={dimensionSetter({
+          mobile: screenWidth * 0.05,
+          tabPort: screenWidth * 0.03,
+          tabLand: screenWidth * 0.03,
+        })}
+        style={{
+          marginHorizontal: dimensionSetter({
+            mobile: screenWidth * 0.05,
+            tabPort: screenWidth * 0.03,
+            tabLand: screenWidth * 0.01,
+          }),
+        }}
+      />
+    );
+  }
+
+  function EyeIcon() {
+    return (
+      <Hide
+        height={dimensionSetter({
+          mobile: screenHeight * 0.05,
+          tabPort: screenHeight * 0.03,
+          tabLand: screenHeight * 0.03,
+        })}
+        width={dimensionSetter({
+          mobile: screenWidth * 0.05,
+          tabPort: screenWidth * 0.03,
+          tabLand: screenWidth * 0.03,
+        })}
+        style={{
+          marginRight: dimensionSetter({
+            mobile: screenWidth * 0.04,
+            tabPort: screenWidth * 0.04,
+            tabLand: screenWidth * 0.01,
+          }),
+        }}
+        onPress={() =>
+          setSecureTextEntry((current) => (current ? false : true))
+        }
+      />
+    );
+  }
+
+  function UserIcon() {
+    return (
+      <User
+        height={dimensionSetter({
+          mobile: screenHeight * 0.05,
+          tabPort: screenHeight * 0.03,
+          tabLand: screenHeight * 0.03,
+        })}
+        width={dimensionSetter({
+          mobile: screenWidth * 0.05,
+          tabPort: screenWidth * 0.03,
+          tabLand: screenWidth * 0.03,
+        })}
+        style={{
+          marginHorizontal: dimensionSetter({
+            mobile: screenWidth * 0.05,
+            tabPort: screenWidth * 0.03,
+            tabLand: screenWidth * 0.01,
+          }),
+        }}
+      />
+    );
   }
 
   useEffect(() => {
@@ -105,18 +234,18 @@ export default function Login(props: loginProps) {
       >
         <ITextKita
           height={dimensionSetter({
-            mobile: screenHeight * 0.18,
+            mobile: screenHeight * 0.15,
             tabPort: screenHeight * 0.15,
-            tabLand: screenHeight * 0.2,
+            tabLand: screenHeight * 0.15,
           })}
           width={dimensionSetter({
-            mobile: screenWidth * 0.6,
+            mobile: screenWidth * 0.4,
             tabPort: screenWidth * 0.5,
             tabLand: screenWidth * 0.3,
           })}
           style={{
             marginTop: dimensionSetter({
-              mobile: screenHeight * 0.1,
+              mobile: screenHeight * 0.08,
               tabPort: screenHeight * 0.1,
               tabLand: screenHeight * 0.07,
             }),
@@ -139,159 +268,53 @@ export default function Login(props: loginProps) {
             },
           ]}
         >
-          <View
-            style={[
-              styles.inputField,
-              {
-                height: dimensionSetter({
-                  mobile: screenHeight * 0.06,
-                  tabPort: screenHeight * 0.05,
-                  tabLand: screenHeight * 0.06,
-                }),
-              },
-            ]}
-          >
-            <User
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginHorizontal: dimensionSetter({
-                  mobile: screenWidth * 0.05,
-                  tabPort: screenWidth * 0.03,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-            />
+          <View style={inputFieldStyle()}>
+            <UserIcon />
             <TextInput
-              style={[
-                styles.textInput,
-                {
-                  fontSize: dimensionSetter({
-                    mobile: screenHeight * 0.025,
-                    tabPort: screenHeight * 0.02,
-                    tabLand: screenHeight * 0.025,
-                  }),
-                  marginTop: dimensionSetter({
-                    mobile: screenHeight * 0.01,
-                    tabPort: screenHeight * 0.01,
-                    tabLand: screenHeight * 0.005,
-                  }),
-                },
-              ]}
+              style={inputTextStyle()}
               placeholder="User Name"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
-            />
+              onChangeText={(text)=>{}}
+              />
           </View>
-          <View
-            style={[
-              styles.inputField,
-              {
-                height: dimensionSetter({
-                  mobile: screenHeight * 0.06,
-                  tabPort: screenHeight * 0.05,
-                  tabLand: screenHeight * 0.06,
-                }),
-              },
-            ]}
-          >
-            <Key
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginHorizontal: dimensionSetter({
-                  mobile: screenWidth * 0.05,
-                  tabPort: screenWidth * 0.03,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-            />
+          <View style={inputFieldStyle()}>
+            <UserIcon />
             <TextInput
-              style={[
-                styles.textInput,
-                {
-                  fontSize: dimensionSetter({
-                    mobile: screenHeight * 0.025,
-                    tabPort: screenHeight * 0.02,
-                    tabLand: screenHeight * 0.025,
-                  }),
-                  marginTop: dimensionSetter({
-                    mobile: screenHeight * 0.01,
-                    tabPort: screenHeight * 0.01,
-                    tabLand: screenHeight * 0.005,
-                  }),
-                  width: dimensionSetter({
-                    mobile: "70%",
-                    tabPort: "80%",
-                    tabLand: "80%",
-                  }),
-                },
-              ]}
+              style={inputTextStyle()}
+              placeholder="Email"
+              textAlignVertical="center"
+              placeholderTextColor={"#c7c6c5"}
+              onChangeText={(text)=>{}}
+              />
+          </View>
+          <View style={inputFieldStyle()}>
+            <KeyIcon />
+            <TextInput
+              style={inputPasswordStyle()}
               placeholder="Password"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
               secureTextEntry={secureTextEntry}
+              onChangeText={(text)=>{}}
+              />
+            <EyeIcon />
+          </View>
+          <View style={inputFieldStyle()}>
+            <KeyIcon />
+            <TextInput
+              style={inputPasswordStyle()}
+              placeholder="Confirm Password"
+              textAlignVertical="center"
+              placeholderTextColor={"#c7c6c5"}
+              secureTextEntry={secureTextEntry}
+              onChangeText={(text)=>{}}
             />
-            <Hide
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginRight: dimensionSetter({
-                  mobile: screenWidth * 0.04,
-                  tabPort: screenWidth * 0.04,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-              onPress={() =>
-                setSecureTextEntry((current) => (current ? false : true))
-              }
-            />
+            <EyeIcon />
           </View>
         </View>
-        <View>
-          <TextButton
-            color="#696969"
-            title="Reset Password"
-            onPressed={() => {}}
-            zIndex={2}
-            fontSize={dimensionSetter({
-              mobile: screenWidth * 0.05,
-              tabPort: screenWidth * 0.03,
-              tabLand: screenWidth * 0.02,
-            })}
-            marginVertical={dimensionSetter({
-              mobile: screenHeight * 0.03,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.02,
-            })}
-          />
-        </View>
         <FlatButton
-          title="Login"
+          title="Sign Up"
           zIndex={2}
           onPressed={() => {}}
           titleFontSize={dimensionSetter({
@@ -303,6 +326,11 @@ export default function Login(props: loginProps) {
             mobile: screenWidth * 0.08,
             tabPort: screenWidth * 0.035,
             tabLand: screenWidth * 0.03,
+          })}
+          marginVertical={dimensionSetter({
+            mobile: screenHeight * 0.015,
+            tabPort: screenHeight * 0.03,
+            tabLand: screenHeight * 0.03,
           })}
         />
         <View style={styles.registerView}>
@@ -319,11 +347,11 @@ export default function Login(props: loginProps) {
               },
             ]}
           >
-            I Don't Have Account?
+            Already Have Account?
           </Text>
           <TextButton
-            title="Register"
-            onPressed={() => props.navigation.navigate("SignUp")}
+            title="Login"
+            onPressed={() => props.navigation.navigate("Login")}
             color="#008080"
             zIndex={2}
             fontWeight="bold"
@@ -334,51 +362,28 @@ export default function Login(props: loginProps) {
             })}
           />
         </View>
-        <View
+        <TwoPersons
+          height={dimensionSetter({
+            mobile: screenHeight * 0.22,
+            tabPort: screenHeight * 0.3,
+            tabLand: screenHeight * 0.55,
+          })}
+          width={dimensionSetter({
+            mobile: screenWidth * 0.9,
+            tabPort: screenWidth * 0.95,
+            tabLand: screenWidth * 0.95,
+          })}
           style={dimensionSetter({
-            mobile: { alignItems: "center" },
-            tabPort: { alignItems: "center" },
+            mobile: null,
+            tabPort: null,
             tabLand: {
               zIndex: 1,
               position: "absolute",
-              bottom: screenHeight * 0.01,
               alignItems: "center",
+              bottom: screenHeight * 0.01,
             },
           })}
-        >
-          <TwoPersons
-            height={dimensionSetter({
-              mobile: screenHeight * 0.22,
-              tabPort: screenHeight * 0.3,
-              tabLand: screenHeight * 0.55,
-            })}
-            width={dimensionSetter({
-              mobile: screenWidth * 0.9,
-              tabPort: screenWidth * 0.95,
-              tabLand: screenWidth * 0.95,
-            })}
-          />
-          <Text
-            style={[
-              styles.nTech,
-              {
-                zIndex: 1,
-                marginVertical: dimensionSetter({
-                  mobile: screenHeight * 0.05,
-                  tabPort: screenHeight * 0.05,
-                  tabLand: screenHeight * 0.02,
-                }),
-                fontSize: dimensionSetter({
-                  mobile: screenWidth * 0.04,
-                  tabPort: screenWidth * 0.025,
-                  tabLand: screenWidth * 0.015,
-                }),
-              },
-            ]}
-          >
-            ⓒ & 2023 NTech Crop.
-          </Text>
-        </View>
+        />
       </LinearGradient>
     </ScrollView>
   );
@@ -394,7 +399,7 @@ const styles = StyleSheet.create({
   form: {
     alignItems: "center",
     justifyContent: "center",
-    gap: deviceHeight * 0.03,
+    gap: deviceHeight * 0.015,
   },
   inputField: {
     width: "100%",
