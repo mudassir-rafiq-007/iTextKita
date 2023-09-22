@@ -6,9 +6,12 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useFonts } from "expo-font";
+import * as Device from "expo-device";
+import * as Screen from "expo-screen-orientation";
 import { LinearGradient } from "expo-linear-gradient";
+import { useFocusEffect } from "@react-navigation/native";
 import Key from "../../assets/key.svg";
 import User from "../../assets/user.svg";
 import Hide from "../../assets/hide.svg";
@@ -24,12 +27,18 @@ type dimensionSetterProp = {
   tabLand: any;
 };
 
-export default function Login() {
+type loginProps = {
+  navigation: {
+    navigate: (screen: string) => void;
+  };
+};
+
+export default function Login(props: loginProps) {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [tabPortrait, setTabPortrait] = useState<boolean>(false);
   const [tabLandscape, setTabLandscape] = useState<boolean>(false);
-  const [screenWidth, setScreenWidth] = useState<number>(deviceWidth)
-  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight)
+  const [screenWidth, setScreenWidth] = useState<number>(deviceWidth);
+  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
@@ -47,29 +56,36 @@ export default function Login() {
   }
 
   useEffect(() => {
-
-    // Check for Tablet and its orientation
-    if (deviceWidth >= 450 && deviceHeight >=450 && deviceWidth <= 600) {
-      setTabLandscape(false);
-      setTabPortrait(true);
-    } else if (deviceWidth > 600 && deviceHeight >=450) {
-      setTabPortrait(false);
-      setTabLandscape(true);
-    }
-    
     // Added listener to keep track of Tablet's orientation
     Dimensions.addEventListener("change", ({ window }) => {
-      setScreenHeight(window.height)
-      setScreenWidth(window.width)
-      if (window.width >= 450 && window.height >=450 && window.width <= 600) {
-        setTabLandscape(false);
-        setTabPortrait(true);
-      } else if (window.width > 600 && window.height >=450) {
-        setTabPortrait(false);
-        setTabLandscape(true);
-      }
+      setScreenHeight(window.height);
+      setScreenWidth(window.width);
+      (async () => {
+        const orientation = await Screen.getOrientationAsync();
+        if (orientation == 1 || orientation == 2) {
+          setTabPortrait(true);
+          setTabLandscape(false);
+        } else {
+          setTabLandscape(true);
+          setTabPortrait(false);
+        }
+      })();
     });
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      (async () => {
+        const deviceType = await Device.getDeviceTypeAsync();
+        if (deviceType == 2) {
+          const orientation = await Screen.getOrientationAsync();
+          if (orientation == 1 || orientation == 2) {
+            setTabPortrait(true);
+          } else setTabLandscape(true);
+        }
+      })();
+    }, [])
+  );
 
   if (!fontsLoaded) return null;
 
@@ -165,7 +181,7 @@ export default function Login() {
                   }),
                   marginTop: dimensionSetter({
                     mobile: screenHeight * 0.01,
-                    tabPort: null,
+                    tabPort: screenHeight * 0.01,
                     tabLand: screenHeight * 0.005,
                   }),
                 },
@@ -217,7 +233,7 @@ export default function Login() {
                   }),
                   marginTop: dimensionSetter({
                     mobile: screenHeight * 0.01,
-                    tabPort: null,
+                    tabPort: screenHeight * 0.01,
                     tabLand: screenHeight * 0.005,
                   }),
                   width: dimensionSetter({
@@ -266,12 +282,11 @@ export default function Login() {
               tabPort: screenWidth * 0.03,
               tabLand: screenWidth * 0.02,
             })}
-            marginVertical={
-              dimensionSetter({
-                mobile: screenHeight * 0.03,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.02,
-              })}
+            marginVertical={dimensionSetter({
+              mobile: screenHeight * 0.03,
+              tabPort: screenHeight * 0.03,
+              tabLand: screenHeight * 0.02,
+            })}
           />
         </View>
         <FlatButton
@@ -320,8 +335,8 @@ export default function Login() {
         </View>
         <View
           style={dimensionSetter({
-            mobile: {alignItems: "center"},
-            tabPort: {alignItems: "center"},
+            mobile: { alignItems: "center" },
+            tabPort: { alignItems: "center" },
             tabLand: {
               zIndex: 1,
               position: "absolute",
