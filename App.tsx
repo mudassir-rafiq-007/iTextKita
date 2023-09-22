@@ -4,6 +4,7 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/Screens/Login";
+import SignUp from "./src/Screens/SignUp";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,8 +23,16 @@ export default function App() {
   }, []);
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{
+          headerShown: false,
+          animation: "none",
+          animationDuration: 0,
+        }}
+      >
         <Stack.Screen name={"Login"} component={Login}></Stack.Screen>
+        <Stack.Screen name={"SignUp"} component={SignUp}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );
