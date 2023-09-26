@@ -19,7 +19,7 @@ import ITextKita from "../../assets/iTextKita.svg";
 import TwoPersons from "../../assets/two-persons.svg";
 import TextButton from "../Components/Buttons/TextButton";
 import FlatButton from "../Components/Buttons/FlatButton";
-import { deviceHeight, deviceWidth } from "../Components/Constants";
+import { deviceHeight, deviceWidth } from "../Components/Constants/DeviceDimensions";
 
 type dimensionSetterProp = {
   mobile: any;
@@ -293,7 +293,7 @@ export default function Login(props: loginProps) {
         <FlatButton
           title="Login"
           zIndex={2}
-          onPressed={() => {}}
+          onPressed={() => props.navigation.navigate("Campaign")}
           titleFontSize={dimensionSetter({
             mobile: screenWidth * 0.05,
             tabPort: screenWidth * 0.035,

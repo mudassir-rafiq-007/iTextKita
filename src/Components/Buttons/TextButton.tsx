@@ -1,5 +1,5 @@
 import { TouchableOpacity, Text } from "react-native";
-import { deviceHeight, deviceWidth } from "../Constants";
+import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
 import { useFonts } from "expo-font/build/FontHooks";
 
 interface propToTextButton {
