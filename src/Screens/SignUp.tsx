@@ -19,7 +19,7 @@ import ITextKita from "../../assets/iTextKita.svg";
 import TwoPersons from "../../assets/two-persons.svg";
 import TextButton from "../Components/Buttons/TextButton";
 import FlatButton from "../Components/Buttons/FlatButton";
-import { deviceHeight, deviceWidth } from "../Components/Constants";
+import { deviceHeight, deviceWidth } from "../Components/Constants/DeviceDimensions";
 
 type dimensionSetterProp = {
   mobile: any;

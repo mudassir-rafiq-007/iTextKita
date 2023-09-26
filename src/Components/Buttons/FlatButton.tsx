@@ -1,6 +1,6 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-import { deviceHeight, deviceWidth } from "../Constants";
+import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
 
 interface propType {
   title: string;
