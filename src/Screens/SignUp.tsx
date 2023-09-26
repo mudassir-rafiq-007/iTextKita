@@ -12,14 +12,16 @@ import * as Device from "expo-device";
 import * as Screen from "expo-screen-orientation";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFocusEffect } from "@react-navigation/native";
-import Key from "../../assets/key.svg";
-import User from "../../assets/user.svg";
-import Hide from "../../assets/hide.svg";
+import HideIcon from "../../assets/hide.svg";
+import Folder from "../../assets/folder.svg";
 import ITextKita from "../../assets/iTextKita.svg";
 import TwoPersons from "../../assets/two-persons.svg";
 import TextButton from "../Components/Buttons/TextButton";
 import FlatButton from "../Components/Buttons/FlatButton";
-import { deviceHeight, deviceWidth } from "../Components/Constants/DeviceDimensions";
+import {
+  deviceHeight,
+  deviceWidth,
+} from "../Components/Constants/DeviceDimensions";
 
 type dimensionSetterProp = {
   mobile: any;
@@ -63,6 +65,11 @@ export default function SignUp(props: loginProps) {
           mobile: screenHeight * 0.05,
           tabPort: screenHeight * 0.05,
           tabLand: screenHeight * 0.06,
+        }),
+        paddingHorizontal:dimensionSetter({
+          mobile: screenWidth * 0.03,
+          tabPort: screenWidth * 0.03,
+          tabLand: screenWidth * 0.01,
         }),
       },
     ];
@@ -109,9 +116,9 @@ export default function SignUp(props: loginProps) {
     ];
   }
 
-  function KeyIcon() {
+  function FolderIcon() {
     return (
-      <Key
+      <Folder
         height={dimensionSetter({
           mobile: screenHeight * 0.05,
           tabPort: screenHeight * 0.03,
@@ -122,20 +129,13 @@ export default function SignUp(props: loginProps) {
           tabPort: screenWidth * 0.03,
           tabLand: screenWidth * 0.03,
         })}
-        style={{
-          marginHorizontal: dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.03,
-            tabLand: screenWidth * 0.01,
-          }),
-        }}
       />
     );
   }
 
   function EyeIcon() {
     return (
-      <Hide
+      <HideIcon
         height={dimensionSetter({
           mobile: screenHeight * 0.05,
           tabPort: screenHeight * 0.03,
@@ -146,40 +146,9 @@ export default function SignUp(props: loginProps) {
           tabPort: screenWidth * 0.03,
           tabLand: screenWidth * 0.03,
         })}
-        style={{
-          marginRight: dimensionSetter({
-            mobile: screenWidth * 0.04,
-            tabPort: screenWidth * 0.04,
-            tabLand: screenWidth * 0.01,
-          }),
-        }}
         onPress={() =>
           setSecureTextEntry((current) => (current ? false : true))
         }
-      />
-    );
-  }
-
-  function UserIcon() {
-    return (
-      <User
-        height={dimensionSetter({
-          mobile: screenHeight * 0.05,
-          tabPort: screenHeight * 0.03,
-          tabLand: screenHeight * 0.03,
-        })}
-        width={dimensionSetter({
-          mobile: screenWidth * 0.05,
-          tabPort: screenWidth * 0.03,
-          tabLand: screenWidth * 0.03,
-        })}
-        style={{
-          marginHorizontal: dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.03,
-            tabLand: screenWidth * 0.01,
-          }),
-        }}
       />
     );
   }
@@ -220,22 +189,19 @@ export default function SignUp(props: loginProps) {
 
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1, height: screenHeight }}
+      style={{ height: "100%" }}
       keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{ flexGrow: 1 }}
     >
       <LinearGradient
-        colors={["#FFFFFF", "#008080"]}
         locations={[0.5, 1]}
-        style={dimensionSetter({
-          mobile: styles.container,
-          tabPort: styles.container,
-          tabLand: [styles.container, { justifyContent: "flex-start" }],
-        })}
+        style={styles.container}
+        colors={["#FFFFFF", "#008080"]}
       >
         <ITextKita
           height={dimensionSetter({
             mobile: screenHeight * 0.15,
-            tabPort: screenHeight * 0.15,
+            tabPort: screenHeight * 0.1,
             tabLand: screenHeight * 0.15,
           })}
           width={dimensionSetter({
@@ -260,6 +226,7 @@ export default function SignUp(props: loginProps) {
           style={[
             styles.form,
             {
+              gap: screenHeight * 0.01,
               width: dimensionSetter({
                 mobile: "80%",
                 tabPort: "50%",
@@ -269,46 +236,61 @@ export default function SignUp(props: loginProps) {
           ]}
         >
           <View style={inputFieldStyle()}>
-            <UserIcon />
             <TextInput
               style={inputTextStyle()}
-              placeholder="User Name"
+              placeholder="First Name"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
-              onChangeText={(text)=>{}}
-              />
+              onChangeText={(text) => {}}
+            />
           </View>
           <View style={inputFieldStyle()}>
-            <UserIcon />
             <TextInput
               style={inputTextStyle()}
-              placeholder="Email"
+              placeholder="Last Name"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
-              onChangeText={(text)=>{}}
-              />
+              onChangeText={(text) => {}}
+            />
           </View>
           <View style={inputFieldStyle()}>
-            <KeyIcon />
+            <TextInput
+              style={inputTextStyle()}
+              placeholder="Business Name"
+              textAlignVertical="center"
+              placeholderTextColor={"#c7c6c5"}
+              onChangeText={(text) => {}}
+            />
+          </View>
+          <View style={inputFieldStyle()}>
+            <TextInput
+              style={inputTextStyle()}
+              placeholder="DTI Document"
+              textAlignVertical="center"
+              placeholderTextColor={"#c7c6c5"}
+              onChangeText={(text) => {}}
+            />
+            <FolderIcon />
+          </View>
+          <View style={inputFieldStyle()}>
             <TextInput
               style={inputPasswordStyle()}
               placeholder="Password"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
               secureTextEntry={secureTextEntry}
-              onChangeText={(text)=>{}}
-              />
+              onChangeText={(text) => {}}
+            />
             <EyeIcon />
           </View>
           <View style={inputFieldStyle()}>
-            <KeyIcon />
             <TextInput
               style={inputPasswordStyle()}
               placeholder="Confirm Password"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
               secureTextEntry={secureTextEntry}
-              onChangeText={(text)=>{}}
+              onChangeText={(text) => {}}
             />
             <EyeIcon />
           </View>
@@ -378,6 +360,7 @@ export default function SignUp(props: loginProps) {
             tabPort: null,
             tabLand: {
               zIndex: 1,
+              opacity: 0.7,
               position: "absolute",
               alignItems: "center",
               bottom: screenHeight * 0.01,
@@ -394,28 +377,23 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: "#fff",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   form: {
     alignItems: "center",
     justifyContent: "center",
-    gap: deviceHeight * 0.015,
   },
   inputField: {
     width: "100%",
     alignItems: "center",
     flexDirection: "row",
     backgroundColor: "#084A5B",
-    textAlignVertical: "center",
   },
   textInput: {
     flex: 1,
+    opacity: 0.5,
     width: "100%",
-    color: "#c7c6c5",
-    justifyContent: "center",
-    textAlignVertical: "center",
     fontFamily: "Poppins-Regular",
-    marginHorizontal: deviceWidth * 0.01,
   },
   registerView: {
     zIndex: 2,
