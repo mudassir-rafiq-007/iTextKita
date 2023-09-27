@@ -2,32 +2,19 @@ import {
   Text,
   View,
   TextInput,
-  Dimensions,
   StyleSheet,
   ScrollView,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
-import * as Device from "expo-device";
-import * as Screen from "expo-screen-orientation";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFocusEffect } from "@react-navigation/native";
 import HideIcon from "../../assets/hide.svg";
 import Folder from "../../assets/folder.svg";
 import ITextKita from "../../assets/iTextKita.svg";
 import TwoPersons from "../../assets/two-persons.svg";
 import TextButton from "../Components/Buttons/TextButton";
 import FlatButton from "../Components/Buttons/FlatButton";
-import {
-  deviceHeight,
-  deviceWidth,
-} from "../Components/Constants/DeviceDimensions";
-
-type dimensionSetterProp = {
-  mobile: any;
-  tabPort: any;
-  tabLand: any;
-};
+import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
 
 type loginProps = {
   navigation: {
@@ -36,26 +23,12 @@ type loginProps = {
 };
 
 export default function SignUp(props: loginProps) {
+  const { screenWidth, screenHeight, dimensionSetter } = useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [tabPortrait, setTabPortrait] = useState<boolean>(false);
-  const [tabLandscape, setTabLandscape] = useState<boolean>(false);
-  const [screenWidth, setScreenWidth] = useState<number>(deviceWidth);
-  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
-
-  // Selects value based on screen orientation
-  function dimensionSetter({ mobile, tabPort, tabLand }: dimensionSetterProp) {
-    if (tabPortrait) {
-      return tabPort;
-    } else if (tabLandscape) {
-      return tabLand;
-    } else if (!tabLandscape && !tabPortrait) {
-      return mobile;
-    }
-  }
 
   function inputFieldStyle() {
     return [
@@ -66,7 +39,7 @@ export default function SignUp(props: loginProps) {
           tabPort: screenHeight * 0.05,
           tabLand: screenHeight * 0.06,
         }),
-        paddingHorizontal:dimensionSetter({
+        paddingHorizontal: dimensionSetter({
           mobile: screenWidth * 0.03,
           tabPort: screenWidth * 0.03,
           tabLand: screenWidth * 0.01,
@@ -152,38 +125,6 @@ export default function SignUp(props: loginProps) {
       />
     );
   }
-
-  useEffect(() => {
-    // Added listener to keep track of Tablet's orientation
-    Dimensions.addEventListener("change", ({ window }) => {
-      setScreenHeight(window.height);
-      setScreenWidth(window.width);
-      (async () => {
-        const orientation = await Screen.getOrientationAsync();
-        if (orientation == 1 || orientation == 2) {
-          setTabPortrait(true);
-          setTabLandscape(false);
-        } else {
-          setTabLandscape(true);
-          setTabPortrait(false);
-        }
-      })();
-    });
-  }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      (async () => {
-        const deviceType = await Device.getDeviceTypeAsync();
-        if (deviceType == 2) {
-          const orientation = await Screen.getOrientationAsync();
-          if (orientation == 1 || orientation == 2) {
-            setTabPortrait(true);
-          } else setTabLandscape(true);
-        }
-      })();
-    }, [])
-  );
 
   if (!fontsLoaded) return null;
 
@@ -393,6 +334,7 @@ const styles = StyleSheet.create({
     flex: 1,
     opacity: 0.5,
     width: "100%",
+    color: "white",
     fontFamily: "Poppins-Regular",
   },
   registerView: {
@@ -404,10 +346,5 @@ const styles = StyleSheet.create({
   noAcc: {
     color: "#696969",
     fontFamily: "Poppins-Regular",
-  },
-  nTech: {
-    color: "white",
-    fontSize: deviceWidth * 0.04,
-    fontFamily: "Poppins-Regular",
-  },
+  }
 });

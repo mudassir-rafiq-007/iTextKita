@@ -2,33 +2,20 @@ import {
   Text,
   View,
   TextInput,
-  Dimensions,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { useFonts } from "expo-font";
-import * as Device from "expo-device";
-import * as Screen from "expo-screen-orientation";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFocusEffect } from "@react-navigation/native";
 import SendIcon from "react-native-vector-icons/FontAwesome";
 import TwoPersons from "../../assets/bgt.svg";
-import {
-  deviceHeight,
-  deviceWidth,
-} from "../Components/Constants/DeviceDimensions";
 import Header from "../Components/Header/Header";
 import Dropdown from "../Components/Dropdown/Dropdown";
 import { Colors } from "../Components/Constants/Colors";
 import FlatButton from "../Components/Buttons/FlatButton";
-
-type dimensionSetterProp = {
-  mobile: any;
-  tabPort: any;
-  tabLand: any;
-};
+import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {
@@ -38,26 +25,13 @@ type propsType = {
 };
 
 export default function Campaign(props: propsType) {
-  const [tabPortrait, setTabPortrait] = useState<boolean>(false);
-  const [tabLandscape, setTabLandscape] = useState<boolean>(false);
-  const [screenWidth, setScreenWidth] = useState<number>(deviceWidth);
-  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight);
+  const { screenWidth, screenHeight, dimensionSetter } =
+    useContext(DimensionsContext);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
-
-  // Selects value based on screen orientation
-  function dimensionSetter({ mobile, tabPort, tabLand }: dimensionSetterProp) {
-    if (tabPortrait) {
-      return tabPort;
-    } else if (tabLandscape) {
-      return tabLand;
-    } else if (!tabLandscape && !tabPortrait) {
-      return mobile;
-    }
-  }
 
   function tileWidth() {
     return {
@@ -74,38 +48,15 @@ export default function Campaign(props: propsType) {
 
   useEffect(() => {
     props.navigation.setOptions({
-      header: () => <Header title="CAMPAIGN" screenHeight={screenHeight} screenWidth={screenWidth}/>,
-    });
-    // Added listener to keep track of Tablet's orientation
-    Dimensions.addEventListener("change", ({ window }) => {
-      setScreenHeight(window.height);
-      setScreenWidth(window.width);
-      (async () => {
-        const orientation = await Screen.getOrientationAsync();
-        if (orientation == 1 || orientation == 2) {
-          setTabPortrait(true);
-          setTabLandscape(false);
-        } else {
-          setTabLandscape(true);
-          setTabPortrait(false);
-        }
-      })();
+      header: () => (
+        <Header
+          title="CAMPAIGN"
+          screenHeight={screenHeight}
+          screenWidth={screenWidth}
+        />
+      ),
     });
   }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      (async () => {
-        const deviceType = await Device.getDeviceTypeAsync();
-        if (deviceType == 2) {
-          const orientation = await Screen.getOrientationAsync();
-          if (orientation == 1 || orientation == 2) {
-            setTabPortrait(true);
-          } else setTabLandscape(true);
-        }
-      })();
-    }, [])
-  );
 
   if (!fontsLoaded) return null;
 
@@ -202,26 +153,20 @@ export default function Campaign(props: propsType) {
             }}
           />
         </TouchableOpacity>
-        <Dropdown
-          showDropdown={false}
-          screenWidth={screenWidth}
-          screenHeight={screenHeight}
-          tabPortrait={tabPortrait}
-          tabLandscape={tabLandscape}
-        />
+        <Dropdown showDropdown={false} />
         <FlatButton title="Send" onPressed={() => {}} zIndex={2} />
         <TwoPersons
           height={dimensionSetter({
-            mobile: deviceHeight * 0.2,
+            mobile: screenHeight * 0.2,
             tabPort: screenHeight * 0.25,
             tabLand: screenHeight * 0.8,
           })}
           width={dimensionSetter({
-            mobile: deviceHeight * 0.5,
+            mobile: screenHeight * 0.5,
             tabPort: screenHeight * 0.6,
             tabLand: screenWidth * 0.8,
           })}
-          opacity={dimensionSetter({mobile: 1, tabPort: 1, tabLand: 0.5})}
+          opacity={dimensionSetter({ mobile: 1, tabPort: 1, tabLand: 0.5 })}
           style={dimensionSetter({
             mobile: null,
             tabPort: null,
@@ -251,7 +196,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 5,
     borderBottomRightRadius: 5,
     backgroundColor: "#084A5B",
-    height: deviceHeight * 0.06,
     justifyContent: "space-between",
     elevation: 10,
     shadowRadius: 4,

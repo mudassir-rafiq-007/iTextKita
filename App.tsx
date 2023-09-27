@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./src/Screens/Login";
 import SignUp from "./src/Screens/SignUp";
 import Campaign from "./src/Screens/Campaign";
+import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,34 +26,36 @@ export default function App() {
     })();
   }, []);
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={{
-            animation: "none",
-            animationDuration: 0,
-          }}
-        >
-          <Stack.Screen
-            name={"Login"}
-            component={Login}
-            options={{ headerShown: false }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name={"SignUp"}
-            component={SignUp}
-            options={{ headerShown: false }}
-          ></Stack.Screen>
-          <Stack.Screen
-            name={"Campaign"}
-            component={Campaign}
-            options={{
-              headerBackVisible: false,
+    <DimensionsProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="Login"
+            screenOptions={{
+              animation: "none",
+              animationDuration: 0,
             }}
-          ></Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+          >
+            <Stack.Screen
+              name={"Login"}
+              component={Login}
+              options={{ headerShown: false }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name={"SignUp"}
+              component={SignUp}
+              options={{ headerShown: false }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name={"Campaign"}
+              component={Campaign}
+              options={{
+                headerBackVisible: false,
+              }}
+            ></Stack.Screen>
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </DimensionsProvider>
   );
 }
