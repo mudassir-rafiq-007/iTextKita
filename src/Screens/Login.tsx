@@ -1,17 +1,7 @@
-import {
-  Text,
-  View,
-  TextInput,
-  Dimensions,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import { Text, View, TextInput, StyleSheet, ScrollView } from "react-native";
+import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
-import * as Device from "expo-device";
-import * as Screen from "expo-screen-orientation";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFocusEffect } from "@react-navigation/native";
 import Key from "../../assets/key.svg";
 import User from "../../assets/user.svg";
 import Hide from "../../assets/hide.svg";
@@ -19,13 +9,7 @@ import ITextKita from "../../assets/iTextKita.svg";
 import TwoPersons from "../../assets/two-persons.svg";
 import TextButton from "../Components/Buttons/TextButton";
 import FlatButton from "../Components/Buttons/FlatButton";
-import { deviceHeight, deviceWidth } from "../Components/Constants/DeviceDimensions";
-
-type dimensionSetterProp = {
-  mobile: any;
-  tabPort: any;
-  tabLand: any;
-};
+import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
 
 type loginProps = {
   navigation: {
@@ -34,58 +18,49 @@ type loginProps = {
 };
 
 export default function Login(props: loginProps) {
+  const { screenWidth, screenHeight, dimensionSetter } =
+    useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-  const [tabPortrait, setTabPortrait] = useState<boolean>(false);
-  const [tabLandscape, setTabLandscape] = useState<boolean>(false);
-  const [screenWidth, setScreenWidth] = useState<number>(deviceWidth);
-  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
   });
 
-  // Selects value based on screen orientation
-  function dimensionSetter({ mobile, tabPort, tabLand }: dimensionSetterProp) {
-    if (tabPortrait) {
-      return tabPort;
-    } else if (tabLandscape) {
-      return tabLand;
-    } else if (!tabLandscape && !tabPortrait) {
-      return mobile;
-    }
+  function inputFieldStyle() {
+    return [
+      styles.inputField,
+      {
+        height: dimensionSetter({
+          mobile: screenHeight * 0.06,
+          tabPort: screenHeight * 0.05,
+          tabLand: screenHeight * 0.06,
+        }),
+      },
+    ];
   }
 
-  useEffect(() => {
-    // Added listener to keep track of Tablet's orientation
-    Dimensions.addEventListener("change", ({ window }) => {
-      setScreenHeight(window.height);
-      setScreenWidth(window.width);
-      (async () => {
-        const orientation = await Screen.getOrientationAsync();
-        if (orientation == 1 || orientation == 2) {
-          setTabPortrait(true);
-          setTabLandscape(false);
-        } else {
-          setTabLandscape(true);
-          setTabPortrait(false);
-        }
-      })();
-    });
-  }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      (async () => {
-        const deviceType = await Device.getDeviceTypeAsync();
-        if (deviceType == 2) {
-          const orientation = await Screen.getOrientationAsync();
-          if (orientation == 1 || orientation == 2) {
-            setTabPortrait(true);
-          } else setTabLandscape(true);
-        }
-      })();
-    }, [])
-  );
+  function textInputStyle() {
+    return [
+      styles.textInput,
+      {
+        fontSize: dimensionSetter({
+          mobile: screenHeight * 0.025,
+          tabPort: screenHeight * 0.02,
+          tabLand: screenHeight * 0.025,
+        }),
+        marginTop: dimensionSetter({
+          mobile: screenHeight * 0.01,
+          tabPort: screenHeight * 0.01,
+          tabLand: screenHeight * 0.005,
+        }),
+        marginHorizontal: dimensionSetter({
+          mobile: screenWidth * 0.01,
+          tabPort: screenWidth * 0.01,
+          tabLand: screenWidth * 0.005,
+        }),
+      },
+    ];
+  }
 
   if (!fontsLoaded) return null;
 
@@ -131,6 +106,7 @@ export default function Login(props: loginProps) {
           style={[
             styles.form,
             {
+              gap: screenHeight * 0.03,
               width: dimensionSetter({
                 mobile: "80%",
                 tabPort: "50%",
@@ -139,18 +115,7 @@ export default function Login(props: loginProps) {
             },
           ]}
         >
-          <View
-            style={[
-              styles.inputField,
-              {
-                height: dimensionSetter({
-                  mobile: screenHeight * 0.06,
-                  tabPort: screenHeight * 0.05,
-                  tabLand: screenHeight * 0.06,
-                }),
-              },
-            ]}
-          >
+          <View style={inputFieldStyle()}>
             <User
               height={dimensionSetter({
                 mobile: screenHeight * 0.05,
@@ -171,38 +136,13 @@ export default function Login(props: loginProps) {
               }}
             />
             <TextInput
-              style={[
-                styles.textInput,
-                {
-                  fontSize: dimensionSetter({
-                    mobile: screenHeight * 0.025,
-                    tabPort: screenHeight * 0.02,
-                    tabLand: screenHeight * 0.025,
-                  }),
-                  marginTop: dimensionSetter({
-                    mobile: screenHeight * 0.01,
-                    tabPort: screenHeight * 0.01,
-                    tabLand: screenHeight * 0.005,
-                  }),
-                },
-              ]}
+              style={textInputStyle()}
               placeholder="User Name"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
             />
           </View>
-          <View
-            style={[
-              styles.inputField,
-              {
-                height: dimensionSetter({
-                  mobile: screenHeight * 0.06,
-                  tabPort: screenHeight * 0.05,
-                  tabLand: screenHeight * 0.06,
-                }),
-              },
-            ]}
-          >
+          <View style={inputFieldStyle()}>
             <Key
               height={dimensionSetter({
                 mobile: screenHeight * 0.05,
@@ -224,18 +164,8 @@ export default function Login(props: loginProps) {
             />
             <TextInput
               style={[
-                styles.textInput,
+                ...textInputStyle(),
                 {
-                  fontSize: dimensionSetter({
-                    mobile: screenHeight * 0.025,
-                    tabPort: screenHeight * 0.02,
-                    tabLand: screenHeight * 0.025,
-                  }),
-                  marginTop: dimensionSetter({
-                    mobile: screenHeight * 0.01,
-                    tabPort: screenHeight * 0.01,
-                    tabLand: screenHeight * 0.005,
-                  }),
                   width: dimensionSetter({
                     mobile: "70%",
                     tabPort: "80%",
@@ -394,7 +324,6 @@ const styles = StyleSheet.create({
   form: {
     alignItems: "center",
     justifyContent: "center",
-    gap: deviceHeight * 0.03,
   },
   inputField: {
     width: "100%",
@@ -410,7 +339,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlignVertical: "center",
     fontFamily: "Poppins-Regular",
-    marginHorizontal: deviceWidth * 0.01,
   },
   registerView: {
     zIndex: 2,
@@ -424,7 +352,6 @@ const styles = StyleSheet.create({
   },
   nTech: {
     color: "white",
-    fontSize: deviceWidth * 0.04,
     fontFamily: "Poppins-Regular",
   },
 });
