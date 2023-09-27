@@ -48,13 +48,7 @@ export default function Campaign(props: propsType) {
 
   useEffect(() => {
     props.navigation.setOptions({
-      header: () => (
-        <Header
-          title="CAMPAIGN"
-          screenHeight={screenHeight}
-          screenWidth={screenWidth}
-        />
-      ),
+      header: () => <Header title="CAMPAIGN" />,
     });
   }, []);
 

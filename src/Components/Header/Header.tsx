@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import MenuIcon from "../../../assets/menu.svg";
+import HeaderMenu from "./HeaderMenu";
 import ITextKita from "../../../assets/iTextKita.svg";
+import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
-import { Colors } from "../Constants/Colors";
-import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
 
 type propType = {
   title: string;
-  screenWidth: number;
-  screenHeight: number;
 };
 
 export default function Header(props: propType) {
+  const { screenWidth, screenHeight, dimensionSetter } =
+    useContext(DimensionsContext);
+
   const [visible, setVisible] = useState(false);
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
@@ -21,41 +20,41 @@ export default function Header(props: propType) {
 
   return (
     <View style={[styles.main, { paddingTop: insets.top }]}>
-      <ITextKita height={deviceHeight * 0.08} />
-      <View style={styles.header}>
-        <Text style={styles.title}>{props.title}</Text>
-        <MenuIcon height={deviceHeight * 0.03} onPress={showMenu} />
+      <ITextKita
+        height={dimensionSetter({
+          mobile: screenHeight * 0.08,
+          tabPort: screenHeight * 0.08,
+          tabLand: screenHeight * 0.12,
+        })}
+      />
+      <View
+        style={[
+          styles.header,
+          {
+            paddingHorizontal: dimensionSetter({
+              mobile: screenWidth * 0.05,
+              tabPort: screenWidth * 0.05,
+              tabLand: screenWidth * 0.1,
+            }),
+          },
+        ]}
+      >
+        <Text
+          style={[
+            styles.title,
+            {
+              fontSize: dimensionSetter({
+                mobile: screenHeight * 0.03,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.05,
+              }),
+            },
+          ]}
+        >
+          {props.title}
+        </Text>
+        <HeaderMenu />
       </View>
-
-      <Menu visible={visible} onRequestClose={hideMenu} style={styles.menu}>
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>Campaign</Text>
-        </MenuItem>
-        <MenuDivider color={Colors.secondary} />
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>Business Name</Text>
-        </MenuItem>
-        <MenuDivider color={Colors.secondary} />
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>Online Marketing</Text>
-        </MenuItem>
-        <MenuDivider color={Colors.secondary} />
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>Templates</Text>
-        </MenuItem>
-        <MenuDivider color={Colors.secondary} />
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>SMS Status</Text>
-        </MenuItem>
-        <MenuDivider color={Colors.secondary} />
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>Marketing History</Text>
-        </MenuItem>
-        <MenuDivider color={Colors.secondary} />
-        <MenuItem onPress={hideMenu}>
-          <Text style={{ color: Colors.primary }}>Profile</Text>
-        </MenuItem>
-      </Menu>
     </View>
   );
 }
@@ -69,16 +68,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: deviceWidth * 0.05,
   },
   title: {
     color: "#084A5B",
     fontFamily: "Poppins-Bold",
-    fontSize: deviceWidth * 0.06,
-  },
-  menu: {
-    position: "absolute",
-    top: deviceHeight * 0.13,
-    right: deviceWidth * 0.05,
   },
 });
