@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -16,6 +16,7 @@ import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import { shadow } from "../../Components/Constants/Shadow";
+import NewStoreModal from "./NewStore";
 
 type propsType = {
   navigation: {
@@ -32,6 +33,8 @@ export default function Profile(props: propsType) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+
+  const [showNewStoreModal, setShowNewStoreModal] = useState<boolean>(false);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -156,7 +159,9 @@ export default function Profile(props: propsType) {
         />
         <FlatButton
           title="Add New Store"
-          onPressed={() => {}}
+          onPressed={() => {
+            setShowNewStoreModal(true);
+          }}
           paddingHorizontal={dimensionSetter({
             mobile: screenWidth * 0.05,
             tabPort: screenWidth * 0.04,
@@ -164,6 +169,10 @@ export default function Profile(props: propsType) {
           })}
         />
       </View>
+      <NewStoreModal
+        modalVisible={showNewStoreModal}
+        setShowModal={setShowNewStoreModal}
+      />
       <View
         style={[
           styles.tileView,
@@ -317,7 +326,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FCF3F3",
   },
-  nTech: {
+    nTech: {
     color: "white",
     fontFamily: "Poppins-Regular",
   },
