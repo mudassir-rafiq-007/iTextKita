@@ -13,9 +13,6 @@ export default function Header(props: propType) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
-  const [visible, setVisible] = useState(false);
-  const hideMenu = () => setVisible(false);
-  const showMenu = () => setVisible(true);
   const insets = useSafeAreaInsets();
 
   return (

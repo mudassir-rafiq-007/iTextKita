@@ -4,10 +4,12 @@ import { Colors } from "../Constants/Colors";
 import MenuIcon from "../../../assets/menu.svg";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HeaderMenu() {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
+  const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
@@ -57,7 +59,7 @@ export default function HeaderMenu() {
             <MenuDivider color={Colors.secondary} />
           )}
           renderItem={({ item }) => (
-            <MenuItem onPress={hideMenu}>
+            <MenuItem onPress={() => navigation.navigate(`${item}` as never)}>
               <Text
                 style={{
                   color: Colors.primary,

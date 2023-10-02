@@ -122,6 +122,7 @@ export default function Campaign(props: propsType) {
               paddingHorizontal: screenWidth * 0.03,
             },
           ]}
+          onPress={() => props.navigation.navigate("CustomerName")}
         >
           <Text
             style={[
