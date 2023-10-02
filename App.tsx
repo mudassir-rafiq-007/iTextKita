@@ -9,6 +9,7 @@ import SignUp from "./src/Screens/SignUp";
 import Campaign from "./src/Screens/Campaign";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import CustomerName from "./src/Screens/CustomerName";
+import Profile from "./src/Screens/Profile/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,13 @@ export default function App() {
             <Stack.Screen
               name={"CustomerName"}
               component={CustomerName}
+              options={{
+                headerBackVisible: false,
+              }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name={"Profile"}
+              component={Profile}
               options={{
                 headerBackVisible: false,
               }}

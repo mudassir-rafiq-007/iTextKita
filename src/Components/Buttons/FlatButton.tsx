@@ -1,6 +1,8 @@
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { useContext } from "react";
+import { TouchableOpacity, Text, StyleSheet, Platform } from "react-native";
 import { useFonts } from "expo-font";
-import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
+import { DimensionsContext } from "../Contexts/DimensionsContext";
+import { shadow } from "../Constants/Shadow";
 
 interface propType {
   title: string;
@@ -21,10 +23,11 @@ interface propType {
   paddingBottom?: number;
   paddingVertical?: number;
   paddingHorizontal?: number;
-  zIndex?: number
+  zIndex?: number;
   onPressed: () => void;
 }
 export default function FlatButton(props: propType) {
+  const { screenHeight, screenWidth } = useContext(DimensionsContext);
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
   });
@@ -36,7 +39,7 @@ export default function FlatButton(props: propType) {
         styles.buttonContainer,
         {
           backgroundColor: props.bgColor || "#F6851F",
-          margin: props.margin | (deviceHeight * 0.005),
+          margin: props.margin | (screenHeight * 0.005),
           marginTop: props.marginTop,
           marginLeft: props.marginLeft,
           marginRight: props.marginRight,
@@ -48,9 +51,12 @@ export default function FlatButton(props: propType) {
           paddingLeft: props.paddingLeft,
           paddingRight: props.paddingRight,
           paddingBottom: props.paddingBottom,
-          paddingVertical: props.paddingVertical || deviceHeight * 0.002,
-          paddingHorizontal: props.paddingHorizontal || deviceWidth * 0.08,
-          zIndex: props.zIndex
+          paddingVertical:
+            props.paddingVertical || Platform.OS == "android"
+              ? screenHeight * 0.002
+              : screenHeight * 0.006,
+          paddingHorizontal: props.paddingHorizontal || screenWidth * 0.05,
+          zIndex: props.zIndex,
         },
       ]}
       onPress={props.onPressed}
@@ -59,10 +65,9 @@ export default function FlatButton(props: propType) {
         style={[
           styles.buttonText,
           {
-            elevation: 20,
             color: props.titleColor || "white",
-            fontFamily: "Poppins-Bold",
-            fontSize: props.titleFontSize || deviceHeight * 0.028,
+            fontSize: props.titleFontSize || screenHeight * 0.02,
+            marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
           },
         ]}
       >
@@ -73,24 +78,16 @@ export default function FlatButton(props: propType) {
 }
 const styles = StyleSheet.create({
   buttonText: {
-    marginTop: deviceHeight * 0.008,
+    ...shadow,
     textAlign: "center",
-    elevation: 4,
-    shadowRadius: 4,
-    shadowOpacity: 0.4,
-    shadowColor: "#000",
-    shadowOffset: { height: 4, width: 0 },
+    fontFamily: "Poppins-Bold",
   },
 
   buttonContainer: {
+    ...shadow,
     alignItems: "center",
     justifyContent: "center",
     borderTopLeftRadius: 10,
     borderBottomRightRadius: 10,
-    elevation: 20,
-    shadowRadius: 4,
-    shadowOpacity: 0.5,
-    shadowColor: "#000",
-    shadowOffset: { height: 5, width: 0 },
   },
 });

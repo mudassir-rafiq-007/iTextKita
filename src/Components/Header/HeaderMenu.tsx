@@ -16,12 +16,12 @@ export default function HeaderMenu() {
 
   const menuItems = [
     "Campaign",
+    "Profile",
     "Business Name",
     "Online Marketing",
     "Templates",
     "SMS Status",
     "Marketing History",
-    "Profile",
   ];
 
   return (
@@ -59,7 +59,12 @@ export default function HeaderMenu() {
             <MenuDivider color={Colors.secondary} />
           )}
           renderItem={({ item }) => (
-            <MenuItem onPress={() => navigation.navigate(`${item}` as never)}>
+            <MenuItem
+              onPress={() => {
+                hideMenu();
+                navigation.navigate(`${item}` as never);
+              }}
+            >
               <Text
                 style={{
                   color: Colors.primary,
