@@ -8,12 +8,12 @@ import {
   View,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
-import Header from "../Components/Header/Header";
-import { Colors } from "../Components/Constants/Colors";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import Header from "../../Components/Header/Header";
+import { Colors } from "../../Components/Constants/Colors";
 import { useFonts } from "expo-font";
-import FlatButton from "../Components/Buttons/FlatButton";
-import TwoPersons from "../../assets/bgt.svg";
+import FlatButton from "../../Components/Buttons/FlatButton";
+import TwoPersons from "../../../assets/bgt.svg";
 
 type propsType = {
   navigation: {
@@ -27,8 +27,8 @@ export default function CustomerName(props: propsType) {
     useContext(DimensionsContext);
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   const customers = [

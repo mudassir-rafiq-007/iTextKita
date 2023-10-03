@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import FolderIcon from "../../../assets/folder.svg";
+import Dropdown from "./DropDown";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
@@ -17,9 +17,12 @@ interface propsType {
   modalVisible: boolean;
   setShowModal: (value: boolean) => void;
 }
-export default function NewStoreModal(props: propsType) {
+export default function NewUserModal(props: propsType) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const [showStoreDropdown, setShowStoreDropDown] = useState<boolean>(false);
+  const [showUserDropdown, setShowUserDropDown] = useState<boolean>(false);
 
   function inputFieldStyle() {
     return [
@@ -30,11 +33,7 @@ export default function NewStoreModal(props: propsType) {
           tabPort: screenHeight * 0.05,
           tabLand: screenHeight * 0.06,
         }),
-        paddingHorizontal: dimensionSetter({
-          mobile: screenWidth * 0.03,
-          tabPort: screenWidth * 0.03,
-          tabLand: screenWidth * 0.02,
-        }),
+        paddingHorizontal: screenWidth * 0.03,
       },
     ];
   }
@@ -88,8 +87,8 @@ export default function NewStoreModal(props: propsType) {
                 height: screenHeight * 0.06,
                 width: dimensionSetter({
                   mobile: "70%",
-                  tabPort: "50%",
-                  tabLand: "30%",
+                  tabPort: "60%",
+                  tabLand: "50%",
                 }),
               },
             ]}
@@ -107,11 +106,12 @@ export default function NewStoreModal(props: propsType) {
                   Platform.OS == "android" ? screenHeight * 0.005 : null,
               }}
             >
-              New Store
+              New User Registration
             </Text>
           </View>
           <View
             style={{
+              zIndex: 2,
               gap: screenHeight * 0.01,
               width: dimensionSetter({
                 mobile: "90%",
@@ -120,10 +120,17 @@ export default function NewStoreModal(props: propsType) {
               }),
             }}
           >
+            {Platform.OS == "android" ? (
+              <Dropdown type="Store" showDropdown={showStoreDropdown} />
+            ) : (
+              <View style={{ zIndex: 3 }}>
+                <Dropdown type="Store" showDropdown={showStoreDropdown} />
+              </View>
+            )}
             <View style={inputFieldStyle()}>
               <TextInput
                 style={inputTextStyle()}
-                placeholder="Business Name"
+                placeholder="Name"
                 textAlignVertical="center"
                 placeholderTextColor={Colors.primary}
                 onChangeText={(text) => {}}
@@ -132,25 +139,18 @@ export default function NewStoreModal(props: propsType) {
             <View style={inputFieldStyle()}>
               <TextInput
                 style={inputTextStyle()}
-                placeholder="Sender ID"
+                placeholder="Number"
                 textAlignVertical="center"
                 placeholderTextColor={Colors.primary}
                 onChangeText={(text) => {}}
               />
             </View>
-            <View style={inputFieldStyle()}>
-              <TextInput
-                style={inputTextStyle()}
-                placeholder="DTI Document"
-                textAlignVertical="center"
-                placeholderTextColor={Colors.primary}
-                onChangeText={(text) => {}}
-                editable={false}
-              />
-              <FolderIcon />
-            </View>
+            <Dropdown type="Role" showDropdown={showUserDropdown} />
           </View>
-          <FlatButton title="Add" onPressed={() => props.setShowModal(false)} />
+          <FlatButton
+            title="Register"
+            onPressed={() => props.setShowModal(false)}
+          />
           <View style={{ position: "absolute", top: "3%", right: "3%" }}>
             <MaterialIcons
               name="cancel"
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
   },
   titleView: {
-    width: "70%",
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",

@@ -2,14 +2,14 @@ import { Text, View, TextInput, StyleSheet, ScrollView } from "react-native";
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Key from "../../assets/key.svg";
-import User from "../../assets/user.svg";
-import Hide from "../../assets/hide.svg";
-import ITextKita from "../../assets/iTextKita.svg";
-import TwoPersons from "../../assets/two-persons.svg";
-import TextButton from "../Components/Buttons/TextButton";
-import FlatButton from "../Components/Buttons/FlatButton";
-import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
+import Key from "../../../assets/key.svg";
+import User from "../../../assets/user.svg";
+import Hide from "../../../assets/hide.svg";
+import ITextKita from "../../../assets/iTextKita.svg";
+import TwoPersons from "../../../assets/two-persons.svg";
+import TextButton from "../../Components/Buttons/TextButton";
+import FlatButton from "../../Components/Buttons/FlatButton";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type loginProps = {
   navigation: {
@@ -23,7 +23,7 @@ export default function Login(props: loginProps) {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   function inputFieldStyle() {

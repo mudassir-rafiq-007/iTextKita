@@ -10,12 +10,12 @@ import React, { useEffect, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import SendIcon from "react-native-vector-icons/FontAwesome";
-import TwoPersons from "../../assets/bgt.svg";
-import Header from "../Components/Header/Header";
-import Dropdown from "../Components/Dropdown/Dropdown";
-import { Colors } from "../Components/Constants/Colors";
-import FlatButton from "../Components/Buttons/FlatButton";
-import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
+import TwoPersons from "../../../assets/bgt.svg";
+import Header from "../../Components/Header/Header";
+import Dropdown from "./Dropdown";
+import { Colors } from "../../Components/Constants/Colors";
+import FlatButton from "../../Components/Buttons/FlatButton";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {
@@ -29,8 +29,8 @@ export default function Campaign(props: propsType) {
     useContext(DimensionsContext);
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   function tileWidth() {
