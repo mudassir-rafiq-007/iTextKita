@@ -1,8 +1,8 @@
 import { useState, useContext } from "react";
-import { Colors } from "../Constants/Colors";
+import { Colors } from "../../Components/Constants/Colors";
 import MIcon from "react-native-vector-icons/MaterialIcons";
 import { SelectList } from "react-native-dropdown-select-list";
-import { DimensionsContext } from "../Contexts/DimensionsContext";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propType = {
   showDropdown: boolean;

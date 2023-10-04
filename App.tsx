@@ -4,11 +4,12 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Login from "./src/Screens/Login";
-import SignUp from "./src/Screens/SignUp";
-import Campaign from "./src/Screens/Campaign";
+import Login from "./src/Screens/Login/Login";
+import SignUp from "./src/Screens/SignUp/SignUp";
+import Campaign from "./src/Screens/Campaign/Campaign";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
-import CustomerName from "./src/Screens/CustomerName";
+import CustomerName from "./src/Screens/CustomerName/CustomerName";
+import Profile from "./src/Screens/Profile/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +58,13 @@ export default function App() {
             <Stack.Screen
               name={"CustomerName"}
               component={CustomerName}
+              options={{
+                headerBackVisible: false,
+              }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name={"Profile"}
+              component={Profile}
               options={{
                 headerBackVisible: false,
               }}

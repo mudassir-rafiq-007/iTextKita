@@ -8,13 +8,13 @@ import {
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import HideIcon from "../../assets/hide.svg";
-import Folder from "../../assets/folder.svg";
-import ITextKita from "../../assets/iTextKita.svg";
-import TwoPersons from "../../assets/two-persons.svg";
-import TextButton from "../Components/Buttons/TextButton";
-import FlatButton from "../Components/Buttons/FlatButton";
-import { DimensionsContext } from "../Components/Contexts/DimensionsContext";
+import HideIcon from "../../../assets/hide.svg";
+import Folder from "../../../assets/folder.svg";
+import ITextKita from "../../../assets/iTextKita.svg";
+import TwoPersons from "../../../assets/two-persons.svg";
+import TextButton from "../../Components/Buttons/TextButton";
+import FlatButton from "../../Components/Buttons/FlatButton";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type loginProps = {
   navigation: {
@@ -27,7 +27,7 @@ export default function SignUp(props: loginProps) {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
   const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   function inputFieldStyle() {
