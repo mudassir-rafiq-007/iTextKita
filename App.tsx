@@ -10,6 +10,7 @@ import Campaign from "./src/Screens/Campaign/Campaign";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import Profile from "./src/Screens/Profile/Profile";
+import BusinessName from "./src/Screens/BusinessName/BusinessName";
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function App() {
             screenOptions={{
               animation: "none",
               animationDuration: 0,
+              headerBackVisible: false,
             }}
           >
             <Stack.Screen
@@ -48,27 +50,10 @@ export default function App() {
               component={SignUp}
               options={{ headerShown: false }}
             ></Stack.Screen>
-            <Stack.Screen
-              name={"Campaign"}
-              component={Campaign}
-              options={{
-                headerBackVisible: false,
-              }}
-            ></Stack.Screen>
-            <Stack.Screen
-              name={"CustomerName"}
-              component={CustomerName}
-              options={{
-                headerBackVisible: false,
-              }}
-            ></Stack.Screen>
-            <Stack.Screen
-              name={"Profile"}
-              component={Profile}
-              options={{
-                headerBackVisible: false,
-              }}
-            ></Stack.Screen>
+            <Stack.Screen name={"Profile"} component={Profile} />
+            <Stack.Screen name={"Campaign"} component={Campaign} />
+            <Stack.Screen name={"Customer Name"} component={CustomerName} />
+            <Stack.Screen name={"Business Name"} component={BusinessName} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
