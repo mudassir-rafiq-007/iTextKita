@@ -18,6 +18,7 @@ export default function HeaderMenu() {
     "Campaign",
     "Profile",
     "Business Name",
+    "Customer Name",
     "Online Marketing",
     "Templates",
     "SMS Status",
