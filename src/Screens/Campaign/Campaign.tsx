@@ -10,7 +10,7 @@ import React, { useEffect, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import SendIcon from "react-native-vector-icons/FontAwesome";
-import TwoPersons from "../../../assets/bgt.svg";
+import TwoPersons from "../../../assets/images/bgt.svg";
 import Header from "../../Components/Header/Header";
 import Dropdown from "./Dropdown";
 import { Colors } from "../../Components/Constants/Colors";

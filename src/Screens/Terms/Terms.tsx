@@ -2,10 +2,10 @@ import { useContext } from "react";
 import { FlatList, View, Text, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import TermsIcon from "../../../assets/terms.svg";
-import ShieldIcon from "../../../assets/shield.svg";
-import ITextKita from "../../../assets/iTextKita.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import TermsIcon from "../../../assets/images/terms.svg";
+import ShieldIcon from "../../../assets/images/shield.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 

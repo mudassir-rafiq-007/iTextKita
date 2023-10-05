@@ -9,9 +9,9 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Header from "../../Components/Header/Header";
-import TwoPersons from "../../../assets/two-persons.svg";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
@@ -86,7 +86,11 @@ export default function Templates(props: propsType) {
           )}
         />
       </View>
-      <FlatButton title="New Template" onPressed={() => props.navigation.navigate("Online Marketing")} zIndex={2} />
+      <FlatButton
+        title="New Template"
+        onPressed={() => props.navigation.navigate("Online Marketing")}
+        zIndex={2}
+      />
       <TwoPersons
         height={dimensionSetter({
           mobile: screenHeight * 0.2,

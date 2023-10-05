@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { TouchableOpacity, Text, StyleSheet, Platform } from "react-native";
 import { useFonts } from "expo-font";
-import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { shadow } from "../Constants/Shadow";
+import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 interface propType {
   title: string;

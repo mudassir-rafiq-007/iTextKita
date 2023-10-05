@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
 import { Text, View, FlatList } from "react-native";
 import { Colors } from "../Constants/Colors";
-import MenuIcon from "../../../assets/menu.svg";
+import MenuIcon from "../../../assets/images/menu.svg";
+import { useNavigation } from "@react-navigation/native";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
-import { useNavigation } from "@react-navigation/native";
 
 export default function HeaderMenu() {
   const { screenWidth, screenHeight, dimensionSetter } =

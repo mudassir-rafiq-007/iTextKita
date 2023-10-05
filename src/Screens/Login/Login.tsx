@@ -9,11 +9,11 @@ import {
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Key from "../../../assets/key.svg";
-import User from "../../../assets/user.svg";
-import Hide from "../../../assets/hide.svg";
-import ITextKita from "../../../assets/iTextKita.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import Key from "../../../assets/images/key.svg";
+import User from "../../../assets/images/user.svg";
+import Hide from "../../../assets/images/hide.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";

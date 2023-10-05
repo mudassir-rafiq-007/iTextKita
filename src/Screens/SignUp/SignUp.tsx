@@ -8,10 +8,10 @@ import {
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import HideIcon from "../../../assets/hide.svg";
-import Folder from "../../../assets/folder.svg";
-import ITextKita from "../../../assets/iTextKita.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import HideIcon from "../../../assets/images/hide.svg";
+import Folder from "../../../assets/images/folder.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";

@@ -1,18 +1,18 @@
 import { useEffect, useContext } from "react";
 import {
-  ScrollView,
-  TextInput,
   View,
-  StyleSheet,
   Platform,
+  TextInput,
+  StyleSheet,
+  ScrollView,
 } from "react-native";
-import UserIcon from "../../../assets/user.svg";
-import PhoneIcon from "../../../assets/phone.svg";
-import Want2Subscribe from "../../../assets/want.svg";
-import ManBackground from "../../../assets/man-bg.svg";
+import UserIcon from "../../../assets/images/user.svg";
+import PhoneIcon from "../../../assets/images/phone.svg";
+import Want2Subscribe from "../../../assets/images/want.svg";
+import ManBackground from "../../../assets/images/man-bg.svg";
 import Header from "../../Components/Header/Header";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {

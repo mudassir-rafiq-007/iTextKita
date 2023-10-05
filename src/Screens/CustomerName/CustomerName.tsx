@@ -1,19 +1,18 @@
 import { useContext, useEffect } from "react";
 import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
+import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import TwoPersons from "../../../assets/images/bgt.svg";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
-import { useFonts } from "expo-font";
 import FlatButton from "../../Components/Buttons/FlatButton";
-import TwoPersons from "../../../assets/bgt.svg";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {

@@ -9,11 +9,11 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Lady from "../../../assets/sms.svg";
-import ThumbIcon from "../../../assets/thumb.svg";
+import Lady from "../../../assets/images/sms.svg";
+import ThumbIcon from "../../../assets/images/thumb.svg";
+import ArrowDown from "../../../assets/images/downarrow.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
-import ArrowDown from "../../../assets/downarrow.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
 import { shadow } from "../../Components/Constants/Shadow";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 

@@ -13,7 +13,7 @@ import FAIcons from "react-native-vector-icons/FontAwesome";
 import NewUserModal from "./NewUser";
 import NewStoreModal from "./NewStore";
 import BuyCreditModal from "./BuyCredit";
-import TwoPersons from "../../../assets/bgt.svg";
+import TwoPersons from "../../../assets/images/bgt.svg";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
 import { shadow } from "../../Components/Constants/Shadow";

@@ -1,18 +1,17 @@
 import { useEffect, useContext } from "react";
 import {
   Text,
-  TouchableOpacity,
   View,
-  StyleSheet,
   FlatList,
+  StyleSheet,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import CrossIcon from "../../../assets/images/cross.svg";
+import SuccessIcon from "../../../assets/images/check.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
-import SuccessIcon from "../../../assets/check.svg";
-import CrossIcon from "../../../assets/cross.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { LinearGradient } from "expo-linear-gradient";
 
 type propsType = {
   navigation: {

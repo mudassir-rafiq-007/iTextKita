@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import HeaderMenu from "./HeaderMenu";
-import ITextKita from "../../../assets/iTextKita.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

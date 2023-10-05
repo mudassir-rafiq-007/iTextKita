@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
-import { Dimensions } from "react-native";
-import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
-import * as Screen from "expo-screen-orientation";
 import * as Device from "expo-device";
+import { Dimensions } from "react-native";
+import * as Screen from "expo-screen-orientation";
+import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
 
 type dimensionSetterProp = {
   mobile: any;
@@ -15,7 +15,7 @@ type DimensionsContextType = {
   isTabLandscape: boolean | undefined;
   screenHeight: number;
   screenWidth: number;
-  dimensionSetter: ({}: dimensionSetterProp) => any
+  dimensionSetter: ({}: dimensionSetterProp) => any;
 };
 
 export const DimensionsContext = createContext<DimensionsContextType>({
@@ -23,7 +23,7 @@ export const DimensionsContext = createContext<DimensionsContextType>({
   isTabLandscape: undefined,
   screenHeight: deviceHeight,
   screenWidth: deviceWidth,
-  dimensionSetter({ }) {},
+  dimensionSetter({}) {},
 });
 
 interface propsType {
@@ -82,7 +82,7 @@ export default function DimensionsProvider(props: propsType) {
         screenHeight,
         isTabPortrait,
         isTabLandscape,
-        dimensionSetter
+        dimensionSetter,
       }}
     >
       {props.children}
