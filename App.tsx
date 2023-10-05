@@ -16,6 +16,7 @@ import Templates from "./src/Screens/Templates/Templates";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
+import Terms from "./src/Screens/Terms/Terms";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,13 +61,24 @@ export default function App() {
               component={SignUp}
               options={{ headerShown: false }}
             ></Stack.Screen>
+            <Stack.Screen
+              name={"Terms"}
+              component={Terms}
+              options={{ headerShown: false }}
+            ></Stack.Screen>
             <Stack.Screen name={"Profile"} component={Profile} />
             <Stack.Screen name={"Campaign"} component={Campaign} />
             <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />
-            <Stack.Screen name={"Marketing History"} component={MarketingHistory} />
+            <Stack.Screen
+              name={"Marketing History"}
+              component={MarketingHistory}
+            />
             <Stack.Screen name={"Templates"} component={Templates} />
-            <Stack.Screen name={"Online Marketing"} component={OnlineMarketing} />
+            <Stack.Screen
+              name={"Online Marketing"}
+              component={OnlineMarketing}
+            />
             <Stack.Screen name={"SMS Status"} component={RecentSMSStatus} />
           </Stack.Navigator>
         </NavigationContainer>
