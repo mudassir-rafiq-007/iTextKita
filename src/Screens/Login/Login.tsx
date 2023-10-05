@@ -274,6 +274,20 @@ export default function Login(props: loginProps) {
             })}
           />
         </View>
+        <View style={{ zIndex: 2 }}>
+          <TextButton
+            color="#696969"
+            title="Terms & Conditions"
+            zIndex={2}
+            onPressed={() => props.navigation.navigate("Terms")}
+            marginVertical={screenHeight * 0.01}
+            fontSize={dimensionSetter({
+              mobile: screenHeight * 0.015,
+              tabPort: screenWidth * 0.02,
+              tabLand: screenWidth * 0.012,
+            })}
+          />
+        </View>
         <View
           style={dimensionSetter({
             mobile: { alignItems: "center" },
