@@ -86,7 +86,7 @@ export default function Templates(props: propsType) {
           )}
         />
       </View>
-      <FlatButton title="New Template" onPressed={() => {}} zIndex={2} />
+      <FlatButton title="New Template" onPressed={() => props.navigation.navigate("Online Marketing")} zIndex={2} />
       <TwoPersons
         height={dimensionSetter({
           mobile: screenHeight * 0.2,
