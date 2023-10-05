@@ -15,6 +15,7 @@ import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import Templates from "./src/Screens/Templates/Templates";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
+import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +48,11 @@ export default function App() {
             <Stack.Screen
               name={"Login"}
               component={Login}
+              options={{ headerShown: false }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name={"Reset Password"}
+              component={ResetPassword}
               options={{ headerShown: false }}
             ></Stack.Screen>
             <Stack.Screen

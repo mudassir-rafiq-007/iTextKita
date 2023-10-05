@@ -1,17 +1,16 @@
 import {
   Text,
   View,
-  Platform,
   TextInput,
   StyleSheet,
   ScrollView,
+  Platform,
 } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Key from "../../../assets/key.svg";
-import User from "../../../assets/user.svg";
-import Hide from "../../../assets/hide.svg";
+import Otp from "../../../assets/otp.svg";
+import Phone from "../../../assets/phone.svg";
 import ITextKita from "../../../assets/iTextKita.svg";
 import TwoPersons from "../../../assets/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
@@ -24,10 +23,9 @@ type loginProps = {
   };
 };
 
-export default function Login(props: loginProps) {
+export default function ResetPassword(props: loginProps) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
-  const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
@@ -126,7 +124,7 @@ export default function Login(props: loginProps) {
           ]}
         >
           <View style={inputFieldStyle()}>
-            <User
+            <Phone
               height={dimensionSetter({
                 mobile: screenHeight * 0.05,
                 tabPort: screenHeight * 0.03,
@@ -147,13 +145,13 @@ export default function Login(props: loginProps) {
             />
             <TextInput
               style={textInputStyle()}
-              placeholder="User Name"
+              placeholder="Mobile Number"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
             />
           </View>
           <View style={inputFieldStyle()}>
-            <Key
+            <Otp
               height={dimensionSetter({
                 mobile: screenHeight * 0.05,
                 tabPort: screenHeight * 0.03,
@@ -183,55 +181,15 @@ export default function Login(props: loginProps) {
                   }),
                 },
               ]}
-              placeholder="Password"
+              placeholder="OTP"
               textAlignVertical="center"
               placeholderTextColor={"#c7c6c5"}
-              secureTextEntry={secureTextEntry}
-            />
-            <Hide
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginRight: dimensionSetter({
-                  mobile: screenWidth * 0.04,
-                  tabPort: screenWidth * 0.04,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-              onPress={() =>
-                setSecureTextEntry((current) => (current ? false : true))
-              }
             />
           </View>
         </View>
-        <View style={{ zIndex: 2 }}>
-          <TextButton
-            color="#696969"
-            title="Reset Password"
-            zIndex={2}
-            onPressed={() => props.navigation.navigate("Reset Password")}
-            fontSize={dimensionSetter({
-              mobile: screenWidth * 0.05,
-              tabPort: screenWidth * 0.03,
-              tabLand: screenWidth * 0.02,
-            })}
-            marginVertical={dimensionSetter({
-              mobile: screenHeight * 0.03,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.02,
-            })}
-          />
-        </View>
+
         <FlatButton
-          title="Login"
+          title="Submit"
           zIndex={2}
           onPressed={() => props.navigation.navigate("Campaign")}
           titleFontSize={dimensionSetter({
@@ -244,6 +202,7 @@ export default function Login(props: loginProps) {
             tabPort: screenWidth * 0.035,
             tabLand: screenWidth * 0.03,
           })}
+          marginVertical={screenHeight * 0.03}
         />
         <View style={styles.registerView}>
           <Text
