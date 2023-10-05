@@ -14,6 +14,7 @@ import BusinessName from "./src/Screens/BusinessName/BusinessName";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import Templates from "./src/Screens/Templates/Templates";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
+import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +61,7 @@ export default function App() {
             <Stack.Screen name={"Marketing History"} component={MarketingHistory} />
             <Stack.Screen name={"Templates"} component={Templates} />
             <Stack.Screen name={"Online Marketing"} component={OnlineMarketing} />
+            <Stack.Screen name={"SMS Status"} component={RecentSMSStatus} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
