@@ -20,8 +20,8 @@ export default function HeaderMenu() {
     "Business Name",
     "Customer Name",
     "Marketing History",
-    "Online Marketing",
     "Templates",
+    "Online Marketing",
     "SMS Status",
   ];
 

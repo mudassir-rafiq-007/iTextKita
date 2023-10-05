@@ -12,6 +12,7 @@ import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import Profile from "./src/Screens/Profile/Profile";
 import BusinessName from "./src/Screens/BusinessName/BusinessName";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
+import Templates from "./src/Screens/Templates/Templates";
 
 const Stack = createNativeStackNavigator();
 
@@ -56,6 +57,7 @@ export default function App() {
             <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />
             <Stack.Screen name={"Marketing History"} component={MarketingHistory} />
+            <Stack.Screen name={"Templates"} component={Templates} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
