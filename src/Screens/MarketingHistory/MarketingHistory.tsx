@@ -1,10 +1,5 @@
 import { useEffect, useContext } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import { Text, View, FlatList, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import CrossIcon from "../../../assets/images/cross.svg";
 import SuccessIcon from "../../../assets/images/check.svg";
@@ -12,6 +7,7 @@ import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { useFonts } from "expo-font";
 
 type propsType = {
   navigation: {
@@ -23,6 +19,10 @@ type propsType = {
 export default function MarketingHistory(props: propsType) {
   const { screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const [fontsLoaded] = useFonts({
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
+  });
 
   function Cross() {
     return (
@@ -84,6 +84,8 @@ export default function MarketingHistory(props: propsType) {
     });
   }, []);
 
+  if (!fontsLoaded) return null;
+
   return (
     <LinearGradient
       locations={[0.4, 1]}
@@ -121,7 +123,11 @@ export default function MarketingHistory(props: propsType) {
                 data={item.details}
                 renderItem={({ item }) => (
                   <Text
-                    style={{ color: "white", fontSize: screenHeight * 0.02 }}
+                    style={{
+                      color: "white",
+                      fontSize: screenHeight * 0.015,
+                      fontFamily: "Poppins-Regular",
+                    }}
                   >{`${item.key}:`}</Text>
                 )}
               />
@@ -130,9 +136,9 @@ export default function MarketingHistory(props: propsType) {
               style={[
                 styles.valueListView,
                 {
-                  alignItems: "center",
                   width: "50%",
                   height: "90%",
+                  alignItems: "center",
                 },
               ]}
             >
@@ -151,7 +157,8 @@ export default function MarketingHistory(props: propsType) {
                         style={{
                           color: "white",
                           textAlign: "center",
-                          fontSize: screenHeight * 0.02,
+                          fontFamily: "Poppins-Regular",
+                          fontSize: screenHeight * 0.015,
                         }}
                       >
                         {item.value}

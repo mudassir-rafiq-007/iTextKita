@@ -87,16 +87,16 @@ export default function Campaign(props: propsType) {
             Title
           </Text>
         </View>
-        <TextInput
-          multiline={true}
-          placeholder={dummyMsg}
-          onChangeText={(text) => {}}
-          placeholderTextColor={Colors.primary}
+        <View
           style={[
             styles.textInput,
             tileWidth(),
             {
-              fontSize: screenHeight * 0.02,
+              height: dimensionSetter({
+                mobile: screenHeight * 0.3,
+                tabPort: screenHeight * 0.3,
+                tabLand: screenHeight * 0.3,
+              }),
               paddingVertical: dimensionSetter({
                 mobile: screenHeight * 0.03,
                 tabPort: screenHeight * 0.03,
@@ -109,7 +109,20 @@ export default function Campaign(props: propsType) {
               }),
             },
           ]}
-        />
+        >
+          <TextInput
+            multiline={true}
+            placeholder={dummyMsg}
+            onChangeText={(text) => {}}
+            placeholderTextColor={Colors.primary}
+            style={{
+              flex: 1,
+              textAlign: "justify",
+              fontFamily: "Poppins-Regular",
+              fontSize: screenHeight * 0.02,
+            }}
+          />
+        </View>
         <TouchableOpacity
           style={[
             styles.tileView,
@@ -121,7 +134,7 @@ export default function Campaign(props: propsType) {
               paddingHorizontal: screenWidth * 0.03,
             },
           ]}
-          onPress={() => props.navigation.navigate("CustomerName")}
+          onPress={() => props.navigation.navigate("Customer Name")}
         >
           <Text style={[styles.tileText, { fontSize: screenHeight * 0.02 }]}>
             Select Customer
@@ -188,9 +201,7 @@ const styles = StyleSheet.create({
   textInput: {
     ...shadow,
     zIndex: 2,
-    height: "auto",
     color: "#084A5B",
-    textAlign: "justify",
     borderTopLeftRadius: 30,
     backgroundColor: "#D9D9D9",
     borderBottomRightRadius: 30,

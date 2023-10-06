@@ -109,7 +109,7 @@ export default function SignUp(props: loginProps) {
 
   return (
     <ScrollView
-      style={{ height: "100%" }}
+      style={{ height: screenHeight }}
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{ flexGrow: 1 }}
     >
@@ -141,6 +141,7 @@ export default function SignUp(props: loginProps) {
           style={[
             styles.form,
             {
+              zIndex: 2,
               gap: screenHeight * 0.01,
               width: dimensionSetter({
                 mobile: "80%",

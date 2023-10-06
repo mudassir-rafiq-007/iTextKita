@@ -114,6 +114,7 @@ export default function ResetPassword(props: loginProps) {
           style={[
             styles.form,
             {
+              zIndex: 2,
               gap: screenHeight * 0.03,
               width: dimensionSetter({
                 mobile: "80%",
