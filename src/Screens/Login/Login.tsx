@@ -37,11 +37,7 @@ export default function Login(props: loginProps) {
     return [
       styles.inputField,
       {
-        height: dimensionSetter({
-          mobile: screenHeight * 0.06,
-          tabPort: screenHeight * 0.05,
-          tabLand: screenHeight * 0.06,
-        }),
+        height: screenHeight * 0.06,
       },
     ];
   }
@@ -50,15 +46,11 @@ export default function Login(props: loginProps) {
     return [
       styles.textInput,
       {
-        fontSize: dimensionSetter({
-          mobile: screenHeight * 0.025,
-          tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.025,
-        }),
+        fontSize: screenHeight * 0.02,
         marginTop:
           Platform.OS == "android"
             ? dimensionSetter({
-                mobile: screenHeight * 0.01,
+                mobile: screenHeight * 0.005,
                 tabPort: screenHeight * 0.01,
                 tabLand: screenHeight * 0.005,
               })
@@ -105,11 +97,6 @@ export default function Login(props: loginProps) {
               tabPort: screenHeight * 0.1,
               tabLand: screenHeight * 0.07,
             }),
-            marginBottom: dimensionSetter({
-              mobile: screenHeight * 0.01,
-              tabPort: screenHeight * 0.01,
-              tabLand: null,
-            }),
           }}
         />
         <View
@@ -119,7 +106,7 @@ export default function Login(props: loginProps) {
               gap: screenHeight * 0.03,
               width: dimensionSetter({
                 mobile: "80%",
-                tabPort: "50%",
+                tabPort: "60%",
                 tabLand: "30%",
               }),
             },
@@ -295,8 +282,8 @@ export default function Login(props: loginProps) {
             tabLand: {
               zIndex: 1,
               position: "absolute",
-              bottom: screenHeight * 0.01,
               alignItems: "center",
+              bottom: screenHeight * 0.01,
             },
           })}
         >

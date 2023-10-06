@@ -40,12 +40,7 @@ export default function Dropdown(props: propType) {
         justifyContent: "center",
         textAlignVertical: "center",
         fontFamily: "Poppins-Regular",
-        height: screenHeight * 0.06,
-        fontSize: dimensionSetter({
-          mobile: screenHeight * 0.02,
-          tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.03,
-        }),
+        fontSize: screenHeight * 0.02,
       }}
       boxStyles={{
         zIndex: 2,
@@ -116,7 +111,7 @@ export default function Dropdown(props: propType) {
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.02,
           tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.03,
+          tabLand: screenHeight * 0.025,
         }),
       }}
     />
