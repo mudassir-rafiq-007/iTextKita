@@ -3,6 +3,7 @@ import MIcon from "react-native-vector-icons/MaterialIcons";
 import { SelectList } from "react-native-dropdown-select-list";
 import { Colors } from "../../Components/Constants/Colors";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { Platform } from "react-native";
 
 type propType = {
   data?: [];
@@ -37,8 +38,11 @@ export default function Dropdown(props: propType) {
       inputStyles={{
         alignItems: "center",
         color: Colors.primary,
+        height: screenHeight * 0.06,
+        lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
         textAlignVertical: "center",
         fontFamily: "Poppins-Regular",
+        marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.022,
           tabPort: screenHeight * 0.02,
@@ -94,10 +98,7 @@ export default function Dropdown(props: propType) {
         width: "100%",
         borderRadius: 5,
         borderColor: "white",
-        position: "absolute",
-        top: screenHeight * 0.05,
         backgroundColor: Colors.primary,
-        zIndex: props.type == "Store" ? 3 : 2,
         borderWidth: dimensionSetter({ mobile: 1, tabPort: 1, tabLand: 3 }),
       }}
       dropdownItemStyles={{

@@ -3,6 +3,7 @@ import { Colors } from "../../Components/Constants/Colors";
 import MIcon from "react-native-vector-icons/MaterialIcons";
 import { SelectList } from "react-native-dropdown-select-list";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { Platform } from "react-native";
 
 type propType = {
   showDropdown: boolean;
@@ -36,11 +37,13 @@ export default function Dropdown(props: propType) {
         zIndex: 2,
         opacity: 0.5,
         color: "white",
-        alignItems: "center",
-        justifyContent: "center",
+        width: "90%",
         textAlignVertical: "center",
+        height: screenHeight * 0.06,
         fontFamily: "Poppins-Regular",
         fontSize: screenHeight * 0.02,
+        lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
+        marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
       }}
       boxStyles={{
         zIndex: 2,
