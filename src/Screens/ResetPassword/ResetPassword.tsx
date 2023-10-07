@@ -1,18 +1,18 @@
 import {
   Text,
   View,
+  Platform,
   TextInput,
   StyleSheet,
   ScrollView,
-  Platform,
 } from "react-native";
 import React, { useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Otp from "../../../assets/otp.svg";
-import Phone from "../../../assets/phone.svg";
-import ITextKita from "../../../assets/iTextKita.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import Otp from "../../../assets/images/otp.svg";
+import Phone from "../../../assets/images/phone.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
@@ -114,6 +114,7 @@ export default function ResetPassword(props: loginProps) {
           style={[
             styles.form,
             {
+              zIndex: 2,
               gap: screenHeight * 0.03,
               width: dimensionSetter({
                 mobile: "80%",

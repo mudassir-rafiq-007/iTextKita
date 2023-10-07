@@ -2,9 +2,9 @@ import { useEffect, useContext } from "react";
 import { View, FlatList, Platform, StyleSheet, TextInput } from "react-native";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Folder from "../../../assets/folder.svg";
+import Folder from "../../../assets/images/folder.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
-import TwoPersons from "../../../assets/two-persons.svg";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 

@@ -1,19 +1,18 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
   Text,
-  TouchableOpacity,
   View,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
+import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import TwoPersons from "../../../assets/images/bgt.svg";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
-import { useFonts } from "expo-font";
 import FlatButton from "../../Components/Buttons/FlatButton";
-import TwoPersons from "../../../assets/bgt.svg";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {
@@ -22,24 +21,78 @@ type propsType = {
   };
 };
 
+interface selcted {
+  key: number;
+  customer: string;
+  isSelected: boolean;
+}
+
 export default function CustomerName(props: propsType) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const [customers, setCustomers] = useState<selcted[]>([
+    { key: 1, customer: "David H.", isSelected: false },
+    { key: 2, customer: "Jerry", isSelected: false },
+    { key: 3, customer: "Elaine", isSelected: false },
+    { key: 4, customer: "George", isSelected: false },
+    { key: 5, customer: "Ross", isSelected: false },
+    { key: 6, customer: "Rachel", isSelected: false },
+    { key: 7, customer: "Jesse", isSelected: false },
+    { key: 8, customer: "Walter", isSelected: false },
+  ]);
+
+  function onSelect(selectedCustomer: selcted) {
+    const tempData: selcted[] = [];
+    if (customers.length) {
+      customers.map((customer) => {
+        if (customer.key == selectedCustomer.key) {
+          if (customer.isSelected) {
+            customer.isSelected = false;
+            tempData.push(customer);
+          } else {
+            customer.isSelected = true;
+            tempData.push(customer);
+          }
+        } else {
+          if (customer.isSelected) {
+            tempData.push(customer);
+          } else {
+            customer.isSelected = false;
+            tempData.push(customer);
+          }
+        }
+      });
+      setCustomers(tempData);
+    }
+  }
+
+  function onReset() {
+    const tempData: selcted[] = [];
+    if (customers.length) {
+      customers.map((customer) => {
+        customer.isSelected = false;
+        tempData.push(customer);
+      });
+      setCustomers(tempData);
+    }
+  }
+
+  function onSelectAll() {
+    const tempData: selcted[] = [];
+    if (customers.length) {
+      customers.map((customer) => {
+        customer.isSelected = true;
+        tempData.push(customer);
+      });
+      setCustomers(tempData);
+    }
+  }
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
     "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
-
-  const customers = [
-    "David H.",
-    "Matries",
-    "Newman",
-    "George",
-    "Rachel",
-    "Marsh",
-    "Angela",
-  ];
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -82,29 +135,32 @@ export default function CustomerName(props: propsType) {
         <FlatList
           scrollEnabled
           data={customers}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={{
-                elevation: 10,
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "white",
-                height: screenHeight * 0.06,
-                marginVertical: screenHeight * 0.001,
-                marginHorizontal: screenWidth * 0.01,
-              }}
-            >
-              <Text
+          renderItem={({ item }) => {
+            return (
+              <TouchableOpacity
+                onPress={() => onSelect(item)}
                 style={{
-                  color: Colors.primary,
-                  fontFamily: "Poppins-Bold",
-                  fontSize: screenHeight * 0.02,
+                  elevation: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: item.isSelected ? Colors.primary : "white",
+                  height: screenHeight * 0.06,
+                  marginVertical: screenHeight * 0.001,
+                  marginHorizontal: screenWidth * 0.01,
                 }}
               >
-                {item}
-              </Text>
-            </TouchableOpacity>
-          )}
+                <Text
+                  style={{
+                    color: item.isSelected ? "white" : Colors.primary,
+                    fontFamily: "Poppins-Bold",
+                    fontSize: screenHeight * 0.02,
+                  }}
+                >
+                  {item.customer}
+                </Text>
+              </TouchableOpacity>
+            );
+          }}
         />
       </View>
       <View
@@ -128,8 +184,8 @@ export default function CustomerName(props: propsType) {
           }}
         >
           <FlatButton
-            title="Apply"
-            onPressed={() => {}}
+            title="Select All"
+            onPressed={onSelectAll}
             paddingHorizontal={dimensionSetter({
               mobile: screenWidth * 0.05,
               tabPort: screenWidth * 0.04,
@@ -138,7 +194,7 @@ export default function CustomerName(props: propsType) {
           />
           <FlatButton
             title="Reset"
-            onPressed={() => {}}
+            onPressed={onReset}
             paddingHorizontal={dimensionSetter({
               mobile: screenWidth * 0.05,
               tabPort: screenWidth * 0.04,
@@ -147,7 +203,7 @@ export default function CustomerName(props: propsType) {
           />
         </View>
         <FlatButton
-          title="Select All"
+          title="Apply"
           onPressed={() => {}}
           paddingHorizontal={dimensionSetter({
             mobile: screenWidth * 0.05,

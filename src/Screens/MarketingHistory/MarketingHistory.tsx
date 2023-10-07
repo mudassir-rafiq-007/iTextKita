@@ -1,18 +1,11 @@
 import { useEffect, useContext } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  FlatList,
-} from "react-native";
+import { Text, View, Image, FlatList, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
-import SuccessIcon from "../../../assets/check.svg";
-import CrossIcon from "../../../assets/cross.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { LinearGradient } from "expo-linear-gradient";
+import { useFonts } from "expo-font";
 
 type propsType = {
   navigation: {
@@ -25,15 +18,25 @@ export default function MarketingHistory(props: propsType) {
   const { screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
 
+  const [fontsLoaded] = useFonts({
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
+  });
+
   function Cross() {
     return (
-      <CrossIcon height={screenHeight * 0.03} width={screenWidth * 0.03} />
+      <Image
+        source={require("../../../assets/Icons/cross.png")}
+        style={{ height: screenHeight * 0.02, width: screenHeight * 0.02 }}
+      />
     );
   }
 
   function Success() {
     return (
-      <SuccessIcon height={screenHeight * 0.03} width={screenWidth * 0.03} />
+      <Image
+        source={require("../../../assets/Icons/tick.png")}
+        style={{ height: screenHeight * 0.02, width: screenHeight * 0.02 }}
+      />
     );
   }
 
@@ -85,6 +88,8 @@ export default function MarketingHistory(props: propsType) {
     });
   }, []);
 
+  if (!fontsLoaded) return null;
+
   return (
     <LinearGradient
       locations={[0.4, 1]}
@@ -122,7 +127,11 @@ export default function MarketingHistory(props: propsType) {
                 data={item.details}
                 renderItem={({ item }) => (
                   <Text
-                    style={{ color: "white", fontSize: screenHeight * 0.02 }}
+                    style={{
+                      color: "white",
+                      fontSize: screenHeight * 0.015,
+                      fontFamily: "Poppins-Regular",
+                    }}
                   >{`${item.key}:`}</Text>
                 )}
               />
@@ -131,9 +140,9 @@ export default function MarketingHistory(props: propsType) {
               style={[
                 styles.valueListView,
                 {
-                  alignItems: "center",
                   width: "50%",
                   height: "90%",
+                  alignItems: "center",
                 },
               ]}
             >
@@ -152,7 +161,8 @@ export default function MarketingHistory(props: propsType) {
                         style={{
                           color: "white",
                           textAlign: "center",
-                          fontSize: screenHeight * 0.02,
+                          fontFamily: "Poppins-Regular",
+                          fontSize: screenHeight * 0.015,
                         }}
                       >
                         {item.value}

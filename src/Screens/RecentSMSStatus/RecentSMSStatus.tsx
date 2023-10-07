@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import {
   Text,
   View,
+  Image,
   FlatList,
   Platform,
   StyleSheet,
@@ -9,11 +10,9 @@ import {
 } from "react-native";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Lady from "../../../assets/sms.svg";
-import ThumbIcon from "../../../assets/thumb.svg";
+import Lady from "../../../assets/images/sms.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
-import ArrowDown from "../../../assets/downarrow.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
 import { shadow } from "../../Components/Constants/Shadow";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
@@ -62,15 +61,27 @@ export default function RecentSMSStatus(props: propsType) {
               styles.icons,
               {
                 width: dimensionSetter({
-                  mobile: "20%",
+                  mobile: "15%",
                   tabPort: "15%",
                   tabLand: "15%",
                 }),
               },
             ]}
           >
-            <ThumbIcon />
-            <ArrowDown />
+            <Image
+              source={require("../../../assets/Icons/like.png")}
+              style={{
+                height: screenHeight * 0.03,
+                width: screenHeight * 0.03,
+              }}
+            />
+            <Image
+              source={require("../../../assets/Icons/arrowdown.png")}
+              style={{
+                height: screenHeight * 0.02,
+                width: screenHeight * 0.02,
+              }}
+            />
           </View>
         </TouchableOpacity>
         <View
@@ -128,20 +139,21 @@ export default function RecentSMSStatus(props: propsType) {
               style={[styles.tileView, { height: screenHeight * 0.06 }]}
             >
               <Text style={textStyle()}>{item}</Text>
-              <View
-                style={[
-                  styles.icons,
-                  {
-                    width: dimensionSetter({
-                      mobile: "20%",
-                      tabPort: "15%",
-                      tabLand: "15%",
-                    }),
-                  },
-                ]}
-              >
-                <ThumbIcon />
-                <ArrowDown />
+              <View style={styles.icons}>
+                <Image
+                  source={require("../../../assets/Icons/like.png")}
+                  style={{
+                    height: screenHeight * 0.03,
+                    width: screenHeight * 0.03,
+                  }}
+                />
+                <Image
+                  source={require("../../../assets/Icons/arrowdown.png")}
+                  style={{
+                    height: screenHeight * 0.02,
+                    width: screenHeight * 0.02,
+                  }}
+                />
               </View>
             </TouchableOpacity>
           )}
@@ -199,7 +211,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   icons: {
-    width: "20%",
+    width: "15%",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

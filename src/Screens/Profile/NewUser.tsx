@@ -6,6 +6,7 @@ import {
   Platform,
   TextInput,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Dropdown from "./DropDown";
@@ -65,100 +66,113 @@ export default function NewUserModal(props: propsType) {
       transparent={true}
       visible={props.modalVisible}
     >
-      <View style={styles.main}>
-        <View
-          style={[
-            styles.modal,
-            {
-              gap: screenHeight * 0.03,
+      <View style={[styles.main]}>
+        <View style={{ height: screenHeight * 0.5 }}>
+          <ScrollView
+            style={{
+              height: screenHeight * 0.5,
               width: dimensionSetter({
                 mobile: screenWidth * 0.9,
                 tabPort: screenWidth * 0.7,
                 tabLand: screenWidth * 0.5,
               }),
-              height: screenHeight * 0.5,
-            },
-          ]}
-        >
-          <View
-            style={[
-              styles.titleView,
+            }}
+            contentContainerStyle={[
+              styles.modal,
               {
-                height: screenHeight * 0.06,
-                width: dimensionSetter({
-                  mobile: "70%",
-                  tabPort: "60%",
-                  tabLand: "50%",
-                }),
+                flexGrow: 1,
+                gap: screenHeight * 0.03,
               },
             ]}
           >
-            <Text
+            <View
+              style={[
+                styles.titleView,
+                {
+                  height: screenHeight * 0.06,
+                  width: dimensionSetter({
+                    mobile: "70%",
+                    tabPort: "60%",
+                    tabLand: "50%",
+                  }),
+                },
+              ]}
+            >
+              <Text
+                style={{
+                  color: Colors.primary,
+                  fontSize: dimensionSetter({
+                    mobile: screenHeight * 0.02,
+                    tabPort: screenHeight * 0.02,
+                    tabLand: screenHeight * 0.025,
+                  }),
+                  fontFamily: "Poppins-Regular",
+                  marginTop:
+                    Platform.OS == "android" ? screenHeight * 0.005 : null,
+                }}
+              >
+                New User Registration
+              </Text>
+            </View>
+            <View
               style={{
-                color: Colors.primary,
-                fontSize: dimensionSetter({
-                  mobile: screenHeight * 0.02,
-                  tabPort: screenHeight * 0.02,
-                  tabLand: screenHeight * 0.025,
+                // zIndex: 3,
+                gap: screenHeight * 0.01,
+                width: dimensionSetter({
+                  mobile: "90%",
+                  tabPort: "80%",
+                  tabLand: "70%",
                 }),
-                fontFamily: "Poppins-Regular",
-                marginTop:
-                  Platform.OS == "android" ? screenHeight * 0.005 : null,
               }}
             >
-              New User Registration
-            </Text>
-          </View>
-          <View
-            style={{
-              zIndex: 2,
-              gap: screenHeight * 0.01,
-              width: dimensionSetter({
-                mobile: "90%",
-                tabPort: "80%",
-                tabLand: "70%",
-              }),
-            }}
-          >
-            {Platform.OS == "android" ? (
               <Dropdown type="Store" showDropdown={showStoreDropdown} />
+              {/* {Platform.OS == "android" ? (
+            <Dropdown type="Store" showDropdown={showStoreDropdown} />
             ) : (
-              <View style={{ zIndex: 3 }}>
+              <View style={{ zIndex: 5 }}>
                 <Dropdown type="Store" showDropdown={showStoreDropdown} />
               </View>
-            )}
-            <View style={inputFieldStyle()}>
-              <TextInput
-                style={inputTextStyle()}
-                placeholder="Name"
-                textAlignVertical="center"
-                placeholderTextColor={Colors.primary}
-                onChangeText={(text) => {}}
-              />
+            )} */}
+              <View style={inputFieldStyle()}>
+                <TextInput
+                  style={inputTextStyle()}
+                  placeholder="Name"
+                  textAlignVertical="center"
+                  placeholderTextColor={Colors.primary}
+                  onChangeText={(text) => {}}
+                />
+              </View>
+              <View style={inputFieldStyle()}>
+                <TextInput
+                  style={inputTextStyle()}
+                  placeholder="Number"
+                  textAlignVertical="center"
+                  placeholderTextColor={Colors.primary}
+                  onChangeText={(text) => {}}
+                />
+              </View>
+              <Dropdown type="Role" showDropdown={showStoreDropdown} />
+              {/* {Platform.OS == "android" ? (
+              <Dropdown type="Role" showDropdown={showStoreDropdown} />
+            ) : (
+              <View style={{ zIndex: 4 }}>
+                <Dropdown type="Role" showDropdown={showStoreDropdown} />
+              </View>
+            )} */}
             </View>
-            <View style={inputFieldStyle()}>
-              <TextInput
-                style={inputTextStyle()}
-                placeholder="Number"
-                textAlignVertical="center"
-                placeholderTextColor={Colors.primary}
-                onChangeText={(text) => {}}
-              />
-            </View>
-            <Dropdown type="Role" showDropdown={showUserDropdown} />
-          </View>
-          <FlatButton
-            title="Register"
-            onPressed={() => props.setShowModal(false)}
-          />
-          <View style={{ position: "absolute", top: "3%", right: "3%" }}>
-            <MaterialIcons
-              name="cancel"
-              color={Colors.secondary}
-              size={screenHeight * 0.04}
-              onPress={() => props.setShowModal(false)}
+            <FlatButton
+              title="Register"
+              onPressed={() => props.setShowModal(false)}
             />
-          </View>
+            <View style={{ position: "absolute", top: "3%", right: "3%" }}>
+              <MaterialIcons
+                name="cancel"
+                color={Colors.secondary}
+                size={screenHeight * 0.04}
+                onPress={() => props.setShowModal(false)}
+              />
+            </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>

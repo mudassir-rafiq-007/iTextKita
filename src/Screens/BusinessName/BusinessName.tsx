@@ -1,18 +1,20 @@
 import { useEffect, useContext } from "react";
 import {
-  ScrollView,
-  TextInput,
   View,
-  StyleSheet,
   Platform,
+  TextInput,
+  StyleSheet,
+  ScrollView,
 } from "react-native";
-import UserIcon from "../../../assets/user.svg";
-import PhoneIcon from "../../../assets/phone.svg";
-import Want2Subscribe from "../../../assets/want.svg";
-import ManBackground from "../../../assets/man-bg.svg";
+import UserIcon from "../../../assets/images/user.svg";
+import PhoneIcon from "../../../assets/images/phone.svg";
+import Want2Subscribe from "../../../assets/images/buzbg.svg";
+import ManBackground from "../../../assets/images/man-bg.svg";
+import Grass from "../../../assets/images/bg3.svg";
+import ManIcon from "../../../assets/images/newbg.svg";
 import Header from "../../Components/Header/Header";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {
@@ -22,18 +24,19 @@ type propsType = {
 };
 
 export default function BusinessName(props: propsType) {
-  const { screenHeight, screenWidth, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    screenHeight,
+    screenWidth,
+    isTabPortrait,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   function inputFieldStyle() {
     return [
       styles.inputField,
       {
-        height: dimensionSetter({
-          mobile: screenHeight * 0.06,
-          tabPort: screenHeight * 0.05,
-          tabLand: screenHeight * 0.06,
-        }),
+        height: screenHeight * 0.06,
       },
     ];
   }
@@ -77,6 +80,7 @@ export default function BusinessName(props: propsType) {
       contentContainerStyle={{
         flexGrow: 1,
         alignItems: "center",
+        backgroundColor: "white",
         paddingTop: screenHeight * 0.02,
       }}
     >
@@ -84,7 +88,7 @@ export default function BusinessName(props: propsType) {
         style={[
           styles.form,
           {
-            zIndex: 2,
+            zIndex: 3,
             gap: screenHeight * 0.03,
             width: dimensionSetter({
               mobile: "80%",
@@ -159,17 +163,45 @@ export default function BusinessName(props: propsType) {
         </View>
         <FlatButton title="Subscribe" onPressed={() => {}} zIndex={2} />
       </View>
+      <View
+        style={{
+          zIndex: 2,
+          position: "absolute",
+          aspectRatio: 567 / 664,
+          width: dimensionSetter({
+            mobile: screenWidth * 0.8,
+            tabPort: screenWidth * 0.6,
+            tabLand: screenWidth * 0.36,
+          }),
+          left: dimensionSetter({
+            mobile: screenWidth * 0.2,
+            tabPort: screenWidth * 0.4,
+            tabLand: screenWidth * 0.6,
+          }),
+          bottom: dimensionSetter({
+            mobile: -screenHeight * 0.03,
+            tabPort: 0,
+            tabLand: -screenHeight * 0.05,
+          }),
+        }}
+      >
+        <ManIcon width={"100%"} height={"100%"} />
+      </View>
 
       <View
         style={{
           zIndex: 1,
           position: "absolute",
-          width: screenWidth,
-          aspectRatio: 360 / 557,
-          bottom: -screenHeight * 0.05,
+          aspectRatio: 800 / 541,
+          width: dimensionSetter({
+            mobile: screenWidth * 1.5,
+            tabPort: screenWidth,
+            tabLand: screenWidth,
+          }),
+          bottom: isTabLandscape ? -screenHeight * 0.15 : 0,
         }}
       >
-        <ManBackground height={"100%"} width={"100%"} />
+        <Grass width={"100%"} height={"100%"} />
       </View>
     </ScrollView>
   );

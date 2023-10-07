@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import FolderIcon from "../../../assets/folder.svg";
+import FolderIcon from "../../../assets/images/folder.svg";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";

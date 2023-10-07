@@ -5,14 +5,16 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Header from "../../Components/Header/Header";
-import TwoPersons from "../../../assets/two-persons.svg";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { useFonts } from "expo-font";
 
 type propsType = {
   navigation: {
@@ -24,6 +26,10 @@ type propsType = {
 export default function Templates(props: propsType) {
   const { screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const [fontsLoaded] = useFonts({
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
+  });
 
   const data = [
     { key: 1, value: "Youtube Link" },
@@ -42,6 +48,8 @@ export default function Templates(props: propsType) {
       header: () => <Header title="TEMPLATES" />,
     });
   }, []);
+
+  if (!fontsLoaded) return null;
 
   return (
     <LinearGradient
@@ -73,7 +81,13 @@ export default function Templates(props: propsType) {
               style={[styles.tileView, { height: screenHeight * 0.06 }]}
             >
               <Text
-                style={{ color: Colors.primary, fontSize: screenHeight * 0.02 }}
+                style={{
+                  color: Colors.primary,
+                  fontSize: screenHeight * 0.02,
+                  fontFamily: "Poppins-Regular",
+                  marginTop:
+                    Platform.OS == "android" ? screenHeight * 0.008 : null,
+                }}
               >
                 {item.value}
               </Text>
@@ -86,7 +100,11 @@ export default function Templates(props: propsType) {
           )}
         />
       </View>
-      <FlatButton title="New Template" onPressed={() => props.navigation.navigate("Online Marketing")} zIndex={2} />
+      <FlatButton
+        title="New Template"
+        onPressed={() => props.navigation.navigate("Online Marketing")}
+        zIndex={2}
+      />
       <TwoPersons
         height={dimensionSetter({
           mobile: screenHeight * 0.2,

@@ -4,24 +4,23 @@ import * as ScreenOrientation from "expo-screen-orientation";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Terms from "./src/Screens/Terms/Terms";
 import Login from "./src/Screens/Login/Login";
 import SignUp from "./src/Screens/SignUp/SignUp";
-import Campaign from "./src/Screens/Campaign/Campaign";
-import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
-import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import Profile from "./src/Screens/Profile/Profile";
-import BusinessName from "./src/Screens/BusinessName/BusinessName";
-import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
+import Campaign from "./src/Screens/Campaign/Campaign";
 import Templates from "./src/Screens/Templates/Templates";
-import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
-import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
+import BusinessName from "./src/Screens/BusinessName/BusinessName";
+import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
-import Terms from "./src/Screens/Terms/Terms";
+import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
+import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
+import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
+import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // const insets = useSafeAreaInsets()
   useEffect(() => {
     (async () => {
       const deviceType = await Device.getDeviceTypeAsync();

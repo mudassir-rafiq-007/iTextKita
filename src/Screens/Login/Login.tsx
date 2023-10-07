@@ -9,11 +9,11 @@ import {
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import Key from "../../../assets/key.svg";
-import User from "../../../assets/user.svg";
-import Hide from "../../../assets/hide.svg";
-import ITextKita from "../../../assets/iTextKita.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import Key from "../../../assets/images/key.svg";
+import User from "../../../assets/images/user.svg";
+import Hide from "../../../assets/images/hide.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
@@ -37,11 +37,7 @@ export default function Login(props: loginProps) {
     return [
       styles.inputField,
       {
-        height: dimensionSetter({
-          mobile: screenHeight * 0.06,
-          tabPort: screenHeight * 0.05,
-          tabLand: screenHeight * 0.06,
-        }),
+        height: screenHeight * 0.06,
       },
     ];
   }
@@ -50,15 +46,11 @@ export default function Login(props: loginProps) {
     return [
       styles.textInput,
       {
-        fontSize: dimensionSetter({
-          mobile: screenHeight * 0.025,
-          tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.025,
-        }),
+        fontSize: screenHeight * 0.02,
         marginTop:
           Platform.OS == "android"
             ? dimensionSetter({
-                mobile: screenHeight * 0.01,
+                mobile: screenHeight * 0.005,
                 tabPort: screenHeight * 0.01,
                 tabLand: screenHeight * 0.005,
               })
@@ -105,21 +97,17 @@ export default function Login(props: loginProps) {
               tabPort: screenHeight * 0.1,
               tabLand: screenHeight * 0.07,
             }),
-            marginBottom: dimensionSetter({
-              mobile: screenHeight * 0.01,
-              tabPort: screenHeight * 0.01,
-              tabLand: null,
-            }),
           }}
         />
         <View
           style={[
             styles.form,
             {
+              zIndex: 2,
               gap: screenHeight * 0.03,
               width: dimensionSetter({
                 mobile: "80%",
-                tabPort: "50%",
+                tabPort: "60%",
                 tabLand: "30%",
               }),
             },
@@ -295,8 +283,8 @@ export default function Login(props: loginProps) {
             tabLand: {
               zIndex: 1,
               position: "absolute",
-              bottom: screenHeight * 0.01,
               alignItems: "center",
+              bottom: screenHeight * 0.01,
             },
           })}
         >

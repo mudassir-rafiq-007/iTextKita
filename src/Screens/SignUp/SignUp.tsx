@@ -1,6 +1,7 @@
 import {
   Text,
   View,
+  Platform,
   TextInput,
   StyleSheet,
   ScrollView,
@@ -8,10 +9,10 @@ import {
 import React, { useState, useContext } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
-import HideIcon from "../../../assets/hide.svg";
-import Folder from "../../../assets/folder.svg";
-import ITextKita from "../../../assets/iTextKita.svg";
-import TwoPersons from "../../../assets/two-persons.svg";
+import HideIcon from "../../../assets/images/hide.svg";
+import FolderIcon from "../../../assets/images/folder.svg";
+import ITextKita from "../../../assets/images/iTextKita.svg";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
@@ -23,7 +24,8 @@ type loginProps = {
 };
 
 export default function SignUp(props: loginProps) {
-  const { screenWidth, screenHeight, dimensionSetter } = useContext(DimensionsContext);
+  const { screenWidth, screenHeight, dimensionSetter } =
+    useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
   const [fontsLoaded] = useFonts({
@@ -34,11 +36,7 @@ export default function SignUp(props: loginProps) {
     return [
       styles.inputField,
       {
-        height: dimensionSetter({
-          mobile: screenHeight * 0.05,
-          tabPort: screenHeight * 0.05,
-          tabLand: screenHeight * 0.06,
-        }),
+        height: screenHeight * 0.06,
         paddingHorizontal: dimensionSetter({
           mobile: screenWidth * 0.03,
           tabPort: screenWidth * 0.03,
@@ -52,16 +50,15 @@ export default function SignUp(props: loginProps) {
     return [
       styles.textInput,
       {
-        fontSize: dimensionSetter({
-          mobile: screenHeight * 0.022,
-          tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.025,
-        }),
-        marginTop: dimensionSetter({
-          mobile: screenHeight * 0.005,
-          tabPort: screenHeight * 0.01,
-          tabLand: screenHeight * 0.005,
-        }),
+        fontSize: screenHeight * 0.02,
+        marginTop:
+          Platform.OS == "android"
+            ? dimensionSetter({
+                mobile: screenHeight * 0.005,
+                tabPort: screenHeight * 0.01,
+                tabLand: screenHeight * 0.005,
+              })
+            : null,
       },
     ];
   }
@@ -70,16 +67,15 @@ export default function SignUp(props: loginProps) {
     return [
       styles.textInput,
       {
-        fontSize: dimensionSetter({
-          mobile: screenHeight * 0.023,
-          tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.025,
-        }),
-        marginTop: dimensionSetter({
-          mobile: screenHeight * 0.01,
-          tabPort: screenHeight * 0.01,
-          tabLand: screenHeight * 0.005,
-        }),
+        fontSize: screenHeight * 0.02,
+        marginTop:
+          Platform.OS == "android"
+            ? dimensionSetter({
+                mobile: screenHeight * 0.01,
+                tabPort: screenHeight * 0.01,
+                tabLand: screenHeight * 0.005,
+              })
+            : null,
         width: dimensionSetter({
           mobile: "70%",
           tabPort: "80%",
@@ -87,23 +83,6 @@ export default function SignUp(props: loginProps) {
         }),
       },
     ];
-  }
-
-  function FolderIcon() {
-    return (
-      <Folder
-        height={dimensionSetter({
-          mobile: screenHeight * 0.05,
-          tabPort: screenHeight * 0.03,
-          tabLand: screenHeight * 0.03,
-        })}
-        width={dimensionSetter({
-          mobile: screenWidth * 0.05,
-          tabPort: screenWidth * 0.03,
-          tabLand: screenWidth * 0.03,
-        })}
-      />
-    );
   }
 
   function EyeIcon() {
@@ -130,7 +109,7 @@ export default function SignUp(props: loginProps) {
 
   return (
     <ScrollView
-      style={{ height: "100%" }}
+      style={{ height: screenHeight }}
       keyboardShouldPersistTaps="handled"
       contentContainerStyle={{ flexGrow: 1 }}
     >
@@ -156,22 +135,18 @@ export default function SignUp(props: loginProps) {
               tabPort: screenHeight * 0.1,
               tabLand: screenHeight * 0.07,
             }),
-            marginBottom: dimensionSetter({
-              mobile: screenHeight * 0.01,
-              tabPort: screenHeight * 0.01,
-              tabLand: null,
-            }),
           }}
         />
         <View
           style={[
             styles.form,
             {
+              zIndex: 2,
               gap: screenHeight * 0.01,
               width: dimensionSetter({
                 mobile: "80%",
-                tabPort: "50%",
-                tabLand: "30%",
+                tabPort: "60%",
+                tabLand: "35%",
               }),
             },
           ]}
@@ -239,7 +214,7 @@ export default function SignUp(props: loginProps) {
         <FlatButton
           title="Sign Up"
           zIndex={2}
-          onPressed={() => {}}
+          onPressed={() => props.navigation.navigate("Campaign")}
           titleFontSize={dimensionSetter({
             mobile: screenWidth * 0.05,
             tabPort: screenWidth * 0.035,
@@ -287,26 +262,21 @@ export default function SignUp(props: loginProps) {
         </View>
         <TwoPersons
           height={dimensionSetter({
-            mobile: screenHeight * 0.22,
+            mobile: screenHeight * 0.2,
             tabPort: screenHeight * 0.3,
-            tabLand: screenHeight * 0.55,
+            tabLand: screenHeight * 0.6,
           })}
-          width={dimensionSetter({
-            mobile: screenWidth * 0.9,
-            tabPort: screenWidth * 0.95,
-            tabLand: screenWidth * 0.95,
-          })}
-          style={dimensionSetter({
-            mobile: null,
-            tabPort: null,
-            tabLand: {
-              zIndex: 1,
-              opacity: 0.7,
-              position: "absolute",
-              alignItems: "center",
-              bottom: screenHeight * 0.01,
+          width={screenWidth * 0.8}
+          style={[
+            styles.twoPersons,
+            {
+              bottom: dimensionSetter({
+                mobile: screenHeight * 0.03,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.001,
+              }),
             },
-          })}
+          ]}
         />
       </LinearGradient>
     </ScrollView>
@@ -346,5 +316,10 @@ const styles = StyleSheet.create({
   noAcc: {
     color: "#696969",
     fontFamily: "Poppins-Regular",
-  }
+  },
+  twoPersons: {
+    zIndex: 1,
+    opacity: 0.8,
+    position: "absolute",
+  },
 });
