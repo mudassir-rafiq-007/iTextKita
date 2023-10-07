@@ -1,17 +1,15 @@
 import { useEffect, useContext } from "react";
 import {
   View,
+  Image,
   Platform,
   TextInput,
   StyleSheet,
   ScrollView,
 } from "react-native";
+import Grass from "../../../assets/images/bg3.svg";
 import UserIcon from "../../../assets/images/user.svg";
 import PhoneIcon from "../../../assets/images/phone.svg";
-import Want2Subscribe from "../../../assets/images/buzbg.svg";
-import ManBackground from "../../../assets/images/man-bg.svg";
-import Grass from "../../../assets/images/bg3.svg";
-import ManIcon from "../../../assets/images/newbg.svg";
 import Header from "../../Components/Header/Header";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
@@ -179,13 +177,16 @@ export default function BusinessName(props: propsType) {
             tabLand: screenWidth * 0.6,
           }),
           bottom: dimensionSetter({
-            mobile: -screenHeight * 0.03,
+            mobile: -screenHeight * 0.02,
             tabPort: 0,
-            tabLand: -screenHeight * 0.05,
+            tabLand: -screenHeight * 0.03,
           }),
         }}
       >
-        <ManIcon width={"100%"} height={"100%"} />
+        <Image
+          source={require("../../../assets/images/man.png")}
+          style={{ height: "100%", width: "100%" }}
+        />
       </View>
 
       <View
