@@ -1,11 +1,9 @@
 import { useEffect, useContext } from "react";
-import { Text, View, FlatList, StyleSheet } from "react-native";
+import { Text, View, Image, FlatList, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import CrossIcon from "../../../assets/images/cross.svg";
-import SuccessIcon from "../../../assets/images/check.svg";
-import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import { useFonts } from "expo-font";
 
@@ -26,13 +24,19 @@ export default function MarketingHistory(props: propsType) {
 
   function Cross() {
     return (
-      <CrossIcon height={screenHeight * 0.03} width={screenWidth * 0.03} />
+      <Image
+        source={require("../../../assets/Icons/cross.png")}
+        style={{ height: screenHeight * 0.02, width: screenHeight * 0.02 }}
+      />
     );
   }
 
   function Success() {
     return (
-      <SuccessIcon height={screenHeight * 0.03} width={screenWidth * 0.03} />
+      <Image
+        source={require("../../../assets/Icons/tick.png")}
+        style={{ height: screenHeight * 0.02, width: screenHeight * 0.02 }}
+      />
     );
   }
 
