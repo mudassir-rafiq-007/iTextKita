@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { LogBox } from "react-native";
 import * as Device from "expo-device";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,6 +18,11 @@ import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
+
+LogBox.ignoreLogs([
+  "new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.",
+  "new NativeEventEmitter()` was called with a non-null argument without the required `removeListeners` method.",
+]);
 
 const Stack = createNativeStackNavigator();
 
