@@ -19,3 +19,8 @@ npx expo start -c
 ```
 - To test on real device, install Expo Go app first from Play Store/App Store and then run above command.
 
+
+
+## Build APK/IPA files or Creating a build for Release
+- Refer to the following link to for creating APK/IPA file or creating a build for release:
+https://docs.expo.dev/build/setup/
