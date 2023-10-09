@@ -211,8 +211,6 @@ export default function Profile(props: propsType) {
       <View
         style={{
           zIndex: 2,
-          borderWidth: 1,
-          borderColor: "black",
           width: dimensionSetter({
             mobile: screenWidth * 0.9,
             tabPort: screenWidth * 0.7,

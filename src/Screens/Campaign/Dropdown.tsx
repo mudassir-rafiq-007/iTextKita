@@ -3,7 +3,7 @@ import { Colors } from "../../Components/Constants/Colors";
 import MIcon from "react-native-vector-icons/MaterialIcons";
 import { SelectList } from "react-native-dropdown-select-list";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 
 type propType = {
   showDropdown: boolean;
@@ -55,7 +55,12 @@ export default function Dropdown(props: propType) {
         borderBottomRightRadius: 5,
         backgroundColor: Colors.primary,
         height: screenHeight * 0.06,
-        paddingHorizontal: screenWidth * 0.03,
+        paddingLeft: screenWidth * 0.03,
+        paddingRight: dimensionSetter({
+          mobile: screenWidth * 0.04,
+          tabPort: screenWidth * 0.04,
+          tabLand: screenWidth * 0.03,
+        }),
         width: dimensionSetter({
           mobile: screenWidth * 0.9,
           tabPort: screenWidth * 0.7,
@@ -63,14 +68,7 @@ export default function Dropdown(props: propType) {
         }),
       }}
       arrowicon={
-        <MIcon
-          color={Colors.primary}
-          name="keyboard-arrow-down"
-          size={dimensionSetter({
-            mobile: screenHeight * 0.03,
-            tabPort: screenHeight * 0.03,
-            tabLand: screenHeight * 0.04,
-          })}
+        <View
           style={{
             zIndex: 2,
             backgroundColor: Colors.secondary,
@@ -90,11 +88,35 @@ export default function Dropdown(props: propType) {
               tabLand: screenHeight * 0.02,
             }),
           }}
-        />
+        >
+          <MIcon
+            color={Colors.primary}
+            name="keyboard-arrow-down"
+            size={dimensionSetter({
+              mobile: screenHeight * 0.03,
+              tabPort: screenHeight * 0.03,
+              tabLand: screenHeight * 0.04,
+            })}
+            style={{}}
+          />
+        </View>
       }
       dropdownStyles={{
-        zIndex: 2,
+        zIndex: 3,
+        position: "absolute",
+        width: dimensionSetter({
+          mobile: screenWidth * 0.9,
+          tabPort: screenWidth * 0.7,
+          tabLand: screenWidth * 0.4,
+        }),
+        height: dimensionSetter({
+          mobile: screenHeight * 0.25,
+          tabPort: screenHeight * 0.25,
+          tabLand: screenHeight * 0.2,
+        }),
+        top: screenHeight * 0.05,
         borderRadius: 5,
+        backgroundColor: "#D9D9D9",
         borderColor: Colors.primary,
         borderWidth: dimensionSetter({ mobile: 1, tabPort: 1, tabLand: 3 }),
       }}
