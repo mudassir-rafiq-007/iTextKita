@@ -260,6 +260,18 @@ export default function SignUp(props: loginProps) {
             })}
           />
         </View>
+        <View
+        style={[
+          styles.twoPersons,
+          {
+            bottom: dimensionSetter({
+              mobile: screenHeight * 0.05,
+              tabPort: screenHeight * 0.03,
+              tabLand: screenHeight * 0.001,
+            }),
+          },
+        ]}
+      >
         <TwoPersons
           height={dimensionSetter({
             mobile: screenHeight * 0.2,
@@ -267,17 +279,8 @@ export default function SignUp(props: loginProps) {
             tabLand: screenHeight * 0.6,
           })}
           width={screenWidth * 0.8}
-          style={[
-            styles.twoPersons,
-            {
-              bottom: dimensionSetter({
-                mobile: screenHeight * 0.03,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.001,
-              }),
-            },
-          ]}
         />
+      </View>
       </LinearGradient>
     </ScrollView>
   );
