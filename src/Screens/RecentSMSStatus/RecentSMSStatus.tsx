@@ -1,19 +1,18 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
-  Text,
   View,
-  Image,
   FlatList,
-  Platform,
   StyleSheet,
+  ScrollView,
   TouchableOpacity,
 } from "react-native";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
+import Dropdown from "./Dropdown";
 import Lady from "../../../assets/images/sms.svg";
-import TwoPersons from "../../../assets/images/two-persons.svg";
 import Header from "../../Components/Header/Header";
 import { shadow } from "../../Components/Constants/Shadow";
+import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
@@ -27,6 +26,12 @@ export default function RecentSMSStatus(props: propsType) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+  function dropdownSwitch() {
+    setShowDropdown((current) => (current ? false : true));
+  }
+
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
     "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
@@ -34,68 +39,18 @@ export default function RecentSMSStatus(props: propsType) {
 
   const customers = ["Jerry", "Matries", "Newman", "Rachel", "Ross", "Jake"];
 
-  function textStyle() {
-    return {
-      fontFamily: "Poppins-Regular",
-      fontSize: screenHeight * 0.02,
-      marginTop:
-        Platform.OS == "android"
-          ? dimensionSetter({
-              mobile: screenHeight * 0.005,
-              tabPort: screenHeight * 0.01,
-              tabLand: screenHeight * 0.01,
-            })
-          : null,
-    };
-  }
-
-  function ListHeader() {
-    return (
-      <View>
-        <TouchableOpacity
-          style={[styles.tileView, { height: screenHeight * 0.06 }]}
-        >
-          <Text style={textStyle()}>{customers[0]}</Text>
-          <View
-            style={[
-              styles.icons,
-              {
-                width: dimensionSetter({
-                  mobile: "15%",
-                  tabPort: "15%",
-                  tabLand: "15%",
-                }),
-              },
-            ]}
-          >
-            <Image
-              source={require("../../../assets/Icons/like.png")}
-              style={{
-                height: screenHeight * 0.03,
-                width: screenHeight * 0.03,
-              }}
-            />
-            <Image
-              source={require("../../../assets/Icons/arrowdown.png")}
-              style={{
-                height: screenHeight * 0.02,
-                width: screenHeight * 0.02,
-              }}
-            />
-          </View>
-        </TouchableOpacity>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            marginVertical: screenHeight * 0.01,
-          }}
-        >
-          <Text style={textStyle()}>{new Date().toDateString()}</Text>
-          <Text style={textStyle()}>Use messages for web to send SMS, MMS</Text>
-        </View>
-      </View>
-    );
+  function listViewStyle() {
+    return [
+      styles.listView,
+      {
+        paddingTop: screenHeight * 0.03,
+        width: dimensionSetter({
+          mobile: "100%",
+          tabPort: "80%",
+          tabLand: "50%",
+        }),
+      },
+    ];
   }
 
   useEffect(() => {
@@ -105,84 +60,59 @@ export default function RecentSMSStatus(props: propsType) {
   }, []);
 
   if (!fontsLoaded) return null;
+
   return (
-    <LinearGradient
-      locations={[0.4, 1]}
-      colors={["#FFFFFF", "#008080"]}
-      style={styles.main}
+    <ScrollView
+      style={{ height: "100%" }}
+      keyboardShouldPersistTaps={"handled"}
+      contentContainerStyle={{ flexGrow: 1 }}
     >
-      <Lady height={screenHeight * 0.1} width={screenWidth * 0.5} />
-      <View
-        style={[
-          styles.listView,
-          {
-            paddingTop: screenHeight * 0.03,
-            height: dimensionSetter({
-              mobile: "100%",
-              tabPort: "70%",
-              tabLand: "100%",
-            }),
-            width: dimensionSetter({
-              mobile: "100%",
-              tabPort: "80%",
-              tabLand: "50%",
-            }),
-          },
-        ]}
+      <LinearGradient
+        style={styles.main}
+        locations={[0.4, 1]}
+        colors={["#FFFFFF", "#008080"]}
       >
-        <FlatList
-          data={customers}
-          ListHeaderComponent={ListHeader()}
-          contentContainerStyle={{ gap: screenHeight * 0.005 }}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[styles.tileView, { height: screenHeight * 0.06 }]}
-            >
-              <Text style={textStyle()}>{item}</Text>
-              <View style={styles.icons}>
-                <Image
-                  source={require("../../../assets/Icons/like.png")}
-                  style={{
-                    height: screenHeight * 0.03,
-                    width: screenHeight * 0.03,
-                  }}
-                />
-                <Image
-                  source={require("../../../assets/Icons/arrowdown.png")}
-                  style={{
-                    height: screenHeight * 0.02,
-                    width: screenHeight * 0.02,
-                  }}
-                />
-              </View>
-            </TouchableOpacity>
-          )}
-        />
-      </View>
-      <TwoPersons
-        height={dimensionSetter({
-          mobile: screenHeight * 0.2,
-          tabPort: screenHeight * 0.3,
-          tabLand: screenHeight * 0.6,
-        })}
-        width={screenWidth * 0.8}
-        style={[
-          styles.twoPersons,
-          {
-            opacity: dimensionSetter({
-              mobile: 0.8,
-              tabPort: 0.8,
-              tabLand: 0.4,
-            }),
-            bottom: dimensionSetter({
-              mobile: screenHeight * 0.05,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.001,
-            }),
-          },
-        ]}
-      />
-    </LinearGradient>
+        <Lady height={screenHeight * 0.1} width={screenWidth * 0.5} />
+        <View style={listViewStyle()}>
+          <FlatList
+            data={customers}
+            scrollEnabled={false}
+            contentContainerStyle={{ gap: screenHeight * 0.005 }}
+            renderItem={({ item }) => (
+              <TouchableOpacity onPress={dropdownSwitch}>
+                <Dropdown showDropdown={showDropdown} name={item} />
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+        <View
+          style={[
+            styles.twoPersons,
+            {
+              opacity: dimensionSetter({
+                mobile: 0.8,
+                tabPort: 0.8,
+                tabLand: 0.4,
+              }),
+              bottom: dimensionSetter({
+                mobile: screenHeight * 0.05,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.001,
+              }),
+            },
+          ]}
+        >
+          <TwoPersons
+            height={dimensionSetter({
+              mobile: screenHeight * 0.2,
+              tabPort: screenHeight * 0.3,
+              tabLand: screenHeight * 0.6,
+            })}
+            width={screenWidth * 0.8}
+          />
+        </View>
+      </LinearGradient>
+    </ScrollView>
   );
 }
 
@@ -195,7 +125,6 @@ const styles = StyleSheet.create({
   },
   listView: {
     zIndex: 2,
-    width: "100%",
     height: "100%",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -208,12 +137,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: "5%",
     backgroundColor: "white",
-    justifyContent: "space-between",
-  },
-  icons: {
-    width: "15%",
-    flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
   },
   twoPersons: {

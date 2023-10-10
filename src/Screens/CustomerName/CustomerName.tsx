@@ -212,28 +212,27 @@ export default function CustomerName(props: propsType) {
           })}
         />
       </View>
-      <TwoPersons
-        height={dimensionSetter({
-          mobile: screenHeight * 0.2,
-          tabPort: screenHeight * 0.3,
-          tabLand: screenHeight * 0.6,
-        })}
-        width={dimensionSetter({
-          mobile: screenWidth * 0.8,
-          tabPort: screenWidth * 0.8,
-          tabLand: screenWidth * 0.8,
-        })}
-        style={dimensionSetter({
-          mobile: null,
-          tabPort: null,
-          tabLand: {
-            zIndex: 1,
-            opacity: 0.8,
-            position: "absolute",
-            bottom: screenHeight * 0.001,
+      <View
+        style={[
+          styles.twoPersons,
+          {
+            bottom: dimensionSetter({
+              mobile: screenHeight * 0.05,
+              tabPort: screenHeight * 0.03,
+              tabLand: screenHeight * 0.001,
+            }),
           },
-        })}
-      />
+        ]}
+      >
+        <TwoPersons
+          height={dimensionSetter({
+            mobile: screenHeight * 0.2,
+            tabPort: screenHeight * 0.3,
+            tabLand: screenHeight * 0.6,
+          })}
+          width={screenWidth * 0.8}
+        />
+      </View>
     </LinearGradient>
   );
 }
@@ -244,5 +243,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#fff",
     justifyContent: "center",
+  },
+  twoPersons: {
+    zIndex: 1,
+    opacity: 0.8,
+    position: "absolute",
   },
 });

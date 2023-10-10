@@ -115,13 +115,7 @@ export default function Terms(props: propsType) {
         zIndex={2}
         marginVertical={screenHeight * 0.02}
       />
-      <TwoPersons
-        height={dimensionSetter({
-          mobile: screenHeight * 0.2,
-          tabPort: screenHeight * 0.3,
-          tabLand: screenHeight * 0.6,
-        })}
-        width={screenWidth * 0.8}
+      <View
         style={[
           styles.twoPersons,
           {
@@ -132,7 +126,16 @@ export default function Terms(props: propsType) {
             }),
           },
         ]}
-      />
+      >
+        <TwoPersons
+          height={dimensionSetter({
+            mobile: screenHeight * 0.2,
+            tabPort: screenHeight * 0.3,
+            tabLand: screenHeight * 0.6,
+          })}
+          width={screenWidth * 0.8}
+        />
+      </View>
     </LinearGradient>
   );
 }

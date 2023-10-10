@@ -15,6 +15,14 @@ export default function HeaderMenu() {
     "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
+  function menuWidth() {
+    return dimensionSetter({
+      mobile: screenWidth * 0.5,
+      tabPort: screenWidth * 0.4,
+      tabLand: screenWidth * 0.2,
+    });
+  }
+
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const hideMenu = () => setVisible(false);
@@ -52,11 +60,7 @@ export default function HeaderMenu() {
         visible={visible}
         onRequestClose={hideMenu}
         style={{
-          width: dimensionSetter({
-            mobile: "50%",
-            tabPort: "30%",
-            tabLand: "20%",
-          }),
+          width: menuWidth(),
           position: "absolute",
           top: screenHeight * 0.13,
           right: screenWidth * 0.05,
@@ -65,10 +69,13 @@ export default function HeaderMenu() {
         <FlatList
           data={menuItems}
           ItemSeparatorComponent={() => (
-            <MenuDivider color={Colors.secondary} />
+            <View style={{ width: menuWidth() }}>
+              <MenuDivider color={Colors.secondary} />
+            </View>
           )}
           renderItem={({ item }) => (
             <MenuItem
+              style={{ width: menuWidth() }}
               onPress={() => {
                 hideMenu();
                 navigation.navigate(`${item}` as never);

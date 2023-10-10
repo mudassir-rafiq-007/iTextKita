@@ -149,15 +149,15 @@ export default function Campaign(props: propsType) {
             }}
           />
         </TouchableOpacity>
-        <Dropdown showDropdown={false} />
+        {Platform.OS == "android" ? (
+          <Dropdown showDropdown={false} />
+        ) : (
+          <View style={{ zIndex: 3 }}>
+            <Dropdown showDropdown={false} />
+          </View>
+        )}
         <FlatButton title="Send" onPressed={() => {}} zIndex={2} />
-        <TwoPersons
-          height={dimensionSetter({
-            mobile: screenHeight * 0.2,
-            tabPort: screenHeight * 0.3,
-            tabLand: screenHeight * 0.6,
-          })}
-          width={screenWidth * 0.8}
+        <View
           style={[
             styles.twoPersons,
             {
@@ -168,7 +168,16 @@ export default function Campaign(props: propsType) {
               }),
             },
           ]}
-        />
+        >
+          <TwoPersons
+            height={dimensionSetter({
+              mobile: screenHeight * 0.2,
+              tabPort: screenHeight * 0.3,
+              tabLand: screenHeight * 0.6,
+            })}
+            width={screenWidth * 0.8}
+          />
+        </View>
       </LinearGradient>
     </ScrollView>
   );
