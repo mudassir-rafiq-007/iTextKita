@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { LogBox } from "react-native";
+import { LogBox, Platform } from "react-native";
 import * as Device from "expo-device";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { NavigationContainer } from "@react-navigation/native";
@@ -30,12 +30,22 @@ export default function App() {
   useEffect(() => {
     (async () => {
       const deviceType = await Device.getDeviceTypeAsync();
-      if (deviceType == 1) {
-        // This is for mobile devices. Following code will lock it orientation from changing
-        (async () =>
-          await ScreenOrientation.lockAsync(
-            ScreenOrientation.OrientationLock.PORTRAIT
-          ))();
+      if (Platform.OS == "ios") {
+        if (!Platform.isPad) {
+          // This is for mobile devices. Following code will lock it orientation from changing
+          (async () =>
+            await ScreenOrientation.lockAsync(
+              ScreenOrientation.OrientationLock.PORTRAIT_UP
+            ))();
+        }
+      } else {
+        if (deviceType == 1) {
+          // This is for mobile devices. Following code will lock it orientation from changing
+          (async () =>
+            await ScreenOrientation.lockAsync(
+              ScreenOrientation.OrientationLock.PORTRAIT_UP
+            ))();
+        }
       }
     })();
   }, []);
