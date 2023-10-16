@@ -36,7 +36,6 @@ export default function App() {
   async function checkForMobile() {
     if (Platform.OS == "ios") {
       if (Platform.isPad == false) {
-        console.log("is mobile");
         // This is for mobile devices. Following code will lock it orientation from changing
         lockMobileOrientation();
       }
