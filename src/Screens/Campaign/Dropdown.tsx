@@ -1,18 +1,25 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+import { Platform, View } from "react-native";
 import { Colors } from "../../Components/Constants/Colors";
 import MIcon from "react-native-vector-icons/MaterialIcons";
 import { SelectList } from "react-native-dropdown-select-list";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { Platform, View } from "react-native";
+
+type dimensionSetterProp = {
+  mobile: any;
+  tabPort: any;
+  tabLand: any;
+};
 
 type propType = {
+  screenWidth: number;
+  screenHeight: number;
   showDropdown: boolean;
+  dimensionSetter: ({}: dimensionSetterProp) => any;
 };
 
 export default function Dropdown(props: propType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
   const [selected, setSelected] = useState<string>("");
+  
   const data = [
     { key: 1, value: "Youtube Link" },
     { key: 2, value: "Days Available Online" },
@@ -29,114 +36,117 @@ export default function Dropdown(props: propType) {
     <SelectList
       data={data}
       search={false}
-      dropdownShown={props.showDropdown}
-      placeholder="Select Template"
       setSelected={setSelected}
       fontFamily="Poppins-Regular"
+      placeholder="Select Template"
+      dropdownShown={props.showDropdown}
       inputStyles={{
-        zIndex: 2,
+        zIndex: Platform.OS == "android" ? 2 : null,
         opacity: 0.5,
-        color: "white",
         width: "90%",
+        color: "white",
         textAlignVertical: "center",
-        height: screenHeight * 0.06,
         fontFamily: "Poppins-Regular",
-        fontSize: screenHeight * 0.02,
-        lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
-        marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
+        height: props.screenHeight * 0.06,
+        fontSize: props.screenHeight * 0.02,
+        lineHeight: Platform.OS == "ios" ? props.screenHeight * 0.06 : null,
+        marginTop: Platform.OS == "android" ? props.screenHeight * 0.008 : null,
       }}
       boxStyles={{
-        zIndex: 2,
+        zIndex: Platform.OS == "android" ? 2 : null,
         borderWidth: 0,
         alignItems: "center",
         borderTopLeftRadius: 5,
         borderTopRightRadius: 0,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 5,
+        height: props.screenHeight * 0.06,
+        paddingLeft: props.screenWidth * 0.03,
         backgroundColor: Colors.primary,
-        height: screenHeight * 0.06,
-        paddingLeft: screenWidth * 0.03,
-        paddingRight: dimensionSetter({
-          mobile: screenWidth * 0.04,
-          tabPort: screenWidth * 0.04,
-          tabLand: screenWidth * 0.03,
+        paddingRight: props.dimensionSetter({
+          mobile: props.screenWidth * 0.04,
+          tabPort: props.screenWidth * 0.04,
+          tabLand: props.screenWidth * 0.03,
         }),
-        width: dimensionSetter({
-          mobile: screenWidth * 0.9,
-          tabPort: screenWidth * 0.7,
-          tabLand: screenWidth * 0.4,
+        width: props.dimensionSetter({
+          mobile: props.screenWidth * 0.9,
+          tabPort: props.screenWidth * 0.7,
+          tabLand: props.screenWidth * 0.4,
         }),
       }}
       arrowicon={
         <View
           style={{
-            zIndex: 2,
+            zIndex: Platform.OS == "android" ? 2 : null,
             backgroundColor: Colors.secondary,
-            height: dimensionSetter({
-              mobile: screenHeight * 0.03,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.04,
+            height: props.dimensionSetter({
+              mobile: props.screenHeight * 0.03,
+              tabPort: props.screenHeight * 0.03,
+              tabLand: props.screenHeight * 0.04,
             }),
-            width: dimensionSetter({
-              mobile: screenHeight * 0.03,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.04,
+            width: props.dimensionSetter({
+              mobile: props.screenHeight * 0.03,
+              tabPort: props.screenHeight * 0.03,
+              tabLand: props.screenHeight * 0.04,
             }),
-            borderRadius: dimensionSetter({
-              mobile: screenHeight * 0.015,
-              tabPort: screenHeight * 0.015,
-              tabLand: screenHeight * 0.02,
+            borderRadius: props.dimensionSetter({
+              mobile: props.screenHeight * 0.015,
+              tabPort: props.screenHeight * 0.015,
+              tabLand: props.screenHeight * 0.02,
             }),
           }}
         >
           <MIcon
             color={Colors.primary}
             name="keyboard-arrow-down"
-            size={dimensionSetter({
-              mobile: screenHeight * 0.03,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.04,
+            size={props.dimensionSetter({
+              mobile: props.screenHeight * 0.03,
+              tabPort: props.screenHeight * 0.03,
+              tabLand: props.screenHeight * 0.04,
             })}
-            style={{}}
           />
         </View>
       }
       dropdownStyles={{
-        zIndex: 3,
+        zIndex: Platform.OS == "android" ? 3 : null,
         position: "absolute",
-        width: dimensionSetter({
-          mobile: screenWidth * 0.9,
-          tabPort: screenWidth * 0.7,
-          tabLand: screenWidth * 0.4,
+        width: props.dimensionSetter({
+          mobile: props.screenWidth * 0.9,
+          tabPort: props.screenWidth * 0.7,
+          tabLand: props.screenWidth * 0.4,
         }),
-        height: dimensionSetter({
-          mobile: screenHeight * 0.25,
-          tabPort: screenHeight * 0.25,
-          tabLand: screenHeight * 0.2,
+        height: props.dimensionSetter({
+          mobile: props.screenHeight * 0.25,
+          tabPort: props.screenHeight * 0.25,
+          tabLand: props.screenHeight * 0.2,
         }),
-        top: screenHeight * 0.05,
         borderRadius: 5,
+        top: props.screenHeight * 0.05,
         backgroundColor: "#D9D9D9",
         borderColor: Colors.primary,
-        borderWidth: dimensionSetter({ mobile: 1, tabPort: 1, tabLand: 3 }),
+        borderWidth: props.dimensionSetter({
+          mobile: 1,
+          tabPort: 1,
+          tabLand: 3,
+        }),
       }}
       dropdownItemStyles={{
-        zIndex: 2,
+        zIndex: Platform.OS == "android" ? 2 : null,
         borderColor: Colors.primary,
-        borderBottomWidth: dimensionSetter({
+        borderBottomWidth: props.dimensionSetter({
           mobile: 1,
           tabPort: 1,
           tabLand: 2,
         }),
       }}
       dropdownTextStyles={{
-        zIndex: 2,
+        zIndex: Platform.OS == "android" ? 2 : null,
         color: Colors.primary,
         fontFamily: "Poppins-Regular",
-        fontSize: dimensionSetter({
-          mobile: screenHeight * 0.02,
-          tabPort: screenHeight * 0.02,
-          tabLand: screenHeight * 0.025,
+        fontSize: props.dimensionSetter({
+          mobile: props.screenHeight * 0.02,
+          tabPort: props.screenHeight * 0.02,
+          tabLand: props.screenHeight * 0.025,
         }),
       }}
     />
