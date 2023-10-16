@@ -1,13 +1,14 @@
 import {
   Text,
   View,
+  Platform,
   TextInput,
+  Pressable,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Platform,
 } from "react-native";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import SendIcon from "react-native-vector-icons/FontAwesome";
@@ -29,6 +30,12 @@ type propsType = {
 export default function Campaign(props: propsType) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+  function dropdownSwitch() {
+    setShowDropdown((current) => (current ? false : true));
+  }
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -150,11 +157,21 @@ export default function Campaign(props: propsType) {
           />
         </TouchableOpacity>
         {Platform.OS == "android" ? (
-          <Dropdown showDropdown={false} />
+          <Dropdown
+            screenWidth={screenWidth}
+            screenHeight={screenHeight}
+            showDropdown={showDropdown}
+            dimensionSetter={dimensionSetter}
+          />
         ) : (
-          <View style={{ zIndex: 3 }}>
-            <Dropdown showDropdown={false} />
-          </View>
+          <Pressable style={{ zIndex: 3 }} onPress={dropdownSwitch}>
+            <Dropdown
+              screenWidth={screenWidth}
+              screenHeight={screenHeight}
+              showDropdown={showDropdown}
+              dimensionSetter={dimensionSetter}
+            />
+          </Pressable>
         )}
         <FlatButton title="Send" onPressed={() => {}} zIndex={2} />
         <View
