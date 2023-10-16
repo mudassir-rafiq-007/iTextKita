@@ -27,27 +27,30 @@ LogBox.ignoreLogs([
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  useEffect(() => {
-    (async () => {
-      const deviceType = await Device.getDeviceTypeAsync();
-      if (Platform.OS == "ios") {
-        if (!Platform.isPad) {
-          // This is for mobile devices. Following code will lock it orientation from changing
-          (async () =>
-            await ScreenOrientation.lockAsync(
-              ScreenOrientation.OrientationLock.PORTRAIT_UP
-            ))();
-        }
-      } else {
-        if (deviceType == 1) {
-          // This is for mobile devices. Following code will lock it orientation from changing
-          (async () =>
-            await ScreenOrientation.lockAsync(
-              ScreenOrientation.OrientationLock.PORTRAIT_UP
-            ))();
-        }
+  async function lockMobileOrientation() {
+    await ScreenOrientation.lockAsync(
+      ScreenOrientation.OrientationLock.PORTRAIT_UP
+    );
+  }
+
+  async function checkForMobile() {
+    if (Platform.OS == "ios") {
+      if (Platform.isPad == false) {
+        console.log("is mobile");
+        // This is for mobile devices. Following code will lock it orientation from changing
+        lockMobileOrientation();
       }
-    })();
+    } else {
+      const deviceType = await Device.getDeviceTypeAsync();
+      if (deviceType == 1) {
+        // This is for mobile devices. Following code will lock it orientation from changing
+        lockMobileOrientation();
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkForMobile();
   }, []);
   return (
     <DimensionsProvider>
