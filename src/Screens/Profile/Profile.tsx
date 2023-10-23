@@ -77,13 +77,13 @@ export default function Profile(props: propsType) {
           flexDirection: "row",
           alignItems: "center",
           width: dimensionSetter({
-            mobile: "95%",
-            tabPort: "75%",
-            tabLand: "70%",
+            mobile: screenWidth * 0.9,
+            tabPort: screenWidth * 0.7,
+            tabLand: screenWidth * 0.6,
           }),
           justifyContent: dimensionSetter({
-            mobile: "space-evenly",
-            tabPort: "space-evenly",
+            mobile: "space-between",
+            tabPort: "space-between",
             tabLand: "center",
           }),
         }}
@@ -133,10 +133,10 @@ export default function Profile(props: propsType) {
             tabPort: screenHeight * 0.02,
             tabLand: screenHeight * 0.03,
           })}
-          paddingHorizontal={dimensionSetter({
-            mobile: screenWidth * 0.03,
-            tabPort: screenWidth * 0.03,
-            tabLand: screenWidth * 0.01,
+          width={dimensionSetter({
+            mobile: screenWidth * 0.2,
+            tabPort: screenWidth * 0.15,
+            tabLand: screenWidth * 0.1,
           })}
         />
       </View>
@@ -145,7 +145,7 @@ export default function Profile(props: propsType) {
           styles.addButtons,
           {
             width: dimensionSetter({
-              mobile: screenWidth,
+              mobile: screenWidth * 0.9,
               tabPort: screenWidth * 0.7,
               tabLand: screenWidth * 0.3,
             }),
@@ -155,19 +155,19 @@ export default function Profile(props: propsType) {
         <FlatButton
           title="Add New User"
           onPressed={() => setShowNewUserModal(true)}
-          paddingHorizontal={dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.04,
-            tabLand: screenWidth * 0.02,
+          width={dimensionSetter({
+            mobile: screenWidth * 0.4,
+            tabPort: screenWidth * 0.3,
+            tabLand: screenWidth * 0.15,
           })}
         />
         <FlatButton
           title="Add New Store"
           onPressed={() => setShowNewStoreModal(true)}
-          paddingHorizontal={dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.04,
-            tabLand: screenWidth * 0.02,
+          width={dimensionSetter({
+            mobile: screenWidth * 0.4,
+            tabPort: screenWidth * 0.3,
+            tabLand: screenWidth * 0.15,
           })}
         />
       </View>
@@ -259,6 +259,11 @@ export default function Profile(props: propsType) {
         onPressed={() => {
           props.navigation.navigate("Login");
         }}
+        width={dimensionSetter({
+          mobile: null,
+          tabPort: null,
+          tabLand: screenWidth * 0.2,
+        })}
       />
       {(isTabLandscape || isTabPortrait) && (
         <Text
@@ -329,7 +334,7 @@ const styles = StyleSheet.create({
     zIndex: 2,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
   },
   listItem: {
     ...shadow,

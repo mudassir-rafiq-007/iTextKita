@@ -150,7 +150,15 @@ export default function NewStoreModal(props: propsType) {
               <FolderIcon />
             </View>
           </View>
-          <FlatButton title="Add" onPressed={() => props.setShowModal(false)} />
+          <FlatButton
+            title="Add"
+            onPressed={() => props.setShowModal(false)}
+            width={dimensionSetter({
+              mobile: screenWidth * 0.8,
+              tabPort: screenWidth * 0.5,
+              tabLand: screenWidth * 0.3,
+            })}
+          />
           <View style={{ position: "absolute", top: "3%", right: "3%" }}>
             <MaterialIcons
               name="cancel"
