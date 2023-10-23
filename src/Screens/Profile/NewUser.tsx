@@ -163,6 +163,11 @@ export default function NewUserModal(props: propsType) {
             <FlatButton
               title="Register"
               onPressed={() => props.setShowModal(false)}
+              width={dimensionSetter({
+                mobile: screenWidth * 0.8,
+                tabPort: screenWidth * 0.5,
+                tabLand: screenWidth * 0.3,
+              })}
             />
             <View style={{ position: "absolute", top: "3%", right: "3%" }}>
               <MaterialIcons

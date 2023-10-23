@@ -173,7 +173,11 @@ export default function Campaign(props: propsType) {
             />
           </Pressable>
         )}
-        <FlatButton title="Send" onPressed={() => {}} zIndex={2} />
+        <FlatButton title="Send" onPressed={() => {}} zIndex={2} width={dimensionSetter({
+          mobile: null,
+          tabPort: null,
+          tabLand: screenWidth * 0.2
+        })}/>
         <View
           style={[
             styles.twoPersons,

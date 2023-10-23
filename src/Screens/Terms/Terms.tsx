@@ -113,6 +113,11 @@ export default function Terms(props: propsType) {
         title="Next"
         onPressed={() => props.navigation.navigate("Login")}
         zIndex={2}
+        width={dimensionSetter({
+          mobile: screenWidth * 0.8,
+          tabPort: screenWidth * 0.5,
+          tabLand: screenWidth * 0.3,
+        })}
         marginVertical={screenHeight * 0.02}
       />
       <View

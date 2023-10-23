@@ -174,41 +174,41 @@ export default function CustomerName(props: propsType) {
         <View
           style={{
             width: dimensionSetter({
-              mobile: screenWidth,
+              mobile: screenWidth * 0.9,
               tabPort: screenWidth * 0.7,
               tabLand: screenWidth * 0.4,
             }),
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "space-evenly",
+            justifyContent: "space-around"
           }}
         >
           <FlatButton
             title="Select All"
             onPressed={onSelectAll}
-            paddingHorizontal={dimensionSetter({
-              mobile: screenWidth * 0.05,
-              tabPort: screenWidth * 0.04,
-              tabLand: screenWidth * 0.02,
+            width={dimensionSetter({
+              mobile: screenWidth * 0.4,
+              tabPort: screenWidth * 0.3,
+              tabLand: screenWidth * 0.15,
             })}
           />
           <FlatButton
             title="Reset"
             onPressed={onReset}
-            paddingHorizontal={dimensionSetter({
-              mobile: screenWidth * 0.05,
-              tabPort: screenWidth * 0.04,
-              tabLand: screenWidth * 0.02,
+            width={dimensionSetter({
+              mobile: screenWidth * 0.4,
+              tabPort: screenWidth * 0.3,
+              tabLand: screenWidth * 0.15,
             })}
           />
         </View>
         <FlatButton
           title="Apply"
           onPressed={() => {}}
-          paddingHorizontal={dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.04,
-            tabLand: screenWidth * 0.02,
+          width={dimensionSetter({
+            mobile: screenWidth * 0.8,
+            tabPort: screenWidth * 0.6,
+            tabLand: screenWidth * 0.2,
           })}
         />
       </View>

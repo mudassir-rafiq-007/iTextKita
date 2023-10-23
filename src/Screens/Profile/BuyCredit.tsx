@@ -128,7 +128,15 @@ export default function BuyCreditModal(props: propsType) {
               )}
             />
           </View>
-          <FlatButton title="Buy" onPressed={() => props.setShowModal(false)} />
+          <FlatButton
+            title="Buy"
+            onPressed={() => props.setShowModal(false)}
+            width={dimensionSetter({
+              mobile: screenWidth * 0.8,
+              tabPort: screenWidth * 0.6,
+              tabLand: screenWidth * 0.3,
+            })}
+          />
           <View style={{ position: "absolute", top: "3%", right: "3%" }}>
             <MaterialIcons
               name="cancel"

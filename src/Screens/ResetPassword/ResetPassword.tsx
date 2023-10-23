@@ -198,10 +198,10 @@ export default function ResetPassword(props: loginProps) {
             tabPort: screenWidth * 0.035,
             tabLand: screenWidth * 0.015,
           })}
-          paddingHorizontal={dimensionSetter({
-            mobile: screenWidth * 0.08,
-            tabPort: screenWidth * 0.035,
-            tabLand: screenWidth * 0.03,
+          width={dimensionSetter({
+            mobile: screenWidth * 0.8,
+            tabPort: screenWidth * 0.5,
+            tabLand: screenWidth * 0.3,
           })}
           marginVertical={screenHeight * 0.03}
         />
