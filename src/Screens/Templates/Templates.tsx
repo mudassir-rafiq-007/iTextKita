@@ -24,12 +24,8 @@ type propsType = {
 };
 
 export default function Templates(props: propsType) {
-  const { screenHeight, screenWidth, dimensionSetter } =
+  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   const data = [
     { key: 1, value: "Youtube Link" },
@@ -48,8 +44,6 @@ export default function Templates(props: propsType) {
       header: () => <Header title="TEMPLATES" />,
     });
   }, []);
-
-  if (!fontsLoaded) return null;
 
   return (
     <LinearGradient
@@ -83,8 +77,8 @@ export default function Templates(props: propsType) {
               <Text
                 style={{
                   color: Colors.primary,
+                  fontFamily: fontFamily,
                   fontSize: screenHeight * 0.02,
-                  fontFamily: "Poppins-Regular",
                   marginTop:
                     Platform.OS == "android" ? screenHeight * 0.008 : null,
                 }}

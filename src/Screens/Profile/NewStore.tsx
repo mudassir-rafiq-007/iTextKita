@@ -14,6 +14,7 @@ import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
+  fontFamily: string;
   modalVisible: boolean;
   setShowModal: (value: boolean) => void;
 }
@@ -43,6 +44,7 @@ export default function NewStoreModal(props: propsType) {
     return [
       styles.textInput,
       {
+        fontFamily: props.fontFamily,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.022,
           tabPort: screenHeight * 0.02,
@@ -102,7 +104,7 @@ export default function NewStoreModal(props: propsType) {
                   tabPort: screenHeight * 0.02,
                   tabLand: screenHeight * 0.025,
                 }),
-                fontFamily: "Poppins-Regular",
+                fontFamily: props.fontFamily,
                 marginTop:
                   Platform.OS == "android" ? screenHeight * 0.005 : null,
               }}
@@ -205,6 +207,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     color: Colors.primary,
-    fontFamily: "Poppins-Regular",
   },
 });

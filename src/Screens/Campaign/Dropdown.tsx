@@ -11,6 +11,7 @@ type dimensionSetterProp = {
 };
 
 type propType = {
+  fontFamily: string;
   screenWidth: number;
   screenHeight: number;
   showDropdown: boolean;
@@ -37,7 +38,7 @@ export default function Dropdown(props: propType) {
       data={data}
       search={false}
       setSelected={setSelected}
-      fontFamily="Poppins-Regular"
+      fontFamily={props.fontFamily}
       placeholder="Select Template"
       dropdownShown={props.showDropdown}
       inputStyles={{
@@ -46,7 +47,7 @@ export default function Dropdown(props: propType) {
         width: "90%",
         color: "white",
         textAlignVertical: "center",
-        fontFamily: "Poppins-Regular",
+        fontFamily: props.fontFamily,
         height: props.screenHeight * 0.06,
         fontSize: props.screenHeight * 0.02,
         lineHeight: Platform.OS == "ios" ? props.screenHeight * 0.06 : null,
@@ -142,7 +143,7 @@ export default function Dropdown(props: propType) {
       dropdownTextStyles={{
         zIndex: Platform.OS == "android" ? 2 : null,
         color: Colors.primary,
-        fontFamily: "Poppins-Regular",
+        fontFamily: props.fontFamily,
         fontSize: props.dimensionSetter({
           mobile: props.screenHeight * 0.02,
           tabPort: props.screenHeight * 0.02,

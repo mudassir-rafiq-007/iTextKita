@@ -15,12 +15,8 @@ type propsType = {
 };
 
 export default function MarketingHistory(props: propsType) {
-  const { screenHeight, screenWidth, dimensionSetter } =
+  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   function Cross() {
     return (
@@ -88,8 +84,6 @@ export default function MarketingHistory(props: propsType) {
     });
   }, []);
 
-  if (!fontsLoaded) return null;
-
   return (
     <LinearGradient
       locations={[0.4, 1]}
@@ -130,7 +124,7 @@ export default function MarketingHistory(props: propsType) {
                     style={{
                       color: "white",
                       fontSize: screenHeight * 0.015,
-                      fontFamily: "Poppins-Regular",
+                      fontFamily: fontFamily,
                     }}
                   >{`${item.key}:`}</Text>
                 )}
@@ -161,7 +155,7 @@ export default function MarketingHistory(props: propsType) {
                         style={{
                           color: "white",
                           textAlign: "center",
-                          fontFamily: "Poppins-Regular",
+                          fontFamily: fontFamily,
                           fontSize: screenHeight * 0.015,
                         }}
                       >

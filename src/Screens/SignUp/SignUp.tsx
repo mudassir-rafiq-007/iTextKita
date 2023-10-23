@@ -24,13 +24,9 @@ type loginProps = {
 };
 
 export default function SignUp(props: loginProps) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   function inputFieldStyle() {
     return [
@@ -50,6 +46,7 @@ export default function SignUp(props: loginProps) {
     return [
       styles.textInput,
       {
+        fontFamily: fontFamily,
         fontSize: screenHeight * 0.02,
         marginTop:
           Platform.OS == "android"
@@ -67,6 +64,7 @@ export default function SignUp(props: loginProps) {
     return [
       styles.textInput,
       {
+        fontFamily: fontFamily,
         fontSize: screenHeight * 0.02,
         marginTop:
           Platform.OS == "android"
@@ -104,8 +102,6 @@ export default function SignUp(props: loginProps) {
       />
     );
   }
-
-  if (!fontsLoaded) return null;
 
   return (
     <ScrollView
@@ -233,17 +229,16 @@ export default function SignUp(props: loginProps) {
         />
         <View style={styles.registerView}>
           <Text
-            style={[
-              styles.noAcc,
-              {
-                zIndex: 2,
-                fontSize: dimensionSetter({
-                  mobile: screenWidth * 0.035,
-                  tabPort: screenWidth * 0.025,
-                  tabLand: screenWidth * 0.015,
-                }),
-              },
-            ]}
+            style={{
+              zIndex: 2,
+              color: "#696969",
+              fontFamily: fontFamily,
+              fontSize: dimensionSetter({
+                mobile: screenWidth * 0.035,
+                tabPort: screenWidth * 0.025,
+                tabLand: screenWidth * 0.015,
+              }),
+            }}
           >
             Already Have Account?
           </Text>
@@ -261,26 +256,26 @@ export default function SignUp(props: loginProps) {
           />
         </View>
         <View
-        style={[
-          styles.twoPersons,
-          {
-            bottom: dimensionSetter({
-              mobile: screenHeight * 0.05,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.001,
-            }),
-          },
-        ]}
-      >
-        <TwoPersons
-          height={dimensionSetter({
-            mobile: screenHeight * 0.2,
-            tabPort: screenHeight * 0.3,
-            tabLand: screenHeight * 0.6,
-          })}
-          width={screenWidth * 0.8}
-        />
-      </View>
+          style={[
+            styles.twoPersons,
+            {
+              bottom: dimensionSetter({
+                mobile: screenHeight * 0.05,
+                tabPort: screenHeight * 0.03,
+                tabLand: screenHeight * 0.001,
+              }),
+            },
+          ]}
+        >
+          <TwoPersons
+            height={dimensionSetter({
+              mobile: screenHeight * 0.2,
+              tabPort: screenHeight * 0.3,
+              tabLand: screenHeight * 0.6,
+            })}
+            width={screenWidth * 0.8}
+          />
+        </View>
       </LinearGradient>
     </ScrollView>
   );
@@ -308,17 +303,12 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     width: "100%",
     color: "white",
-    fontFamily: "Poppins-Regular",
   },
   registerView: {
     zIndex: 2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  noAcc: {
-    color: "#696969",
-    fontFamily: "Poppins-Regular",
   },
   twoPersons: {
     zIndex: 1,

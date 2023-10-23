@@ -91,7 +91,6 @@ export default function CustomerName(props: propsType) {
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   useEffect(() => {

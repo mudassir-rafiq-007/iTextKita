@@ -15,6 +15,7 @@ import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
+  fontFamily: string;
   modalVisible: boolean;
   setShowModal: (value: boolean) => void;
 }
@@ -43,6 +44,7 @@ export default function NewUserModal(props: propsType) {
     return [
       styles.textInput,
       {
+        fontFamily: props.fontFamily,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.022,
           tabPort: screenHeight * 0.02,
@@ -106,7 +108,7 @@ export default function NewUserModal(props: propsType) {
                     tabPort: screenHeight * 0.02,
                     tabLand: screenHeight * 0.025,
                   }),
-                  fontFamily: "Poppins-Regular",
+                  fontFamily: props.fontFamily,
                   marginTop:
                     Platform.OS == "android" ? screenHeight * 0.005 : null,
                 }}
@@ -125,7 +127,7 @@ export default function NewUserModal(props: propsType) {
                 }),
               }}
             >
-              <Dropdown type="Store" showDropdown={showStoreDropdown} />
+              <Dropdown type="Store" showDropdown={showStoreDropdown} fontFamily={props.fontFamily}/>
               {/* {Platform.OS == "android" ? (
             <Dropdown type="Store" showDropdown={showStoreDropdown} />
             ) : (
@@ -151,7 +153,7 @@ export default function NewUserModal(props: propsType) {
                   onChangeText={(text) => {}}
                 />
               </View>
-              <Dropdown type="Role" showDropdown={showStoreDropdown} />
+              <Dropdown type="Role" showDropdown={showStoreDropdown} fontFamily={props.fontFamily}/>
               {/* {Platform.OS == "android" ? (
               <Dropdown type="Role" showDropdown={showStoreDropdown} />
             ) : (
@@ -215,6 +217,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     color: Colors.primary,
-    fontFamily: "Poppins-Regular",
   },
 });

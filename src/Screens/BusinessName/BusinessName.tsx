@@ -25,7 +25,7 @@ export default function BusinessName(props: propsType) {
   const {
     screenHeight,
     screenWidth,
-    isTabPortrait,
+    fontFamily,
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
@@ -43,6 +43,7 @@ export default function BusinessName(props: propsType) {
     return [
       styles.textInput,
       {
+        fontFamily: fontFamily,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.025,
           tabPort: screenHeight * 0.02,
@@ -226,6 +227,5 @@ const styles = StyleSheet.create({
     color: "#c7c6c5",
     justifyContent: "center",
     textAlignVertical: "center",
-    fontFamily: "Poppins-Regular",
   },
 });

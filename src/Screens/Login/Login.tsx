@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState, useContext } from "react";
-import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import Key from "../../../assets/images/key.svg";
 import User from "../../../assets/images/user.svg";
@@ -25,13 +24,9 @@ type loginProps = {
 };
 
 export default function Login(props: loginProps) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   function inputFieldStyle() {
     return [
@@ -46,6 +41,7 @@ export default function Login(props: loginProps) {
     return [
       styles.textInput,
       {
+        fontFamily: fontFamily,
         fontSize: screenHeight * 0.02,
         marginTop:
           Platform.OS == "android"
@@ -63,8 +59,6 @@ export default function Login(props: loginProps) {
       },
     ];
   }
-
-  if (!fontsLoaded) return null;
 
   return (
     <ScrollView
@@ -235,17 +229,16 @@ export default function Login(props: loginProps) {
         />
         <View style={styles.registerView}>
           <Text
-            style={[
-              styles.noAcc,
-              {
-                zIndex: 2,
-                fontSize: dimensionSetter({
-                  mobile: screenWidth * 0.035,
-                  tabPort: screenWidth * 0.025,
-                  tabLand: screenWidth * 0.015,
-                }),
-              },
-            ]}
+            style={{
+              zIndex: 2,
+              fontFamily: fontFamily,
+              color: "#696969",
+              fontSize: dimensionSetter({
+                mobile: screenWidth * 0.035,
+                tabPort: screenWidth * 0.025,
+                tabLand: screenWidth * 0.015,
+              }),
+            }}
           >
             I Don't Have Account?
           </Text>
@@ -301,22 +294,21 @@ export default function Login(props: loginProps) {
             })}
           />
           <Text
-            style={[
-              styles.nTech,
-              {
-                zIndex: 1,
-                marginVertical: dimensionSetter({
-                  mobile: screenHeight * 0.05,
-                  tabPort: screenHeight * 0.05,
-                  tabLand: screenHeight * 0.02,
-                }),
-                fontSize: dimensionSetter({
-                  mobile: screenWidth * 0.04,
-                  tabPort: screenWidth * 0.025,
-                  tabLand: screenWidth * 0.015,
-                }),
-              },
-            ]}
+            style={{
+              zIndex: 1,
+              color: "white",
+              fontFamily: fontFamily,
+              marginVertical: dimensionSetter({
+                mobile: screenHeight * 0.05,
+                tabPort: screenHeight * 0.05,
+                tabLand: screenHeight * 0.02,
+              }),
+              fontSize: dimensionSetter({
+                mobile: screenWidth * 0.04,
+                tabPort: screenWidth * 0.025,
+                tabLand: screenWidth * 0.015,
+              }),
+            }}
           >
             ⓒ & 2023 NTech Crop.
           </Text>
@@ -350,20 +342,11 @@ const styles = StyleSheet.create({
     color: "#c7c6c5",
     justifyContent: "center",
     textAlignVertical: "center",
-    fontFamily: "Poppins-Regular",
   },
   registerView: {
     zIndex: 2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-  },
-  noAcc: {
-    color: "#696969",
-    fontFamily: "Poppins-Regular",
-  },
-  nTech: {
-    color: "white",
-    fontFamily: "Poppins-Regular",
   },
 });
