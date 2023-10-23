@@ -32,11 +32,6 @@ export default function RecentSMSStatus(props: propsType) {
     setShowDropdown((current) => (current ? false : true));
   }
 
-  const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
-
   const customers = ["Jerry", "Matries", "Newman", "Rachel", "Ross", "Jake"];
 
   function listViewStyle() {
@@ -58,8 +53,6 @@ export default function RecentSMSStatus(props: propsType) {
       header: () => <Header title="RECENT SMS STATUS" />,
     });
   }, []);
-
-  if (!fontsLoaded) return null;
 
   return (
     <ScrollView

@@ -16,12 +16,8 @@ type propsType = {
 };
 
 export default function OnlineMarketing(props: propsType) {
-  const { screenHeight, screenWidth, dimensionSetter } =
+  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   const data = [
     { key: 1, value: "Add Poster Upto 3MB" },
@@ -50,6 +46,7 @@ export default function OnlineMarketing(props: propsType) {
     return [
       styles.textInput,
       {
+        fontFamily: fontFamily,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.02,
           tabPort: screenHeight * 0.02,
@@ -88,8 +85,6 @@ export default function OnlineMarketing(props: propsType) {
       header: () => <Header title="ONLINE MARKETING" />,
     });
   }, []);
-
-  if (!fontsLoaded) return null;
 
   return (
     <LinearGradient
@@ -213,7 +208,6 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     width: "100%",
     color: "white",
-    fontFamily: "Poppins-Regular",
   },
   twoPersons: {
     zIndex: 1,

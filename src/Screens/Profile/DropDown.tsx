@@ -8,6 +8,7 @@ import { Platform } from "react-native";
 type propType = {
   data?: [];
   showDropdown: boolean;
+  fontFamily: string;
   type: "Store" | "Role";
 };
 
@@ -34,14 +35,14 @@ export default function Dropdown(props: propType) {
       dropdownShown={props.showDropdown}
       placeholder={props.type}
       setSelected={setSelected}
-      fontFamily="Poppins-Regular"
+      fontFamily={props.fontFamily}
       inputStyles={{
         alignItems: "center",
         color: Colors.primary,
         height: screenHeight * 0.06,
         lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
         textAlignVertical: "center",
-        fontFamily: "Poppins-Regular",
+        fontFamily: props.fontFamily,
         marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.022,
@@ -111,7 +112,7 @@ export default function Dropdown(props: propType) {
       }}
       dropdownTextStyles={{
         color: "white",
-        fontFamily: "Poppins-Regular",
+        fontFamily: props.fontFamily,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.02,
           tabPort: screenHeight * 0.02,

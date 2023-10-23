@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import { useFonts } from "expo-font";
 import FAIcons from "react-native-vector-icons/FontAwesome";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { shadow } from "../../Components/Constants/Shadow";
@@ -16,6 +17,7 @@ import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
+  fontFamily: string;
   modalVisible: boolean;
   setShowModal: (value: boolean) => void;
 }
@@ -23,11 +25,17 @@ export default function BuyCreditModal(props: propsType) {
   const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
+    const [fontsLoaded] = useFonts({
+      "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
+    });
+
   const credits = [
     "Poster 120 Credits",
     "Facebook Links 60 Credits",
     "Instagram 60 Credits",
   ];
+
+  if (!fontsLoaded) return null;
 
   return (
     <Modal
@@ -72,6 +80,7 @@ export default function BuyCreditModal(props: propsType) {
               style={[
                 styles.tileText,
                 {
+                  fontFamily: props.fontFamily,
                   marginTop:
                     Platform.OS == "android" ? screenHeight * 0.005 : null,
                   fontSize: dimensionSetter({
@@ -175,7 +184,6 @@ const styles = StyleSheet.create({
   tileText: {
     color: "#084A5B",
     textAlignVertical: "center",
-    fontFamily: "Poppins-Regular",
   },
   listItem: {
     ...shadow,

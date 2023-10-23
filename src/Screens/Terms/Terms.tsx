@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { FlatList, View, Text, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import TermsIcon from "../../../assets/images/terms.svg";
 import ShieldIcon from "../../../assets/images/shield.svg";
@@ -17,12 +16,8 @@ type propsType = {
 };
 
 export default function Terms(props: propsType) {
-  const { screenHeight, screenWidth, dimensionSetter } =
+  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   const terms = [
     "I will not send spam messages.",
@@ -31,8 +26,6 @@ export default function Terms(props: propsType) {
     "I will not send spam messages.",
     "I will not send spam messages.",
   ];
-
-  if (!fontsLoaded) return null;
 
   return (
     <LinearGradient
@@ -98,7 +91,7 @@ export default function Terms(props: propsType) {
               <ShieldIcon />
               <Text
                 style={{
-                  fontFamily: "Poppins-Regular",
+                  fontFamily: fontFamily,
                   fontSize: screenHeight * 0.02,
                   marginHorizontal: screenWidth * 0.02,
                 }}

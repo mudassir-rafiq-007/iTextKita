@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useEffect, useContext, useState } from "react";
-import { useFonts } from "expo-font";
 import { LinearGradient } from "expo-linear-gradient";
 import SendIcon from "react-native-vector-icons/FontAwesome";
 import Dropdown from "./Dropdown";
@@ -28,7 +27,7 @@ type propsType = {
 };
 
 export default function Campaign(props: propsType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
 
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -36,11 +35,6 @@ export default function Campaign(props: propsType) {
   function dropdownSwitch() {
     setShowDropdown((current) => (current ? false : true));
   }
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   function tileWidth() {
     return {
@@ -60,8 +54,6 @@ export default function Campaign(props: propsType) {
       header: () => <Header title="CAMPAIGN" />,
     });
   }, []);
-
-  if (!fontsLoaded) return null;
 
   return (
     <ScrollView
@@ -88,7 +80,11 @@ export default function Campaign(props: propsType) {
           <Text
             style={[
               styles.tileText,
-              { opacity: 1, fontSize: screenHeight * 0.03 },
+              {
+                opacity: 1,
+                fontSize: screenHeight * 0.03,
+                fontFamily: fontFamily,
+              },
             ]}
           >
             Title
@@ -125,7 +121,7 @@ export default function Campaign(props: propsType) {
             style={{
               flex: 1,
               textAlign: "justify",
-              fontFamily: "Poppins-Regular",
+              fontFamily: fontFamily,
               fontSize: screenHeight * 0.02,
             }}
           />
@@ -143,7 +139,12 @@ export default function Campaign(props: propsType) {
           ]}
           onPress={() => props.navigation.navigate("Customer Name")}
         >
-          <Text style={[styles.tileText, { fontSize: screenHeight * 0.02 }]}>
+          <Text
+            style={[
+              styles.tileText,
+              { fontSize: screenHeight * 0.02, fontFamily: fontFamily },
+            ]}
+          >
             Select Customer
           </Text>
           <SendIcon
@@ -158,6 +159,7 @@ export default function Campaign(props: propsType) {
         </TouchableOpacity>
         {Platform.OS == "android" ? (
           <Dropdown
+            fontFamily={fontFamily}
             screenWidth={screenWidth}
             screenHeight={screenHeight}
             showDropdown={showDropdown}
@@ -166,6 +168,7 @@ export default function Campaign(props: propsType) {
         ) : (
           <Pressable style={{ zIndex: 3 }} onPress={dropdownSwitch}>
             <Dropdown
+              fontFamily={fontFamily}
               screenWidth={screenWidth}
               screenHeight={screenHeight}
               showDropdown={showDropdown}
@@ -173,11 +176,16 @@ export default function Campaign(props: propsType) {
             />
           </Pressable>
         )}
-        <FlatButton title="Send" onPressed={() => {}} zIndex={2} width={dimensionSetter({
-          mobile: null,
-          tabPort: null,
-          tabLand: screenWidth * 0.2
-        })}/>
+        <FlatButton
+          title="Send"
+          onPressed={() => {}}
+          zIndex={2}
+          width={dimensionSetter({
+            mobile: null,
+            tabPort: null,
+            tabLand: screenWidth * 0.2,
+          })}
+        />
         <View
           style={[
             styles.twoPersons,
@@ -226,7 +234,6 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     color: "white",
     textAlignVertical: "center",
-    fontFamily: "Poppins-Regular",
   },
   textInput: {
     ...shadow,

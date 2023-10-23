@@ -5,15 +5,10 @@ import MenuIcon from "../../../assets/images/menu.svg";
 import { useNavigation } from "@react-navigation/native";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
-import { useFonts } from "expo-font";
 
 export default function HeaderMenu() {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-  });
 
   function menuWidth() {
     return dimensionSetter({
@@ -38,8 +33,6 @@ export default function HeaderMenu() {
     "Online Marketing",
     "SMS Status",
   ];
-
-  if (!fontsLoaded) return null;
 
   return (
     <View>
@@ -85,7 +78,7 @@ export default function HeaderMenu() {
                 style={{
                   color: Colors.primary,
                   fontSize: screenHeight * 0.02,
-                  fontFamily: "Poppins-Regular",
+                  fontFamily: fontFamily,
                 }}
               >
                 {item}

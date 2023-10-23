@@ -9,7 +9,7 @@ type propType = {
 };
 
 export default function Dropdown(props: propType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
 
   const [selected, setSelected] = useState<string>("");
@@ -20,7 +20,7 @@ export default function Dropdown(props: propType) {
         <View style={styles.center}>
           <Text
             style={{
-              fontFamily: "Poppins-Regular",
+              fontFamily: fontFamily,
               fontSize: screenHeight * 0.02,
             }}
           >
@@ -28,7 +28,7 @@ export default function Dropdown(props: propType) {
           </Text>
           <Text
             style={{
-              fontFamily: "Poppins-Regular",
+              fontFamily: fontFamily,
               fontSize: screenHeight * 0.02,
             }}
           >
@@ -66,11 +66,11 @@ export default function Dropdown(props: propType) {
       placeholder={props.name}
       dropdownShown={props.showDropdown}
       setSelected={setSelected}
-      fontFamily="Poppins-Regular"
+      fontFamily={fontFamily}
       inputStyles={{
+        fontFamily: fontFamily,
         textAlignVertical: "center",
         height: screenHeight * 0.06,
-        fontFamily: "Poppins-Regular",
         fontSize: screenHeight * 0.02,
         lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
         marginTop: Platform.OS == "android" ? screenHeight * 0.005 : null,

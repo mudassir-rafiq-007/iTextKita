@@ -29,6 +29,7 @@ type propsType = {
 
 export default function Profile(props: propsType) {
   const {
+    fontFamily,
     screenWidth,
     screenHeight,
     isTabPortrait,
@@ -42,7 +43,6 @@ export default function Profile(props: propsType) {
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
   });
 
   const stores = ["Apple Store", "Matries", "Newman"];
@@ -110,6 +110,7 @@ export default function Profile(props: propsType) {
             style={[
               styles.tileText,
               {
+                fontFamily: fontFamily,
                 marginTop:
                   Platform.OS == "android" ? screenHeight * 0.005 : null,
                 fontSize: dimensionSetter({
@@ -172,14 +173,17 @@ export default function Profile(props: propsType) {
         />
       </View>
       <NewUserModal
+        fontFamily={fontFamily}
         modalVisible={showNewUserModal}
         setShowModal={setShowNewUserModal}
       />
       <NewStoreModal
+        fontFamily={fontFamily}
         modalVisible={showNewStoreModal}
         setShowModal={setShowNewStoreModal}
       />
       <BuyCreditModal
+        fontFamily={fontFamily}
         modalVisible={showBuyCreditModal}
         setShowModal={setShowBuyCreditModal}
       />
@@ -200,6 +204,7 @@ export default function Profile(props: propsType) {
           style={[
             styles.tileText,
             {
+              fontFamily: fontFamily,
               fontSize: screenHeight * 0.025,
               marginTop: Platform.OS == "android" ? screenHeight * 0.005 : null,
             },
@@ -267,18 +272,17 @@ export default function Profile(props: propsType) {
       />
       {(isTabLandscape || isTabPortrait) && (
         <Text
-          style={[
-            styles.nTech,
-            {
-              zIndex: 2,
-              marginVertical: screenHeight * 0.01,
-              fontSize: dimensionSetter({
-                mobile: screenWidth * 0.04,
-                tabPort: screenWidth * 0.025,
-                tabLand: screenWidth * 0.015,
-              }),
-            },
-          ]}
+          style={{
+            color: "white",
+            fontFamily: fontFamily,
+            zIndex: 2,
+            marginVertical: screenHeight * 0.01,
+            fontSize: dimensionSetter({
+              mobile: screenWidth * 0.04,
+              tabPort: screenWidth * 0.025,
+              tabLand: screenWidth * 0.015,
+            }),
+          }}
         >
           ⓒ & 2023 NTech Crop.
         </Text>
@@ -328,7 +332,6 @@ const styles = StyleSheet.create({
     zIndex: 2,
     color: "white",
     textAlignVertical: "center",
-    fontFamily: "Poppins-Regular",
   },
   addButtons: {
     zIndex: 2,
@@ -341,10 +344,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#FCF3F3",
-  },
-  nTech: {
-    color: "white",
-    fontFamily: "Poppins-Regular",
   },
   twoPersons: {
     zIndex: 1,

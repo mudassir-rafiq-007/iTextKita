@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
-import * as Device from "expo-device";
 import { Dimensions } from "react-native";
+import { useFonts } from "expo-font";
+import * as Device from "expo-device";
 import * as Screen from "expo-screen-orientation";
 import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
 
@@ -15,6 +16,7 @@ type DimensionsContextType = {
   isTabLandscape: boolean | undefined;
   screenHeight: number;
   screenWidth: number;
+  fontFamily: string;
   dimensionSetter: ({}: dimensionSetterProp) => any;
 };
 
@@ -23,6 +25,7 @@ export const DimensionsContext = createContext<DimensionsContextType>({
   isTabLandscape: undefined,
   screenHeight: deviceHeight,
   screenWidth: deviceWidth,
+  fontFamily: "Poppins-Regular",
   dimensionSetter({}) {},
 });
 
@@ -34,8 +37,8 @@ export default function DimensionsProvider(props: propsType) {
   const [counter, setCounter] = useState<number>(0);
   const [isTabPortrait, setIsTabPortrait] = useState<boolean>();
   const [isTabLandscape, setIsTabLandscape] = useState<boolean>();
-  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight);
   const [screenWidth, setScreenWidth] = useState<number>(deviceWidth);
+  const [screenHeight, setScreenHeight] = useState<number>(deviceHeight);
 
   // Selects value based on screen orientation
   function dimensionSetter({ mobile, tabPort, tabLand }: dimensionSetterProp) {
@@ -62,6 +65,10 @@ export default function DimensionsProvider(props: propsType) {
     }
   }
 
+  const [fontsLoaded] = useFonts({
+    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
+  });
+
   useEffect(() => {
     if (counter == 0) {
       deviceOrientation();
@@ -75,6 +82,8 @@ export default function DimensionsProvider(props: propsType) {
     });
   }, []);
 
+  if (!fontsLoaded) return null;
+
   return (
     <DimensionsContext.Provider
       value={{
@@ -82,6 +91,7 @@ export default function DimensionsProvider(props: propsType) {
         screenHeight,
         isTabPortrait,
         isTabLandscape,
+        fontFamily: "Poppins-Regular",
         dimensionSetter,
       }}
     >
