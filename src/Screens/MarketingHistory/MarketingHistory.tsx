@@ -1,16 +1,16 @@
 import { useEffect, useContext } from "react";
 import { Text, View, Image, FlatList, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import AntDesignIcons from "react-native-vector-icons/AntDesign";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
 import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { useFonts } from "expo-font";
 
 type propsType = {
   navigation: {
-    navigate: (screen: string) => void;
     setOptions: ({}: object) => void;
+    navigate: (screen: string) => void;
   };
 };
 
@@ -18,66 +18,45 @@ export default function MarketingHistory(props: propsType) {
   const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
 
-  function Cross() {
-    return (
-      <Image
-        source={require("../../../assets/Icons/cross.png")}
-        style={{ height: screenHeight * 0.02, width: screenHeight * 0.02 }}
-      />
-    );
-  }
-
-  function Success() {
-    return (
-      <Image
-        source={require("../../../assets/Icons/tick.png")}
-        style={{ height: screenHeight * 0.02, width: screenHeight * 0.02 }}
-      />
-    );
-  }
+  const dummyMsg =
+    "Hello David,\nWe are launching our new product called “Isaw ng Manok” and we would like to invited you to join us in our launching day with free entrance!\nSee out poster @\nhttps://testing.com/page";
 
   const campaignsData = [
     {
       title: "Campaign 1",
       details: [
         { key: "Date", value: "05-Oct-2023" },
-        { key: "Title", value: "This product is working" },
-        { key: "Message", value: "Product Pricing" },
-        { key: "Poster", value: "Image" },
-        { key: "User", value: "David H." },
-        { key: "Success", value: Success() },
-        { key: "Failed", value: Cross() },
+        { key: "Customer Count", value: 80 },
+        { key: "Sent By", value: "Ryan" },
+        { key: "Status", value: "On-Going" },
         { key: "Execution Type", value: "Online" },
+        { key: "Message", value: dummyMsg },
       ],
     },
     {
       title: "Campaign 2",
       details: [
-        { key: "Date", value: "06-Oct-2023" },
-        { key: "Title", value: "Market Campaign" },
-        { key: "Message", value: "Total Cost" },
-        { key: "Poster", value: "Image" },
-        { key: "User", value: "George" },
-        { key: "Success", value: Success() },
-        { key: "Failed", value: Cross() },
+        { key: "Date", value: "05-Oct-2023" },
+        { key: "Customer Count", value: 80 },
+        { key: "Sent By", value: "Ryan" },
+        { key: "Status", value: "On-Going" },
         { key: "Execution Type", value: "Online" },
+        { key: "Message", value: dummyMsg },
       ],
     },
     {
       title: "Campaign 3",
       details: [
-        { key: "Date", value: "07-Oct-2023" },
-        { key: "Title", value: "This product is working" },
-        { key: "Message", value: "Product Review" },
-        { key: "Poster", value: "Image" },
-        { key: "User", value: "Newman" },
-        { key: "Success", value: Success() },
-        { key: "Failed", value: Cross() },
+        { key: "Date", value: "05-Oct-2023" },
+        { key: "Customer Count", value: 80 },
+        { key: "Sent By", value: "Ryan" },
+        { key: "Status", value: "On-Going" },
         { key: "Execution Type", value: "Online" },
+        { key: "Message", value: dummyMsg },
       ],
     },
   ];
-
+  
   useEffect(() => {
     props.navigation.setOptions({
       header: () => <Header title="MARKETING HISTORY" />,
@@ -103,7 +82,7 @@ export default function MarketingHistory(props: propsType) {
                   tabPort: screenWidth * 0.8,
                   tabLand: screenWidth * 0.5,
                 }),
-                height: screenHeight * 0.3,
+                borderRadius: screenHeight * 0.01,
                 marginVertical: screenHeight * 0.01,
               },
             ]}
@@ -112,58 +91,88 @@ export default function MarketingHistory(props: propsType) {
               style={[
                 styles.keyListView,
                 {
-                  width: "35%",
-                  height: "90%",
+                  width: "90%",
+                  paddingVertical: screenHeight * 0.03,
                 },
               ]}
             >
               <FlatList
                 data={item.details}
                 renderItem={({ item }) => (
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: screenHeight * 0.015,
-                      fontFamily: fontFamily,
-                    }}
-                  >{`${item.key}:`}</Text>
-                )}
-              />
-            </View>
-            <View
-              style={[
-                styles.valueListView,
-                {
-                  width: "50%",
-                  height: "90%",
-                  alignItems: "center",
-                },
-              ]}
-            >
-              <FlatList
-                data={item.details}
-                renderItem={({ item }) => {
-                  if (item.key == "Success" || item.key == "Failed") {
-                    return (
-                      <View style={{ alignItems: "center" }}>
-                        {item.value as JSX.Element}
+                  <View style={{ marginVertical: screenHeight * 0.005 }}>
+                    {item.key == "Message" ? (
+                      <View>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: "white",
+                              fontFamily: fontFamily,
+                              fontSize: screenHeight * 0.02,
+                            }}
+                          >
+                            {item.key}
+                          </Text>
+                          <AntDesignIcons
+                            name="down"
+                            color={"white"}
+                            size={screenHeight * 0.03}
+                          />
+                        </View>
+                        <View
+                          style={{
+                            backgroundColor: "#FFF3",
+                            padding: screenHeight * 0.02,
+                            marginTop: screenHeight * 0.01,
+                            borderRadius: screenHeight * 0.01,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              color: "white",
+                              textAlign: "justify",
+                              fontFamily: fontFamily,
+                              fontSize: screenHeight * 0.02,
+                            }}
+                          >
+                            {item.value}
+                          </Text>
+                        </View>
                       </View>
-                    );
-                  } else {
-                    return (
-                      <Text
+                    ) : (
+                      <View
                         style={{
-                          color: "white",
-                          textAlign: "center",
-                          fontFamily: fontFamily,
-                          fontSize: screenHeight * 0.015,
+                          flexDirection: "row",
+                          justifyContent: "space-between",
                         }}
                       >
-                        {item.value}
-                      </Text>
-                    );
-                  }
-                }}
+                        <Text
+                          style={{
+                            color: "white",
+                            fontFamily: fontFamily,
+                            fontSize: screenHeight * 0.02,
+                          }}
+                        >
+                          {item.key}
+                        </Text>
+                        <Text
+                          style={{
+                            color: "white",
+                            fontFamily: fontFamily,
+                            fontSize: screenHeight * 0.02,
+                          }}
+                        >
+                          {item.value}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                )}
               />
             </View>
           </View>
@@ -221,8 +230,6 @@ const styles = StyleSheet.create({
   topListView: {
     flexDirection: "row",
     alignItems: "center",
-    borderTopLeftRadius: 20,
-    borderBottomRightRadius: 20,
     justifyContent: "space-evenly",
     backgroundColor: Colors.primary,
   },
