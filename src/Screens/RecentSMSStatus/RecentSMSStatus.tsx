@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import {
+  Text,
   View,
   FlatList,
   StyleSheet,
@@ -14,6 +15,7 @@ import Header from "../../Components/Header/Header";
 import { shadow } from "../../Components/Constants/Shadow";
 import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { Image } from "react-native";
 
 type propsType = {
   navigation: {
@@ -23,7 +25,7 @@ type propsType = {
 };
 
 export default function RecentSMSStatus(props: propsType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, dimensionSetter, fontFamily } =
     useContext(DimensionsContext);
 
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -71,11 +73,7 @@ export default function RecentSMSStatus(props: propsType) {
             data={customers}
             scrollEnabled={false}
             contentContainerStyle={{ gap: screenHeight * 0.005 }}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={dropdownSwitch}>
-                <Dropdown showDropdown={showDropdown} name={item} />
-              </TouchableOpacity>
-            )}
+            renderItem={({ item }) => <Dropdown name={item} />}
           />
         </View>
         <View
@@ -135,5 +133,11 @@ const styles = StyleSheet.create({
   twoPersons: {
     zIndex: 1,
     position: "absolute",
+  },
+  icons: {
+    width: "15%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

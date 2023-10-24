@@ -1,23 +1,67 @@
 import { useState, useContext } from "react";
-import { Platform, StyleSheet, Text, View, Image } from "react-native";
-import { SelectList } from "react-native-dropdown-select-list";
+import { Text, View, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propType = {
   name: string;
-  showDropdown: boolean;
 };
 
 export default function Dropdown(props: propType) {
   const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
 
-  const [selected, setSelected] = useState<string>("");
+  const [showDropdown, setShowDropdown] = useState<boolean>();
 
-  const data = [
-    {
-      value: (
-        <View style={styles.center}>
+  function dropdownSwitch() {
+    setShowDropdown(!showDropdown);
+  }
+  return (
+    <>
+      <TouchableOpacity
+        onPress={dropdownSwitch}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: "white",
+          height: screenHeight * 0.06,
+          justifyContent: "space-between",
+          paddingHorizontal: screenWidth * 0.04,
+        }}
+      >
+        <Text
+          style={{
+            fontFamily: fontFamily,
+            fontSize: screenHeight * 0.02,
+          }}
+        >
+          {props.name}
+        </Text>
+        <View style={styles.icons}>
+          <Image
+            source={require("../../../assets/Icons/like.png")}
+            style={{
+              height: screenHeight * 0.03,
+              width: screenHeight * 0.03,
+            }}
+          />
+          <Image
+            source={require("../../../assets/Icons/arrowdown.png")}
+            style={{
+              height: screenHeight * 0.02,
+              width: screenHeight * 0.02,
+              transform: [{ rotate: showDropdown ? "180deg" : "0deg" }],
+            }}
+          />
+        </View>
+      </TouchableOpacity>
+      {showDropdown && (
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            paddingVertical: screenHeight * 0.02,
+          }}
+        >
           <Text
             style={{
               fontFamily: fontFamily,
@@ -35,68 +79,8 @@ export default function Dropdown(props: propType) {
             Use messages for web to send SMS, MMS
           </Text>
         </View>
-      ),
-      disabled: true,
-    },
-  ];
-
-  const Icons = (
-    <View style={styles.icons}>
-      <Image
-        source={require("../../../assets/Icons/like.png")}
-        style={{
-          height: screenHeight * 0.03,
-          width: screenHeight * 0.03,
-        }}
-      />
-      <Image
-        source={require("../../../assets/Icons/arrowdown.png")}
-        style={{
-          height: screenHeight * 0.02,
-          width: screenHeight * 0.02,
-        }}
-      />
-    </View>
-  );
-
-  return (
-    <SelectList
-      data={data}
-      search={false}
-      placeholder={props.name}
-      dropdownShown={props.showDropdown}
-      setSelected={setSelected}
-      fontFamily={fontFamily}
-      inputStyles={{
-        fontFamily: fontFamily,
-        textAlignVertical: "center",
-        height: screenHeight * 0.06,
-        fontSize: screenHeight * 0.02,
-        lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
-        marginTop: Platform.OS == "android" ? screenHeight * 0.005 : null,
-      }}
-      boxStyles={{
-        width: "100%",
-        borderWidth: 0,
-        borderRadius: 0,
-        alignItems: "center",
-        backgroundColor: "white",
-        height: screenHeight * 0.06,
-        paddingHorizontal: dimensionSetter({
-          mobile: screenWidth * 0.04,
-          tabPort: screenWidth * 0.04,
-          tabLand: screenWidth * 0.03,
-        }),
-      }}
-      arrowicon={Icons}
-      dropdownStyles={{
-        marginTop: 0,
-        borderWidth: 0,
-        borderRadius: 0,
-        alignItems: "center",
-      }}
-      disabledItemStyles={{ backgroundColor: "#D3D3D3" }}
-    />
+      )}
+    </>
   );
 }
 
