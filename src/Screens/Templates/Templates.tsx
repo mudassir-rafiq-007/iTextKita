@@ -1,47 +1,59 @@
 import { useEffect, useContext } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import Dropdown from "./Dropdown";
 import Header from "../../Components/Header/Header";
-import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { useFonts } from "expo-font";
 
 type propsType = {
   navigation: {
-    navigate: (screen: string) => void;
     setOptions: ({}: object) => void;
+    navigate: (screen: string) => void;
   };
 };
 
 export default function Templates(props: propsType) {
-  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
+  const { screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
 
-  const data = [
-    { key: 1, value: "Youtube Link" },
-    { key: 2, value: "Days Available Online" },
-    { key: 3, value: "Facebook Page ID" },
-    { key: 4, value: "Instagram Page ID" },
-    { key: 5, value: "Messenger Page ID" },
-    { key: 6, value: "Add Poster Upto 3MB" },
-    { key: 7, value: "Status" },
-    { key: 8, value: "Expiration Date" },
-    { key: 9, value: "URL" },
+  const campaignsData = [
+    {
+      name: "Buy 1 Take 1",
+      data: [
+        { key: "Start Date", value: new Date().toDateString() },
+        { key: "End Date", value: new Date().toDateString() },
+        { key: "Status", value: "Active" },
+        { key: "Customers Engaged", value: 40 },
+        { key: "Short Link", value: "ntlnk.6952.39" },
+      ],
+    },
+    {
+      name: "50% off for new customers",
+      data: [
+        { key: "Start Date", value: new Date().toDateString() },
+        { key: "End Date", value: new Date().toDateString() },
+        { key: "Status", value: "Active" },
+        { key: "Customers Engaged", value: 50 },
+        { key: "Short Link", value: "ntlnk.0785.52" },
+      ],
+    },
+    {
+      name: "FREE Popcorns for successful referral",
+      data: [
+        { key: "Start Date", value: new Date().toDateString() },
+        { key: "End Date", value: new Date().toDateString() },
+        { key: "Status", value: "Active" },
+        { key: "Customers Engaged", value: 60 },
+        { key: "Short Link", value: "ntlnk.0192.32" },
+      ],
+    },
   ];
 
   useEffect(() => {
     props.navigation.setOptions({
-      header: () => <Header title="TEMPLATES" />,
+      header: () => <Header title="CAMPAIGN MATERIALS" />,
     });
   }, []);
 
@@ -63,34 +75,15 @@ export default function Templates(props: propsType) {
           height: screenHeight * 0.6,
           width: dimensionSetter({
             mobile: screenWidth * 0.9,
-            tabPort: screenWidth * 0.6,
+            tabPort: screenWidth * 0.7,
             tabLand: screenWidth * 0.4,
           }),
         }}
       >
         <FlatList
-          data={data}
+          data={campaignsData}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[styles.tileView, { height: screenHeight * 0.06 }]}
-            >
-              <Text
-                style={{
-                  color: Colors.primary,
-                  fontFamily: fontFamily,
-                  fontSize: screenHeight * 0.02,
-                  marginTop:
-                    Platform.OS == "android" ? screenHeight * 0.008 : null,
-                }}
-              >
-                {item.value}
-              </Text>
-              <AntDesign
-                name="right"
-                color={"#0006"}
-                size={screenHeight * 0.02}
-              />
-            </TouchableOpacity>
+            <Dropdown name={item.name} data={item.data} />
           )}
         />
       </View>
