@@ -137,6 +137,37 @@ export default function Campaign(props: propsType) {
               paddingHorizontal: screenWidth * 0.03,
             },
           ]}
+          onPress={() => props.navigation.navigate("Profile")}
+        >
+          <Text
+            style={[
+              styles.tileText,
+              { fontSize: screenHeight * 0.02, fontFamily: fontFamily },
+            ]}
+          >
+            Select Store
+          </Text>
+          <SendIcon
+            name="send"
+            color={Colors.primary}
+            size={screenHeight * 0.02}
+            style={{
+              padding: screenHeight * 0.01,
+              backgroundColor: Colors.secondary,
+            }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.tileView,
+            tileWidth(),
+            {
+              height: screenHeight * 0.06,
+              paddingTop:
+                Platform.OS == "android" ? screenHeight * 0.005 : null,
+              paddingHorizontal: screenWidth * 0.03,
+            },
+          ]}
           onPress={() => props.navigation.navigate("Customer Name")}
         >
           <Text
@@ -176,6 +207,7 @@ export default function Campaign(props: propsType) {
             />
           </Pressable>
         )}
+
         <FlatButton
           title="Send"
           onPressed={() => {}}

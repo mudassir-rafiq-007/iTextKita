@@ -27,6 +27,12 @@ type propsType = {
   };
 };
 
+interface selcted {
+  key: number;
+  store: string;
+  isSelected: boolean;
+}
+
 export default function Profile(props: propsType) {
   const {
     fontFamily,
@@ -45,7 +51,34 @@ export default function Profile(props: propsType) {
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
   });
 
-  const stores = ["Apple Store", "Matries", "Newman"];
+  const [stores, setStores] = useState<selcted[]>([
+    { key: 1, store: "Apple", isSelected: false },
+    { key: 2, store: "Gourmet", isSelected: false },
+    { key: 3, store: "Cheezious", isSelected: false },
+    { key: 4, store: "Calvin Klein", isSelected: false },
+    { key: 5, store: "MR Tech", isSelected: false },
+  ]);
+
+  function onSelect(selectedStore: selcted) {
+    const tempData: selcted[] = [];
+    if (stores.length) {
+      stores.map((store) => {
+        if (store.key == selectedStore.key) {
+          if (store.isSelected) {
+            store.isSelected = false;
+            tempData.push(store);
+          } else {
+            store.isSelected = true;
+            tempData.push(store);
+          }
+        } else {
+          store.isSelected = false;
+          tempData.push(store);
+        }
+      });
+      setStores(tempData);
+    }
+  }
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -62,13 +95,12 @@ export default function Profile(props: propsType) {
       style={[
         styles.container,
         {
-          gap: screenHeight * 0.03,
-          paddingTop: screenHeight * 0.01,
-          justifyContent: dimensionSetter({
-            mobile: "flex-start",
-            tabPort: "center",
-            tabLand: "flex-start",
+          gap: dimensionSetter({
+            mobile: screenHeight * 0.03,
+            tabPort: screenHeight * 0.01,
+            tabLand: screenHeight * 0.01,
           }),
+          paddingTop: screenHeight * 0.01,
         },
       ]}
     >
@@ -222,7 +254,7 @@ export default function Profile(props: propsType) {
             tabLand: screenWidth * 0.5,
           }),
           height: dimensionSetter({
-            mobile: screenHeight * 0.4,
+            mobile: screenHeight * 0.3,
             tabPort: screenHeight * 0.4,
             tabLand: screenHeight * 0.3,
           }),
@@ -233,6 +265,7 @@ export default function Profile(props: propsType) {
           data={stores}
           renderItem={({ item }) => (
             <TouchableOpacity
+              onPress={() => onSelect(item)}
               style={[
                 styles.listItem,
                 {
@@ -240,24 +273,35 @@ export default function Profile(props: propsType) {
                   marginVertical: screenHeight * 0.001,
                   marginHorizontal: screenWidth * 0.01,
                   paddingHorizontal: screenWidth * 0.05,
+                  backgroundColor: item.isSelected ? Colors.primary : "white",
                 },
               ]}
             >
               <FAIcons name="circle" size={screenHeight * 0.01} />
               <Text
                 style={{
-                  color: Colors.primary,
                   fontFamily: "Poppins-Bold",
                   fontSize: screenHeight * 0.02,
                   paddingLeft: screenWidth * 0.03,
+                  color: item.isSelected ? "white" : Colors.primary,
                 }}
               >
-                {item}
+                {item.store}
               </Text>
             </TouchableOpacity>
           )}
         />
       </View>
+      <FlatButton
+        title="Apply"
+        zIndex={2}
+        onPressed={() => props.navigation.navigate("Campaign")}
+        width={dimensionSetter({
+          mobile: screenWidth * 0.8,
+          tabPort: screenWidth * 0.6,
+          tabLand: screenWidth * 0.2,
+        })}
+      />
       <FlatButton
         zIndex={2}
         title="Log Out"
@@ -265,8 +309,8 @@ export default function Profile(props: propsType) {
           props.navigation.navigate("Login");
         }}
         width={dimensionSetter({
-          mobile: null,
-          tabPort: null,
+          mobile: screenWidth * 0.8,
+          tabPort: screenWidth * 0.6,
           tabLand: screenWidth * 0.2,
         })}
       />
