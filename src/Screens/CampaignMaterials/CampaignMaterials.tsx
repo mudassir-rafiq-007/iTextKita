@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import Dropdown from "./Dropdown";
 import Header from "../../Components/Header/Header";
 import FlatButton from "../../Components/Buttons/FlatButton";
-import TwoPersons from "../../../assets/images/two-persons.svg";
+import TwoPersons from "../../Components/TwoPersons/TwoPersons";
+import GradientView from "../../Components/GradientView/GradientView";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
@@ -14,7 +14,7 @@ type propsType = {
   };
 };
 
-export default function Templates(props: propsType) {
+export default function CampaignMaterials(props: propsType) {
   const { screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
 
@@ -58,9 +58,7 @@ export default function Templates(props: propsType) {
   }, []);
 
   return (
-    <LinearGradient
-      locations={[0.4, 1]}
-      colors={["#FFFFFF", "#008080"]}
+    <GradientView
       style={[
         styles.container,
         {
@@ -89,36 +87,11 @@ export default function Templates(props: propsType) {
       </View>
       <FlatButton
         title="New Template"
-        onPressed={() => props.navigation.navigate("Online Marketing")}
+        onPressed={() => props.navigation.navigate("Create Campaign")}
         zIndex={2}
       />
-      <View
-        style={[
-          styles.twoPersons,
-          {
-            opacity: dimensionSetter({
-              mobile: 0.5,
-              tabPort: 0.5,
-              tabLand: 0.1,
-            }),
-            bottom: dimensionSetter({
-              mobile: screenHeight * 0.05,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.001,
-            }),
-          },
-        ]}
-      >
-        <TwoPersons
-          height={dimensionSetter({
-            mobile: screenHeight * 0.2,
-            tabPort: screenHeight * 0.3,
-            tabLand: screenHeight * 0.6,
-          })}
-          width={screenWidth * 0.8}
-        />
-      </View>
-    </LinearGradient>
+      <TwoPersons style={styles.twoPersons} />
+    </GradientView>
   );
 }
 

@@ -1,10 +1,10 @@
 import { useState, useContext } from "react";
 import { Text, View, FlatList } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { Colors } from "../Constants/Colors";
 import MenuIcon from "../../../assets/images/menu.svg";
-import { useNavigation } from "@react-navigation/native";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
-import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 
 export default function HeaderMenu() {
   const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
@@ -12,8 +12,8 @@ export default function HeaderMenu() {
 
   function menuWidth() {
     return dimensionSetter({
-      mobile: screenWidth * 0.5,
-      tabPort: screenWidth * 0.4,
+      mobile: screenWidth * 0.6,
+      tabPort: screenWidth * 0.5,
       tabLand: screenWidth * 0.2,
     });
   }
@@ -29,7 +29,7 @@ export default function HeaderMenu() {
     "Business Name",
     "Customer Name",
     "Marketing History",
-    "Templates",
+    "Campaign Materials",
     "Online Marketing",
     "SMS Status",
   ];

@@ -10,7 +10,6 @@ import Login from "./src/Screens/Login/Login";
 import SignUp from "./src/Screens/SignUp/SignUp";
 import Profile from "./src/Screens/Profile/Profile";
 import Campaign from "./src/Screens/Campaign/Campaign";
-import Templates from "./src/Screens/Templates/Templates";
 import BusinessName from "./src/Screens/BusinessName/BusinessName";
 import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
@@ -18,6 +17,8 @@ import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
+import CampaignMaterials from "./src/Screens/CampaignMaterials/CampaignMaterials";
+import CreateCampaign from "./src/Screens/CampaignMaterials/CreateCampaign";
 
 LogBox.ignoreLogs([
   "new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.",
@@ -91,7 +92,14 @@ export default function App() {
               name={"Marketing History"}
               component={MarketingHistory}
             />
-            <Stack.Screen name={"Templates"} component={Templates} />
+            <Stack.Screen
+              name={"Campaign Materials"}
+              component={CampaignMaterials}
+            />
+            <Stack.Screen
+              name={"Create Campaign"}
+              component={CreateCampaign}
+            />
             <Stack.Screen
               name={"Online Marketing"}
               component={OnlineMarketing}
