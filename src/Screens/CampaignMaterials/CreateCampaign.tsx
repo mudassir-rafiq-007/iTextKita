@@ -1,23 +1,11 @@
-import {
-  View,
-  Text,
-  TextStyle,
-  TextInput,
-  Platform,
-  StyleSheet,
-  StyleProp,
-  FlatList,
-  ScrollView,
-  KeyboardAvoidingView,
-} from "react-native";
-import React, { useContext, useEffect } from "react";
-import Header from "../../Components/Header/Header";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { Colors } from "../../Components/Constants/Colors";
-import FlatButton from "../../Components/Buttons/FlatButton";
+import { useContext, useEffect } from "react";
+import { View, StyleSheet, ScrollView } from "react-native";
 import InputFields from "./InputFields";
-import GradientView from "../../Components/GradientView/GradientView";
+import Header from "../../Components/Header/Header";
+import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
+import GradientView from "../../Components/GradientView/GradientView";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {
@@ -35,7 +23,7 @@ const inputsData = [
 ];
 
 export default function CreateCampaign(props: propsType) {
-  const { fontFamily, screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
   useEffect(() => {
@@ -50,7 +38,7 @@ export default function CreateCampaign(props: propsType) {
         contentContainerStyle={{
           flexGrow: 1,
           alignItems: "center",
-          gap: screenHeight * 0.05,
+          gap: screenHeight * 0.05
         }}
       >
         <View
