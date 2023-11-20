@@ -71,7 +71,7 @@ export default function App() {
             <Stack.Screen
               name={"Reset Password"}
               component={ResetPassword}
-              options={{ headerShown: false }}
+              // options={{ headerShown: false }}
             ></Stack.Screen>
             <Stack.Screen
               name={"SignUp"}

@@ -3,7 +3,6 @@ import {
   View,
   Modal,
   Platform,
-  TextInput,
   StyleProp,
   TextStyle,
   ViewStyle,
@@ -11,12 +10,11 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import React, { useContext, useState } from "react";
-import EntypeIcons from "react-native-vector-icons/Entypo";
-import OTPVerify from "./OTPVerify";
 import { Colors } from "../../Components/Constants/Colors";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import OTPInputField from "./OTPInputField";
 
 interface propsType {
   fontFamily: string;
@@ -24,10 +22,14 @@ interface propsType {
   setShowModal: (value: boolean) => void;
 }
 
-export default function ResetPassword(props: propsType) {
+export default function OTPVerify(props: propsType) {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const [code, setCode] = useState<string>();
+  const [pinReady, setPinReady] = useState<boolean>(false);
+  const maxCodeLength = 4;
 
   function containerStyle(): StyleProp<ViewStyle> {
     return {
@@ -123,77 +125,7 @@ export default function ResetPassword(props: propsType) {
           >
             Reset Password
           </Text>
-          <View
-            style={{
-              width: "100%",
-              alignItems: "center",
-              gap: screenHeight * 0.01,
-            }}
-          >
-            <View>
-              <Text style={inputLabelStyle()}>Mobile Number *</Text>
-              <View style={inputFieldStyle()}>
-                <TextInput
-                  style={textInputStyle()}
-                  placeholder="+123 456 7890"
-                  textAlignVertical="center"
-                  placeholderTextColor={"#c7c6c5"}
-                />
-              </View>
-            </View>
-            <View>
-              <Text style={inputLabelStyle()}>Password *</Text>
-              <View style={inputFieldStyle()}>
-                <TextInput
-                  style={textInputStyle()}
-                  placeholder="Password"
-                  textAlignVertical="center"
-                  placeholderTextColor={"#c7c6c5"}
-                />
-                <EntypeIcons
-                  name={secureTextEntry ? "eye" : "eye-with-line"}
-                  color={Colors.primary}
-                  size={screenHeight * 0.025}
-                  style={{
-                    marginRight: dimensionSetter({
-                      mobile: screenWidth * 0.04,
-                      tabPort: screenWidth * 0.04,
-                      tabLand: screenWidth * 0.01,
-                    }),
-                  }}
-                  onPress={() =>
-                    setSecureTextEntry((current) => (current ? false : true))
-                  }
-                />
-              </View>
-            </View>
-            <View>
-              <Text style={inputLabelStyle()}>Confirm Password *</Text>
-              <View style={inputFieldStyle()}>
-                <TextInput
-                  style={textInputStyle()}
-                  placeholder="Confirm Password"
-                  textAlignVertical="center"
-                  placeholderTextColor={"#c7c6c5"}
-                />
-                <EntypeIcons
-                  name={secureTextEntry ? "eye" : "eye-with-line"}
-                  color={Colors.primary}
-                  size={screenHeight * 0.025}
-                  style={{
-                    marginRight: dimensionSetter({
-                      mobile: screenWidth * 0.04,
-                      tabPort: screenWidth * 0.04,
-                      tabLand: screenWidth * 0.01,
-                    }),
-                  }}
-                  onPress={() =>
-                    setSecureTextEntry((current) => (current ? false : true))
-                  }
-                />
-              </View>
-            </View>
-          </View>
+          <OTPInputField />
           <View
             style={{
               alignItems: "center",
@@ -215,7 +147,6 @@ export default function ResetPassword(props: propsType) {
                 tabLand: screenWidth * 0.3,
               })}
             />
-
             <TextButton
               title="Cancel"
               color={Colors.secondary}

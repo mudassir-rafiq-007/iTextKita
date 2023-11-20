@@ -16,6 +16,8 @@ import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import ResetPassword from "../ResetPassword/ResetPassword";
+import OTPVerify from "../ResetPassword/OTPVerify";
 
 type loginProps = {
   navigation: {
@@ -27,6 +29,8 @@ export default function Login(props: loginProps) {
   const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
+  const [resetPasswordModal, setResetPasswordModal] = useState<boolean>(false);
+  const [otpVerifyModal, setOtpVerifyModal] = useState<boolean>(false);
 
   function inputFieldStyle() {
     return [
@@ -199,7 +203,7 @@ export default function Login(props: loginProps) {
             color="#696969"
             title="Reset Password"
             zIndex={2}
-            onPressed={() => props.navigation.navigate("Reset Password")}
+            onPressed={() => setResetPasswordModal(true)}
             fontSize={dimensionSetter({
               mobile: screenWidth * 0.05,
               tabPort: screenWidth * 0.03,
@@ -212,6 +216,19 @@ export default function Login(props: loginProps) {
             })}
           />
         </View>
+        <ResetPassword
+          fontFamily={fontFamily}
+          modalVisible={resetPasswordModal}
+          setShowModal={(value) => {
+            setResetPasswordModal(value);
+            setOtpVerifyModal(!value);
+          }}
+        />
+        <OTPVerify
+          fontFamily={fontFamily}
+          modalVisible={otpVerifyModal}
+          setShowModal={(value) => setOtpVerifyModal(value)}
+        />
         <FlatButton
           title="Login"
           zIndex={2}
