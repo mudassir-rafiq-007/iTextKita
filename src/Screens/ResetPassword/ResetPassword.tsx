@@ -1,36 +1,70 @@
 import {
   Text,
   View,
+  Modal,
   Platform,
   TextInput,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
   StyleSheet,
-  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
-import React, { useContext } from "react";
-import { useFonts } from "expo-font";
-import { LinearGradient } from "expo-linear-gradient";
-import Otp from "../../../assets/images/otp.svg";
-import Phone from "../../../assets/images/phone.svg";
-import ITextKita from "../../../assets/images/iTextKita.svg";
-import TwoPersons from "../../../assets/images/two-persons.svg";
+import React, { useContext, useState } from "react";
+import EntypeIcons from "react-native-vector-icons/Entypo";
+import { Colors } from "../../Components/Constants/Colors";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
-type loginProps = {
-  navigation: {
-    navigate: (screen: string) => void;
-  };
-};
+interface propsType {
+  fontFamily: string;
+  modalVisible: boolean;
+  setShowModal: (value: boolean) => void;
+}
 
-export default function ResetPassword(props: loginProps) {
+export default function ResetPassword(props: propsType) {
+  const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
     useContext(DimensionsContext);
+
+  function containerStyle(): StyleProp<ViewStyle> {
+    return {
+      zIndex: 2,
+      alignItems: "center",
+      justifyContent: "center",
+      height: screenHeight * 0.55,
+      backgroundColor: Colors.primary,
+      borderRadius: screenHeight * 0.02,
+      width: dimensionSetter({
+        mobile: "95%",
+        tabPort: "80%",
+        tabLand: "60%",
+      }),
+    };
+  }
+
+  function inputLabelStyle(): StyleProp<TextStyle> {
+    return {
+      color: "white",
+      fontFamily: fontFamily,
+      alignSelf: "flex-start",
+      fontSize: screenHeight * 0.02,
+    };
+  }
 
   function inputFieldStyle() {
     return [
       styles.inputField,
       {
+        width: dimensionSetter({
+          mobile: "90%",
+          tabPort: "70%",
+          tabLand: "50%",
+        }),
+        borderColor: Colors.secondary,
+        borderWidth: 1,
+        borderRadius: screenHeight * 0.01,
         height: dimensionSetter({
           mobile: screenHeight * 0.06,
           tabPort: screenHeight * 0.05,
@@ -46,7 +80,7 @@ export default function ResetPassword(props: loginProps) {
       {
         fontFamily: fontFamily,
         fontSize: dimensionSetter({
-          mobile: screenHeight * 0.025,
+          mobile: screenHeight * 0.02,
           tabPort: screenHeight * 0.02,
           tabLand: screenHeight * 0.025,
         }),
@@ -59,7 +93,7 @@ export default function ResetPassword(props: loginProps) {
               })
             : null,
         marginHorizontal: dimensionSetter({
-          mobile: screenWidth * 0.01,
+          mobile: screenWidth * 0.02,
           tabPort: screenWidth * 0.01,
           tabLand: screenWidth * 0.005,
         }),
@@ -68,231 +102,142 @@ export default function ResetPassword(props: loginProps) {
   }
 
   return (
-    <ScrollView
-      contentContainerStyle={{ flexGrow: 1, height: screenHeight }}
-      keyboardShouldPersistTaps="handled"
+    <Modal
+      transparent={true}
+      animationType="slide"
+      visible={props.modalVisible}
     >
-      <LinearGradient
-        colors={["#FFFFFF", "#008080"]}
-        locations={[0.5, 1]}
-        style={dimensionSetter({
-          mobile: styles.container,
-          tabPort: styles.container,
-          tabLand: [styles.container, { justifyContent: "flex-start" }],
-        })}
+      <KeyboardAvoidingView
+        style={styles.main}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-        <ITextKita
-          height={dimensionSetter({
-            mobile: screenHeight * 0.18,
-            tabPort: screenHeight * 0.15,
-            tabLand: screenHeight * 0.2,
-          })}
-          width={dimensionSetter({
-            mobile: screenWidth * 0.6,
-            tabPort: screenWidth * 0.5,
-            tabLand: screenWidth * 0.3,
-          })}
-          style={{
-            marginTop: dimensionSetter({
-              mobile: screenHeight * 0.1,
-              tabPort: screenHeight * 0.1,
-              tabLand: screenHeight * 0.07,
-            }),
-            marginBottom: dimensionSetter({
-              mobile: screenHeight * 0.01,
-              tabPort: screenHeight * 0.01,
-              tabLand: null,
-            }),
-          }}
-        />
-        <View
-          style={[
-            styles.form,
-            {
-              zIndex: 2,
-              gap: screenHeight * 0.03,
-              width: dimensionSetter({
-                mobile: "80%",
-                tabPort: "50%",
-                tabLand: "30%",
-              }),
-            },
-          ]}
-        >
-          <View style={inputFieldStyle()}>
-            <Phone
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginHorizontal: dimensionSetter({
-                  mobile: screenWidth * 0.05,
-                  tabPort: screenWidth * 0.03,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-            />
-            <TextInput
-              style={textInputStyle()}
-              placeholder="Mobile Number"
-              textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
-            />
-          </View>
-          <View style={inputFieldStyle()}>
-            <Otp
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginHorizontal: dimensionSetter({
-                  mobile: screenWidth * 0.05,
-                  tabPort: screenWidth * 0.03,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-            />
-            <TextInput
-              style={[
-                ...textInputStyle(),
-                {
-                  width: dimensionSetter({
-                    mobile: "70%",
-                    tabPort: "80%",
-                    tabLand: "80%",
-                  }),
-                },
-              ]}
-              placeholder="OTP"
-              textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
-            />
-          </View>
-        </View>
-
-        <FlatButton
-          title="Submit"
-          zIndex={2}
-          onPressed={() => props.navigation.navigate("Campaign")}
-          titleFontSize={dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.035,
-            tabLand: screenWidth * 0.015,
-          })}
-          width={dimensionSetter({
-            mobile: screenWidth * 0.8,
-            tabPort: screenWidth * 0.5,
-            tabLand: screenWidth * 0.3,
-          })}
-          marginVertical={screenHeight * 0.03}
-        />
-        <View style={styles.registerView}>
+        <View style={containerStyle()}>
           <Text
             style={{
-              zIndex: 2,
-              color: "#696969",
-              fontFamily: fontFamily,
-              fontSize: dimensionSetter({
-                mobile: screenWidth * 0.035,
-                tabPort: screenWidth * 0.025,
-                tabLand: screenWidth * 0.015,
-              }),
+              color: Colors.secondary,
+              fontFamily: props.fontFamily,
+              fontSize: screenHeight * 0.03,
+              marginBottom: screenHeight * 0.01,
             }}
           >
-            I Don't Have Account?
+            Reset Password
           </Text>
-          <TextButton
-            title="Register"
-            onPressed={() => props.navigation.navigate("SignUp")}
-            color="#008080"
-            zIndex={2}
-            fontWeight="bold"
-            fontSize={dimensionSetter({
-              mobile: screenWidth * 0.035,
-              tabPort: screenWidth * 0.025,
-              tabLand: screenWidth * 0.015,
-            })}
-          />
-        </View>
-        <View
-          style={dimensionSetter({
-            mobile: { alignItems: "center" },
-            tabPort: { alignItems: "center" },
-            tabLand: {
-              zIndex: 1,
-              position: "absolute",
-              bottom: screenHeight * 0.01,
+          <View
+            style={{
+              width: "100%",
               alignItems: "center",
-            },
-          })}
-        >
-          <TwoPersons
-            height={dimensionSetter({
-              mobile: screenHeight * 0.22,
-              tabPort: screenHeight * 0.3,
-              tabLand: screenHeight * 0.55,
-            })}
-            width={dimensionSetter({
-              mobile: screenWidth * 0.9,
-              tabPort: screenWidth * 0.95,
-              tabLand: screenWidth * 0.95,
-            })}
-          />
-          <Text
-            style={{
-              zIndex: 1,
-              color: "white",
-              fontFamily: fontFamily,
-              marginVertical: dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.05,
-                tabLand: screenHeight * 0.02,
-              }),
-              fontSize: dimensionSetter({
-                mobile: screenWidth * 0.04,
-                tabPort: screenWidth * 0.025,
-                tabLand: screenWidth * 0.015,
-              }),
+              gap: screenHeight * 0.01,
             }}
           >
-            ⓒ & 2023 NTech Crop.
-          </Text>
+            <View>
+              <Text style={inputLabelStyle()}>Mobile Number *</Text>
+              <View style={inputFieldStyle()}>
+                <TextInput
+                  style={textInputStyle()}
+                  placeholder="+123 456 7890"
+                  textAlignVertical="center"
+                  placeholderTextColor={"#c7c6c5"}
+                />
+              </View>
+            </View>
+            <View>
+              <Text style={inputLabelStyle()}>Password *</Text>
+              <View style={inputFieldStyle()}>
+                <TextInput
+                  style={textInputStyle()}
+                  placeholder="Password"
+                  textAlignVertical="center"
+                  placeholderTextColor={"#c7c6c5"}
+                />
+                <EntypeIcons
+                  name={secureTextEntry ? "eye" : "eye-with-line"}
+                  color={Colors.primary}
+                  size={screenHeight * 0.025}
+                  style={{
+                    marginRight: dimensionSetter({
+                      mobile: screenWidth * 0.04,
+                      tabPort: screenWidth * 0.04,
+                      tabLand: screenWidth * 0.01,
+                    }),
+                  }}
+                  onPress={() =>
+                    setSecureTextEntry((current) => (current ? false : true))
+                  }
+                />
+              </View>
+            </View>
+            <View>
+              <Text style={inputLabelStyle()}>Confirm Password *</Text>
+              <View style={inputFieldStyle()}>
+                <TextInput
+                  style={textInputStyle()}
+                  placeholder="Confirm Password"
+                  textAlignVertical="center"
+                  placeholderTextColor={"#c7c6c5"}
+                />
+                <EntypeIcons
+                  name={secureTextEntry ? "eye" : "eye-with-line"}
+                  color={Colors.primary}
+                  size={screenHeight * 0.025}
+                  style={{
+                    marginRight: dimensionSetter({
+                      mobile: screenWidth * 0.04,
+                      tabPort: screenWidth * 0.04,
+                      tabLand: screenWidth * 0.01,
+                    }),
+                  }}
+                  onPress={() =>
+                    setSecureTextEntry((current) => (current ? false : true))
+                  }
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            style={{
+              alignItems: "center",
+              marginTop: screenHeight * 0.02,
+            }}
+          >
+            <FlatButton
+              title="Submit"
+              zIndex={2}
+              onPressed={() => props.setShowModal(false)}
+              titleFontSize={dimensionSetter({
+                mobile: screenWidth * 0.04,
+                tabPort: screenWidth * 0.035,
+                tabLand: screenWidth * 0.015,
+              })}
+              width={dimensionSetter({
+                mobile: screenWidth * 0.8,
+                tabPort: screenWidth * 0.5,
+                tabLand: screenWidth * 0.3,
+              })}
+            />
+            <TextButton
+              title="Cancel"
+              color={Colors.secondary}
+              fontSize={screenHeight * 0.02}
+              onPressed={() => props.setShowModal(false)}
+            />
+          </View>
         </View>
-      </LinearGradient>
-    </ScrollView>
+      </KeyboardAvoidingView>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  main: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#fff",
     justifyContent: "center",
-  },
-  form: {
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#fff0",
   },
   inputField: {
-    width: "100%",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: "#084A5B",
+    backgroundColor: "white",
     textAlignVertical: "center",
   },
   textInput: {
@@ -301,11 +246,5 @@ const styles = StyleSheet.create({
     color: "#c7c6c5",
     justifyContent: "center",
     textAlignVertical: "center",
-  },
-  registerView: {
-    zIndex: 2,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
