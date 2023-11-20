@@ -17,6 +17,7 @@ import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import ResetPassword from "../ResetPassword/ResetPassword";
+import OTPVerify from "../ResetPassword/OTPVerify";
 
 type loginProps = {
   navigation: {
@@ -29,6 +30,7 @@ export default function Login(props: loginProps) {
     useContext(DimensionsContext);
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const [resetPasswordModal, setResetPasswordModal] = useState<boolean>(false);
+  const [otpVerifyModal, setOtpVerifyModal] = useState<boolean>(false);
 
   function inputFieldStyle() {
     return [
@@ -217,7 +219,15 @@ export default function Login(props: loginProps) {
         <ResetPassword
           fontFamily={fontFamily}
           modalVisible={resetPasswordModal}
-          setShowModal={(value) => setResetPasswordModal(value)}
+          setShowModal={(value) => {
+            setResetPasswordModal(value);
+            setOtpVerifyModal(!value);
+          }}
+        />
+        <OTPVerify
+          fontFamily={fontFamily}
+          modalVisible={otpVerifyModal}
+          setShowModal={(value) => setOtpVerifyModal(value)}
         />
         <FlatButton
           title="Login"
