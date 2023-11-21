@@ -58,7 +58,7 @@ export default function Profile(props: propsType) {
           gap: isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.02,
         }}
       >
-        <UserDetails />
+        <UserDetails navigate={props.navigation.navigate}/>
         <AvailableCredits />
         {isTabLandscape && (
           <FlatButton

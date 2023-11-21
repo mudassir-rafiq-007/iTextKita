@@ -12,6 +12,7 @@ import Campaign from "./src/Screens/Campaign/Campaign";
 import BusinessName from "./src/Screens/BusinessName/BusinessName";
 import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
+import PlanDetails from "./src/Screens/Profile/PlanDetails/PlanDetails";
 import Profile from "./src/Screens/Profile/AccountProfile/AccountProfile";
 import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 import CreateCampaign from "./src/Screens/CampaignMaterials/CreateCampaign";
@@ -85,6 +86,7 @@ export default function App() {
               options={{ headerShown: false }}
             ></Stack.Screen>
             <Stack.Screen name={"Profile"} component={Profile} />
+            <Stack.Screen name={"Plan Details"} component={PlanDetails} />
             <Stack.Screen name={"Campaign"} component={Campaign} />
             <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />

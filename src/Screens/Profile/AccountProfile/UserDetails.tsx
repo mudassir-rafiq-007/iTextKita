@@ -6,7 +6,11 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import { Colors } from "../../../Components/Constants/Colors";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
-export default function UserDetails() {
+interface propsType{
+  navigate: (screen: string) => void;
+}
+
+export default function UserDetails(props: propsType) {
   const {isTabLandscape, fontFamily, screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
@@ -67,7 +71,7 @@ export default function UserDetails() {
           <Text style={textStyle}>Plan 999 (Maritext)</Text>
         </View>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={() => props.navigate("Plan Details")}
           style={{
             alignItems: "center",
             flexDirection: "row",
