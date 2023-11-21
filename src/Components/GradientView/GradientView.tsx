@@ -10,7 +10,7 @@ export default function GradientView(props: propsType) {
   return (
     <LinearGradient
       style={props.style}
-      locations={[0.4, 1]}
+      locations={[0.5, 1]}
       colors={["#FFFFFF", "#008080"]}
     >
       {props.children}

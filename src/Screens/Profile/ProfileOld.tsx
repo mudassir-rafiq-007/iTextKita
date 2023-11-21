@@ -33,7 +33,7 @@ interface selcted {
   isSelected: boolean;
 }
 
-export default function Profile(props: propsType) {
+export default function ProfileOld(props: propsType) {
   const {
     fontFamily,
     screenWidth,

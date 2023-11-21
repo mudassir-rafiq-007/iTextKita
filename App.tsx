@@ -8,17 +8,17 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Terms from "./src/Screens/Terms/Terms";
 import Login from "./src/Screens/Login/Login";
 import SignUp from "./src/Screens/SignUp/SignUp";
-import Profile from "./src/Screens/Profile/Profile";
 import Campaign from "./src/Screens/Campaign/Campaign";
 import BusinessName from "./src/Screens/BusinessName/BusinessName";
 import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
+import Profile from "./src/Screens/Profile/AccountProfile/AccountProfile";
 import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
+import CreateCampaign from "./src/Screens/CampaignMaterials/CreateCampaign";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import CampaignMaterials from "./src/Screens/CampaignMaterials/CampaignMaterials";
-import CreateCampaign from "./src/Screens/CampaignMaterials/CreateCampaign";
 
 LogBox.ignoreLogs([
   "new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.",
