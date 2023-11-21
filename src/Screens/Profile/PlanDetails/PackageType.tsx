@@ -4,7 +4,11 @@ import { Colors } from "../../../Components/Constants/Colors";
 import TextButton from "../../../Components/Buttons/TextButton";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
-export default function PackageType() {
+interface propsType {
+  navigate: (value: string) => void;
+}
+
+export default function PackageType(props: propsType) {
   const {
     isTabLandscape,
     fontFamily,
@@ -63,12 +67,12 @@ export default function PackageType() {
               fontSize: screenHeight * 0.02,
             }}
           >
-            29.99$/per month
+            29.99$<Text style={{fontFamily: fontFamily}}>/per month</Text>
           </Text>
         </View>
         <TextButton
           title="Renew / Upgrade"
-          onPressed={() => {}}
+          onPressed={() => props.navigate("Package Plans")}
           color={Colors.secondary}
           fontSize={isTabLandscape ? screenHeight * 0.02 : screenHeight * 0.016}
         />

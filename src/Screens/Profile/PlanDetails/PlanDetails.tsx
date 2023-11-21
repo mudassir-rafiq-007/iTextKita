@@ -40,7 +40,7 @@ export default function PlanDetails(props: propsType) {
         },
       ]}
     >
-      <PackageType />
+      <PackageType navigate={props.navigation.navigate}/>
       <PurchaseHistory />
       <TwoPersons style={styles.twoPersons} />
     </GradientView>

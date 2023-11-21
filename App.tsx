@@ -20,6 +20,7 @@ import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import CampaignMaterials from "./src/Screens/CampaignMaterials/CampaignMaterials";
+import PackagePlans from "./src/Screens/Profile/PackagePlans/PackagePlans";
 
 LogBox.ignoreLogs([
   "new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.",
@@ -87,6 +88,7 @@ export default function App() {
             ></Stack.Screen>
             <Stack.Screen name={"Profile"} component={Profile} />
             <Stack.Screen name={"Plan Details"} component={PlanDetails} />
+            <Stack.Screen name={"Package Plans"} component={PackagePlans} />
             <Stack.Screen name={"Campaign"} component={Campaign} />
             <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />
