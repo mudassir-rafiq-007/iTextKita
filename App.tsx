@@ -14,13 +14,14 @@ import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
 import PlanDetails from "./src/Screens/Profile/PlanDetails/PlanDetails";
 import Profile from "./src/Screens/Profile/AccountProfile/AccountProfile";
+import PackagePlans from "./src/Screens/Profile/PackagePlans/PackagePlans";
 import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 import CreateCampaign from "./src/Screens/CampaignMaterials/CreateCampaign";
 import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import CampaignMaterials from "./src/Screens/CampaignMaterials/CampaignMaterials";
-import PackagePlans from "./src/Screens/Profile/PackagePlans/PackagePlans";
+import StoreInformation from "./src/Screens/Profile/StoreInformation/StoreInformation";
 
 LogBox.ignoreLogs([
   "new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.",
@@ -74,7 +75,6 @@ export default function App() {
             <Stack.Screen
               name={"Reset Password"}
               component={ResetPassword}
-              // options={{ headerShown: false }}
             ></Stack.Screen>
             <Stack.Screen
               name={"SignUp"}
@@ -89,6 +89,10 @@ export default function App() {
             <Stack.Screen name={"Profile"} component={Profile} />
             <Stack.Screen name={"Plan Details"} component={PlanDetails} />
             <Stack.Screen name={"Package Plans"} component={PackagePlans} />
+            <Stack.Screen
+              name={"Store Information"}
+              component={StoreInformation}
+            />
             <Stack.Screen name={"Campaign"} component={Campaign} />
             <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />
@@ -100,10 +104,7 @@ export default function App() {
               name={"Campaign Materials"}
               component={CampaignMaterials}
             />
-            <Stack.Screen
-              name={"Create Campaign"}
-              component={CreateCampaign}
-            />
+            <Stack.Screen name={"Create Campaign"} component={CreateCampaign} />
             <Stack.Screen
               name={"Online Marketing"}
               component={OnlineMarketing}

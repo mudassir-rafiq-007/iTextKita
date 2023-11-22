@@ -1,15 +1,10 @@
 import { useContext } from "react";
-import {
-  View,
-  Text,
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, Platform, StyleSheet } from "react-native";
 import { Colors } from "../../../Components/Constants/Colors";
+import TextButton from "../../../Components/Buttons/TextButton";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
-export default function AvailableCredits() {
+export default function ExpiryDate() {
   const {
     fontFamily,
     screenWidth,
@@ -24,11 +19,11 @@ export default function AvailableCredits() {
         {
           borderRadius: screenHeight * 0.005,
           paddingTop: Platform.OS == "android" ? "2%" : null,
-          height: isTabLandscape ? screenHeight * 0.15 : screenHeight * 0.1,
+          height: isTabLandscape ? screenHeight * 0.13 : screenHeight * 0.1,
           width: dimensionSetter({
             mobile: "90%",
             tabPort: "70%",
-            tabLand: "90%",
+            tabLand: "80%",
           }),
         },
       ]}
@@ -38,45 +33,30 @@ export default function AvailableCredits() {
           style={{
             color: Colors.primary,
             fontSize: isTabLandscape
-              ? screenHeight * 0.03
+              ? screenHeight * 0.025
               : screenHeight * 0.02,
           }}
         >
-          Available Credits
+          Sender ID Expiration Date
         </Text>
         <Text
           style={{
             color: Colors.secondary,
             fontFamily: "Poppins-Bold",
             fontSize: isTabLandscape
-              ? screenHeight * 0.035
-              : screenHeight * 0.025,
+              ? screenHeight * 0.025
+              : screenHeight * 0.02,
           }}
         >
-          2451041
+          18 September 2023
         </Text>
       </View>
-      <TouchableOpacity
-        onPress={() => {}}
-        style={[
-          styles.addMoreView,
-          {
-            borderRadius: screenHeight * 0.05,
-            height: isTabLandscape ? "40%" : "60%",
-            paddingTop: Platform.OS == "android" ? "1%" : null,
-          },
-        ]}
-      >
-        <Text
-          style={{
-            color: Colors.secondary,
-            fontSize: screenHeight * 0.02,
-            fontFamily: isTabLandscape ? "Poppins-Bold" : fontFamily,
-          }}
-        >
-          Add more
-        </Text>
-      </TouchableOpacity>
+      <TextButton
+        title="Extend"
+        onPressed={() => {}}
+        color={Colors.secondary}
+        textDecorationLine="underline"
+      />
     </View>
   );
 }
@@ -92,6 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   addMoreView: {
+    height: "60%",
     width: "40%",
     borderWidth: 1,
     alignItems: "center",

@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { useFonts } from "expo-font";
-import Stores from "./Stores";
-import UserDetails from "./UserDetails";
-import AvailableCredits from "./AvailableCredits";
+import { RouteProp } from "@react-navigation/native";
+import UsersList from "./UsersList";
+import ExpiryDate from "./ExpiryDate";
+import StoreDetails from "./StoreDetails";
+import SubscribePage from "./SubscribePage";
 import Header from "../../../Components/Header/Header";
 import FlatButton from "../../../Components/Buttons/FlatButton";
 import TwoPersons from "../../../Components/TwoPersons/TwoPersons";
@@ -12,12 +13,13 @@ import { DimensionsContext } from "../../../Components/Contexts/DimensionsContex
 
 type propsType = {
   navigation: {
-    navigate: (screen: string, {}: object) => void;
+    navigate: (screen: string) => void;
     setOptions: ({}: object) => void;
   };
+  route: RouteProp<{ params: { storeName: string } }, "params">;
 };
 
-export default function Profile(props: propsType) {
+export default function StoreInformation(props: propsType) {
   const {
     fontFamily,
     screenWidth,
@@ -26,40 +28,40 @@ export default function Profile(props: propsType) {
     dimensionSetter,
   } = useContext(DimensionsContext);
 
-  const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../../../assets/fonts/Poppins-Bold.ttf"),
-  });
+  const storeName = props.route.params.storeName;
 
   useEffect(() => {
     props.navigation.setOptions({
-      header: () => <Header title="ACCOUNT PROFILE" />,
+      header: () => <Header title={storeName} />,
     });
   }, []);
-
-  if (!fontsLoaded) return null;
 
   return (
     <GradientView
       style={[
         styles.main,
         {
-          gap: screenHeight * 0.03,
           flexDirection: isTabLandscape ? "row" : null,
-          justifyContent: isTabLandscape ? "center" : null,
+          gap: isTabLandscape ? null : screenHeight * 0.03,
           alignItems: isTabLandscape ? "flex-start" : "center",
+          justifyContent: isTabLandscape ? "space-around" : null,
         },
       ]}
     >
       <View
         style={{
           zIndex: 2,
-          width: isTabLandscape ? "45%" : "100%",
-          alignItems: isTabLandscape ? null : "center",
-          gap: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.02,
+          alignItems: "center",
+          width: isTabLandscape ? "50%" : "100%",
+          gap: isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02,
         }}
       >
-        <UserDetails navigate={props.navigation.navigate} />
-        <AvailableCredits />
+        <StoreDetails
+          storeName={storeName}
+          navigate={props.navigation.navigate}
+        />
+        <ExpiryDate />
+        <SubscribePage />
         {isTabLandscape && (
           <FlatButton
             title="Log Out"
@@ -67,7 +69,7 @@ export default function Profile(props: propsType) {
             width={dimensionSetter({
               mobile: "90%",
               tabPort: "70%",
-              tabLand: "70%",
+              tabLand: "60%",
             })}
           />
         )}
@@ -76,30 +78,27 @@ export default function Profile(props: propsType) {
         style={{
           zIndex: 2,
           alignItems: "center",
-          width: isTabLandscape ? "45%" : "100%",
+          width: isTabLandscape ? "50%" : "100%",
           gap: isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.01,
         }}
       >
-        <Stores navigate={props.navigation.navigate} />
+        <UsersList />
         <View
           style={{
             alignItems: "center",
             width: dimensionSetter({
               mobile: "90%",
               tabPort: "70%",
-              tabLand: "100%",
+              tabLand: "60%",
             }),
           }}
         >
           <FlatButton
-            title="Add New Store"
+            title="Add New User"
             onPressed={() => {}}
-            width={isTabLandscape ? "80%" : "100%"}
+            width={isTabLandscape ? "90%" : "100%"}
             marginVertical={isTabLandscape ? null : screenHeight * 0.02}
           />
-          {!isTabLandscape && (
-            <FlatButton title="Log Out" onPressed={() => {}} />
-          )}
         </View>
       </View>
       <TwoPersons style={styles.twoPersons} />

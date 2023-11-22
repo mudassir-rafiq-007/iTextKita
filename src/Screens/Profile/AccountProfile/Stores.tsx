@@ -5,14 +5,24 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import MCIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+import { Colors } from "../../../Components/Constants/Colors";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
-export default function Stores() {
-  const {isTabLandscape, fontFamily, screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
+interface propsType {
+  navigate: (screen: string, {}: object) => void;
+}
+
+export default function Stores(props: propsType) {
+  const {
+    fontFamily,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   const [showStores, setShowStores] = useState<boolean>(true);
 
@@ -21,47 +31,59 @@ export default function Stores() {
     { id: 2, name: "Kit Shop" },
     { id: 3, name: "Ads Tool" },
     { id: 4, name: "Ka-Tubig" },
+    { id: 5, name: "iTextKita" },
+    { id: 6, name: "Kit Shop" },
+    { id: 7, name: "Ads Tool" },
+    { id: 8, name: "Ka-Tubig" },
   ];
   return (
     <View
       style={{
+        alignItems: "center",
+        gap: isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.01,
         width: dimensionSetter({
           mobile: "100%",
           tabPort: "80%",
-          tabLand: "70%",
+          tabLand: "100%",
         }),
-        alignItems: "center",
-        gap: isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.01,
       }}
     >
       <TouchableOpacity
         onPress={() => setShowStores(!showStores)}
-        style={[styles.showStoresButton, { height: screenHeight * 0.06 }]}
+        style={[
+          styles.showStoresButton,
+          {
+            height: screenHeight * 0.06,
+            borderTopWidth: isTabLandscape ? null : 1,
+          },
+        ]}
       >
         <View
           style={{
             flexDirection: "row",
             alignItems: "center",
-            gap: screenWidth * 0.05,
+            gap: isTabLandscape ? screenWidth * 0.01 : screenWidth * 0.05,
           }}
         >
           <MCIcons
             color={"#0005"}
             name="store-outline"
-            size={screenHeight * 0.04}
+            size={isTabLandscape ? screenHeight * 0.06 : screenHeight * 0.04}
           />
           <Text
             style={{
-              color: "#0005",
-              fontFamily: fontFamily,
-              fontSize: screenHeight * 0.02,
+              color: isTabLandscape ? Colors.primary : "#0005",
+              fontFamily: isTabLandscape ? "Poppins-Bold" : fontFamily,
+              fontSize: isTabLandscape
+                ? screenHeight * 0.03
+                : screenHeight * 0.02,
             }}
           >
             Store Details
           </Text>
         </View>
         <SimpleLineIcons
-          color={"#0005"}
+          color={"#000"}
           size={screenHeight * 0.03}
           name={showStores ? "arrow-up" : "arrow-down"}
         />
@@ -71,28 +93,34 @@ export default function Stores() {
           style={{
             zIndex: 2,
             width: "90%",
-            height: screenHeight * 0.25,
+            height: isTabLandscape ? screenHeight * 0.35 : screenHeight * 0.25,
           }}
         >
           <FlatList
             data={stores}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => {}}
+                onPress={() =>
+                  props.navigate("Store Information", { storeName: item.name })
+                }
                 style={{
                   flexDirection: "row",
-                  backgroundColor: "#DeDeDe",
-                  paddingLeft: screenWidth * 0.05,
+                  backgroundColor: "#F7F7F7",
                   borderRadius: screenHeight * 0.01,
                   marginVertical: screenHeight * 0.005,
                   paddingVertical: screenHeight * 0.005,
+                  paddingLeft: isTabLandscape
+                    ? screenWidth * 0.03
+                    : screenWidth * 0.05,
                 }}
               >
                 <Text
                   style={{
-                    color: "#0008",
+                    color: isTabLandscape ? Colors.primary : "#0008",
                     fontFamily: fontFamily,
-                    fontSize: screenHeight * 0.02,
+                    fontSize: isTabLandscape
+                      ? screenHeight * 0.025
+                      : screenHeight * 0.02,
                   }}
                 >
                   {item.name}
