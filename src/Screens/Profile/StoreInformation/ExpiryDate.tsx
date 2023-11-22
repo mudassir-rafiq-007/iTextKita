@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { View, Text, Platform, StyleSheet } from "react-native";
+import ExtendModal from "./ExtendModal/ExtendModal";
 import { Colors } from "../../../Components/Constants/Colors";
 import TextButton from "../../../Components/Buttons/TextButton";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
 export default function ExpiryDate() {
+  const [showModal, setShowModal] = useState<boolean>(true);
   const {
     fontFamily,
     screenWidth,
@@ -53,10 +55,17 @@ export default function ExpiryDate() {
       </View>
       <TextButton
         title="Extend"
-        onPressed={() => {}}
         color={Colors.secondary}
         textDecorationLine="underline"
+        onPressed={() => setShowModal(true)}
       />
+      {showModal && (
+        <ExtendModal
+          fontFamily={fontFamily}
+          modalVisible={showModal}
+          setShowModal={(value) => setShowModal(value)}
+        />
+      )}
     </View>
   );
 }
