@@ -9,7 +9,11 @@ import {
 import { Colors } from "../../../Components/Constants/Colors";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
-export default function AvailableCredits() {
+interface propsType{
+  navigate: (screen: string, {}: object) => void
+}
+
+export default function AvailableCredits(props: propsType) {
   const {
     fontFamily,
     screenWidth,
@@ -57,7 +61,7 @@ export default function AvailableCredits() {
         </Text>
       </View>
       <TouchableOpacity
-        onPress={() => {}}
+        onPress={() => props.navigate("Purchase Credits", {})}
         style={[
           styles.addMoreView,
           {

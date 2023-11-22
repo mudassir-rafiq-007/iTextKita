@@ -21,6 +21,7 @@ import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import CampaignMaterials from "./src/Screens/CampaignMaterials/CampaignMaterials";
+import PurchaseCredits from "./src/Screens/Profile/PurchaseCredits/PurchaseCredits";
 import StoreInformation from "./src/Screens/Profile/StoreInformation/StoreInformation";
 
 LogBox.ignoreLogs([
@@ -88,6 +89,7 @@ export default function App() {
             ></Stack.Screen>
             <Stack.Screen name={"Profile"} component={Profile} />
             <Stack.Screen name={"Plan Details"} component={PlanDetails} />
+            <Stack.Screen name={"Purchase Credits"} component={PurchaseCredits} />
             <Stack.Screen name={"Package Plans"} component={PackagePlans} />
             <Stack.Screen
               name={"Store Information"}

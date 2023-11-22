@@ -59,7 +59,7 @@ export default function Profile(props: propsType) {
         }}
       >
         <UserDetails navigate={props.navigation.navigate} />
-        <AvailableCredits />
+        <AvailableCredits navigate={props.navigation.navigate} />
         {isTabLandscape && (
           <FlatButton
             title="Log Out"

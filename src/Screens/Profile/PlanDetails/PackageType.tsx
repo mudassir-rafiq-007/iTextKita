@@ -10,10 +10,10 @@ interface propsType {
 
 export default function PackageType(props: propsType) {
   const {
-    isTabLandscape,
     fontFamily,
     screenWidth,
     screenHeight,
+    isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
   return (
@@ -43,9 +43,9 @@ export default function PackageType(props: propsType) {
         style={[
           styles.main,
           {
-            height: isTabLandscape ? screenHeight * 0.12 : screenHeight * 0.1,
             borderRadius: screenHeight * 0.005,
             paddingTop: Platform.OS == "android" ? "2%" : null,
+            height: isTabLandscape ? screenHeight * 0.12 : screenHeight * 0.1,
             width: dimensionSetter({
               mobile: "90%",
               tabPort: "90%",
@@ -67,14 +67,14 @@ export default function PackageType(props: propsType) {
               fontSize: screenHeight * 0.02,
             }}
           >
-            29.99$<Text style={{fontFamily: fontFamily}}>/per month</Text>
+            29.99$<Text style={{ fontFamily: fontFamily }}>/per month</Text>
           </Text>
         </View>
         <TextButton
           title="Renew / Upgrade"
-          onPressed={() => props.navigate("Package Plans")}
           color={Colors.secondary}
-          fontSize={isTabLandscape ? screenHeight * 0.02 : screenHeight * 0.016}
+          onPressed={() => props.navigate("Package Plans")}
+          fontSize={isTabLandscape ? screenHeight * 0.02 : screenHeight * 0.015}
         />
       </View>
       <View
@@ -94,18 +94,18 @@ export default function PackageType(props: propsType) {
       >
         <Text
           style={{
+            color: "#0006",
             fontFamily: fontFamily,
             fontSize: screenHeight * 0.02,
-            color: "#0006",
           }}
         >
           Plan Expiration Date
         </Text>
         <Text
           style={{
+            color: Colors.secondary,
             fontFamily: "Poppins-Bold",
             fontSize: screenHeight * 0.02,
-            color: Colors.secondary,
           }}
         >
           18 September 2023

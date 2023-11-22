@@ -60,9 +60,8 @@ export default function FlatButton(props: propType) {
               tabLand: screenWidth * 0.4,
             }),
           height:
-            props.height || isTabLandscape
-              ? screenHeight * 0.07
-              : screenHeight * 0.06,
+            props.height ||
+            (isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.06),
           borderRadius: screenHeight * 0.1,
           backgroundColor: props.bgColor || "#F6851F",
           margin: props.margin || screenHeight * 0.005,
@@ -78,9 +77,10 @@ export default function FlatButton(props: propType) {
           paddingRight: props.paddingRight,
           paddingBottom: props.paddingBottom,
           paddingVertical:
-            props.paddingVertical || Platform.OS == "android"
+            props.paddingVertical ||
+            (Platform.OS == "android"
               ? screenHeight * 0.002
-              : screenHeight * 0.006,
+              : screenHeight * 0.006),
           paddingHorizontal: props.paddingHorizontal,
           zIndex: props.zIndex,
         },
@@ -93,9 +93,8 @@ export default function FlatButton(props: propType) {
           {
             color: props.titleColor || "white",
             fontSize:
-              props.titleFontSize || isTabLandscape
-                ? screenHeight * 0.03
-                : screenHeight * 0.02,
+              props.titleFontSize ||
+              (isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02),
             marginTop: Platform.OS == "android" ? screenHeight * 0.006 : null,
           },
         ]}

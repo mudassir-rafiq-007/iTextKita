@@ -50,9 +50,8 @@ export default function TextButton(props: propToTextButton) {
             fontFamily: props.fontFamily || fontFamily,
             textDecorationLine: props.textDecorationLine,
             fontSize:
-              props.fontSize || isTabLandscape
-                ? screenHeight * 0.025
-                : screenHeight * 0.02,
+              props.fontSize ||
+              (isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02),
             margin: props.margin || screenHeight * 0.01,
             marginTop: props.marginTop,
             marginLeft: props.marginLeft,

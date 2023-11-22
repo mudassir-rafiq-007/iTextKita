@@ -1,5 +1,5 @@
+import { useContext } from "react";
 import { View, Text, FlatList } from "react-native";
-import React, { useContext } from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Colors } from "../../../Components/Constants/Colors";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
@@ -14,16 +14,18 @@ export default function PurchaseHistory() {
   } = useContext(DimensionsContext);
 
   const history = [
-    { id: 1, date: "12/01/23", plan: "Basic (29.99$)", status: "Active" },
-    { id: 2, date: "12/01/23", plan: "Basic (29.99$)", status: "Active" },
-    { id: 3, date: "12/01/23", plan: "Basic (29.99$)", status: "Active" },
-    { id: 4, date: "12/01/23", plan: "Basic (29.99$)", status: "Expired" },
-    { id: 5, date: "12/01/23", plan: "Basic (29.99$)", status: "Expired" },
-    { id: 6, date: "12/01/23", plan: "Basic (29.99$)", status: "Active" },
-    { id: 7, date: "12/01/23", plan: "Basic (29.99$)", status: "Active" },
-    { id: 8, date: "12/01/23", plan: "Basic (29.99$)", status: "Active" },
-    { id: 9, date: "12/01/23", plan: "Basic (29.99$)", status: "Expired" },
-    { id: 10, date: "12/01/23", plan: "Basic (29.99$)", status: "Expired" },
+    { id: 1, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 2, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 3, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 4, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 5, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 6, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 7, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 8, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 9, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 10, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 11, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
+    { id: 12, date: "12/01/23", creditAmount: "1000", cost: "4.99$" },
   ];
 
   const headerTextStyle = {
@@ -36,14 +38,15 @@ export default function PurchaseHistory() {
     <View
       style={{
         flexDirection: "row",
-        justifyContent: "space-around",
+        paddingHorizontal: "5%",
+        justifyContent: "space-between",
         marginVertical: screenHeight * 0.005,
         paddingVertical: screenHeight * 0.005,
       }}
     >
       <Text style={headerTextStyle}>Date</Text>
-      <Text style={headerTextStyle}>Plan</Text>
-      <Text style={headerTextStyle}>Status</Text>
+      <Text style={headerTextStyle}>Credit Amount</Text>
+      <Text style={headerTextStyle}>Cost</Text>
     </View>
   );
 
@@ -55,7 +58,7 @@ export default function PurchaseHistory() {
         width: dimensionSetter({
           mobile: "100%",
           tabPort: "80%",
-          tabLand: "45%",
+          tabLand: "55%",
         }),
       }}
     >
@@ -92,7 +95,7 @@ export default function PurchaseHistory() {
           zIndex: 2,
           width: "90%",
           marginTop: screenHeight * 0.01,
-          height: isTabLandscape ? screenHeight * 0.5 : screenHeight * 0.4,
+          height: isTabLandscape ? screenHeight * 0.5 : screenHeight * 0.35,
         }}
       >
         <FlatList
@@ -102,8 +105,9 @@ export default function PurchaseHistory() {
             <View
               style={{
                 flexDirection: "row",
+                paddingHorizontal: "5%",
                 backgroundColor: "#f7f7f7",
-                justifyContent: "space-around",
+                justifyContent: "space-between",
                 borderRadius: screenHeight * 0.01,
                 marginVertical: screenHeight * 0.005,
                 paddingVertical: screenHeight * 0.005,
@@ -125,16 +129,16 @@ export default function PurchaseHistory() {
                   fontSize: screenHeight * 0.02,
                 }}
               >
-                {item.plan}
+                {item.creditAmount}
               </Text>
               <Text
                 style={{
+                  color: Colors.active,
                   fontFamily: fontFamily,
                   fontSize: screenHeight * 0.02,
-                  color: item.status == "Active" ? "#0484FF" : Colors.secondary,
                 }}
               >
-                {item.status}
+                {item.cost}
               </Text>
             </View>
           )}
