@@ -14,17 +14,17 @@ type propsType = {
   };
 };
 
-const inputsData = [
-  { title: "Campaign Name", placeholder: "My First Campaign" },
-  { title: "Poster", placeholder: "No File Upload" },
-  { title: "Youtube ID", placeholder: "Link" },
-  { title: "Facebook ID", placeholder: "Link" },
-  { title: "Duration", placeholder: "7 Days" },
-];
-
 export default function CreateCampaign(props: propsType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { isTabLandscape, screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
+
+  const inputsData = [
+    { title: "Campaign Name", placeholder: "My First Campaign" },
+    { title: "Poster", placeholder: "No File Upload" },
+    { title: "Youtube ID", placeholder: "Link" },
+    { title: "Facebook ID", placeholder: "Link" },
+    { title: "Duration", placeholder: "7 Days" },
+  ];
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -38,19 +38,42 @@ export default function CreateCampaign(props: propsType) {
         contentContainerStyle={{
           flexGrow: 1,
           alignItems: "center",
-          gap: screenHeight * 0.05
+          gap: screenHeight * 0.05,
         }}
       >
         <View
           style={{
             zIndex: 2,
-            width: screenWidth,
-            gap: screenHeight * 0.015,
+            height: "75%",
+            width: "100%",
+            paddingTop: isTabLandscape ? "2%" : null,
+            flexDirection: isTabLandscape ? "row" : "column",
+            alignItems: isTabLandscape ? "flex-start" : null,
+            justifyContent: isTabLandscape ? "center" : null,
+            gap: isTabLandscape ? null : screenHeight * 0.015,
           }}
         >
-          {inputsData.map((item) => (
-            <InputFields key={item.title} item={item} />
-          ))}
+          <View
+            style={{
+              gap: screenHeight * 0.02,
+              width: isTabLandscape ? "40%" : null,
+              justifyContent: isTabLandscape ? "center" : null,
+            }}
+          >
+            <InputFields item={inputsData[0]} />
+            <InputFields item={inputsData[1]} />
+            <InputFields item={inputsData[2]} />
+          </View>
+          <View
+            style={{
+              gap: screenHeight * 0.02,
+              width: isTabLandscape ? "40%" : null,
+              justifyContent: isTabLandscape ? "center" : null,
+            }}
+          >
+            <InputFields item={inputsData[3]} />
+            <InputFields item={inputsData[4]} />
+          </View>
         </View>
         <FlatButton zIndex={2} title="Create" onPressed={() => {}} />
         <TwoPersons style={styles.twoPersons} />

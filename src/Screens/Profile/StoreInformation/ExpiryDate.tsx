@@ -6,7 +6,7 @@ import TextButton from "../../../Components/Buttons/TextButton";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
 
 export default function ExpiryDate() {
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const {
     fontFamily,
     screenWidth,
