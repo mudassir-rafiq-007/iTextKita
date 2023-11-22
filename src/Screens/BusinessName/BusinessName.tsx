@@ -39,9 +39,7 @@ export default function BusinessName(props: propsType) {
       >
         <Subscribe />
         <InputFields />
-        <View style={{ alignItems: "flex-end" }}>
-          <FlatButton title="Subscribe Now" onPressed={() => {}} zIndex={2} />
-        </View>
+        <FlatButton title="Subscribe Now" onPressed={() => {}} zIndex={2} />
         <TwoPersons style={styles.twoPersons} />
       </ScrollView>
     </GradientView>
