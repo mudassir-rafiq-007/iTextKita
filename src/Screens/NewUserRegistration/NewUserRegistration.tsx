@@ -9,7 +9,7 @@ import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
   modalVisible: boolean;
-  setShowModal: (value: boolean) => void;
+  setShowModal: (value: "next" | "cancel") => void;
 }
 
 export default function NewUserRegistration(props: propsType) {
@@ -106,7 +106,7 @@ export default function NewUserRegistration(props: propsType) {
       </View>
       <FlatButton
         title="Next"
-        onPressed={() => {}}
+        onPressed={() => props.setShowModal("next")}
         width={isTabLandscape ? "50%" : "90%"}
       />
       <View style={{ position: "absolute", top: "3%", right: "3%" }}>
@@ -114,7 +114,7 @@ export default function NewUserRegistration(props: propsType) {
           name="cancel"
           color={Colors.secondary}
           size={screenHeight * 0.04}
-          onPress={() => props.setShowModal(false)}
+          onPress={() => props.setShowModal("cancel")}
         />
       </View>
     </CustomModal>

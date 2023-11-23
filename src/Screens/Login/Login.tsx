@@ -2,12 +2,12 @@ import { useState, useContext } from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import TwoPersonBg from "./TwoPersonBg";
 import InputFields from "./InputFields";
-import OTPVerify from "../ResetPassword/OTPVerify";
 import ResetPassword from "../ResetPassword/ResetPassword";
 import ITextKita from "../../../assets/images/iTextKita.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import GradientView from "../../Components/GradientView/GradientView";
+import OTPVerifyModal from "../../Components/CustomModal/OTPVerifyModal";
 import NewUserRegistration from "../NewUserRegistration/NewUserRegistration";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
@@ -25,8 +25,8 @@ export default function Login(props: loginProps) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
-  const [otpVerifyModal, setOtpVerifyModal] = useState<boolean>(false);
   const [showNewUserModal, setShowNewUserModal] = useState<boolean>(false);
+  const [showOTPVerifyModal, setShowOTPVerifyModal] = useState<boolean>(false);
   const [resetPasswordModal, setResetPasswordModal] = useState<boolean>(false);
 
   return (
@@ -84,13 +84,7 @@ export default function Login(props: loginProps) {
           modalVisible={resetPasswordModal}
           setShowModal={(value) => {
             setResetPasswordModal(value);
-            setOtpVerifyModal(!value);
           }}
-        />
-        <OTPVerify
-          fontFamily={fontFamily}
-          modalVisible={otpVerifyModal}
-          setShowModal={(value) => setOtpVerifyModal(value)}
         />
         <FlatButton
           title="Login"
@@ -137,7 +131,17 @@ export default function Login(props: loginProps) {
 
           <NewUserRegistration
             modalVisible={showNewUserModal}
-            setShowModal={(value) => setShowNewUserModal(false)}
+            setShowModal={(value) => {
+              if (value == "next") {
+                setShowNewUserModal(false);
+                setShowOTPVerifyModal(true);
+              } else setShowNewUserModal(false);
+            }}
+          />
+          <OTPVerifyModal
+            title="OTP Verify"
+            showModal={showOTPVerifyModal}
+            setShowModal={() => setShowOTPVerifyModal(false)}
           />
         </View>
         <TextButton
