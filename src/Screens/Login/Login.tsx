@@ -1,23 +1,17 @@
-import {
-  Text,
-  View,
-  Platform,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import React, { useState, useContext } from "react";
-import { LinearGradient } from "expo-linear-gradient";
-import Key from "../../../assets/images/key.svg";
-import User from "../../../assets/images/user.svg";
-import Hide from "../../../assets/images/hide.svg";
+import { useState, useContext } from "react";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
+import TwoPersonBg from "./TwoPersonBg";
+import InputFields from "./InputFields";
+import ResetPassword from "../ResetPassword/ResetPassword";
 import ITextKita from "../../../assets/images/iTextKita.svg";
-import TwoPersons from "../../../assets/images/two-persons.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import GradientView from "../../Components/GradientView/GradientView";
+import OTPVerifyModal from "../../Components/CustomModal/OTPVerifyModal";
+import NewUserRegistration from "../NewUserRegistration/NewUserRegistration";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import ResetPassword from "../ResetPassword/ResetPassword";
-import OTPVerify from "../ResetPassword/OTPVerify";
+import NewStoreRegistration from "../NewStoreRegistration/NewStoreRegistration";
+import ThankyouModal from "../../Components/CustomModal/ThankyouModal";
 
 type loginProps = {
   navigation: {
@@ -26,57 +20,30 @@ type loginProps = {
 };
 
 export default function Login(props: loginProps) {
-  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
-    useContext(DimensionsContext);
-  const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
+  const {
+    fontFamily,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
+  const [showThankModal, setShowThankModal] = useState<boolean>(false);
+  const [showNewUserModal, setShowNewUserModal] = useState<boolean>(false);
+  const [showNewStoreModal, setShowNewStoreModal] = useState<boolean>(false);
+  const [showOTPVerifyModal, setShowOTPVerifyModal] = useState<boolean>(false);
   const [resetPasswordModal, setResetPasswordModal] = useState<boolean>(false);
-  const [otpVerifyModal, setOtpVerifyModal] = useState<boolean>(false);
-
-  function inputFieldStyle() {
-    return [
-      styles.inputField,
-      {
-        height: screenHeight * 0.06,
-      },
-    ];
-  }
-
-  function textInputStyle() {
-    return [
-      styles.textInput,
-      {
-        fontFamily: fontFamily,
-        fontSize: screenHeight * 0.02,
-        marginTop:
-          Platform.OS == "android"
-            ? dimensionSetter({
-                mobile: screenHeight * 0.005,
-                tabPort: screenHeight * 0.01,
-                tabLand: screenHeight * 0.005,
-              })
-            : null,
-        marginHorizontal: dimensionSetter({
-          mobile: screenWidth * 0.01,
-          tabPort: screenWidth * 0.01,
-          tabLand: screenWidth * 0.005,
-        }),
-      },
-    ];
-  }
 
   return (
     <ScrollView
-      contentContainerStyle={{ flexGrow: 1, height: screenHeight }}
       keyboardShouldPersistTaps="handled"
+      contentContainerStyle={{ flexGrow: 1, height: screenHeight }}
     >
-      <LinearGradient
-        colors={["#FFFFFF", "#008080"]}
-        locations={[0.5, 1]}
-        style={dimensionSetter({
-          mobile: styles.container,
-          tabPort: styles.container,
-          tabLand: [styles.container, { justifyContent: "flex-start" }],
-        })}
+      <GradientView
+        style={
+          isTabLandscape
+            ? [styles.container, { justifyContent: "flex-start" }]
+            : styles.container
+        }
       >
         <ITextKita
           height={dimensionSetter({
@@ -97,112 +64,12 @@ export default function Login(props: loginProps) {
             }),
           }}
         />
-        <View
-          style={[
-            styles.form,
-            {
-              zIndex: 2,
-              gap: screenHeight * 0.03,
-              width: dimensionSetter({
-                mobile: "80%",
-                tabPort: "60%",
-                tabLand: "30%",
-              }),
-            },
-          ]}
-        >
-          <View style={inputFieldStyle()}>
-            <User
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginHorizontal: dimensionSetter({
-                  mobile: screenWidth * 0.05,
-                  tabPort: screenWidth * 0.03,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-            />
-            <TextInput
-              style={textInputStyle()}
-              placeholder="User Name"
-              textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
-            />
-          </View>
-          <View style={inputFieldStyle()}>
-            <Key
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginHorizontal: dimensionSetter({
-                  mobile: screenWidth * 0.05,
-                  tabPort: screenWidth * 0.03,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-            />
-            <TextInput
-              style={[
-                ...textInputStyle(),
-                {
-                  width: dimensionSetter({
-                    mobile: "70%",
-                    tabPort: "80%",
-                    tabLand: "80%",
-                  }),
-                },
-              ]}
-              placeholder="Password"
-              textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
-              secureTextEntry={secureTextEntry}
-            />
-            <Hide
-              height={dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.03,
-              })}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.05,
-                tabPort: screenWidth * 0.03,
-                tabLand: screenWidth * 0.03,
-              })}
-              style={{
-                marginRight: dimensionSetter({
-                  mobile: screenWidth * 0.04,
-                  tabPort: screenWidth * 0.04,
-                  tabLand: screenWidth * 0.01,
-                }),
-              }}
-              onPress={() =>
-                setSecureTextEntry((current) => (current ? false : true))
-              }
-            />
-          </View>
-        </View>
+        <InputFields />
         <View style={{ zIndex: 2 }}>
           <TextButton
+            zIndex={2}
             color="#696969"
             title="Reset Password"
-            zIndex={2}
             onPressed={() => setResetPasswordModal(true)}
             fontSize={dimensionSetter({
               mobile: screenWidth * 0.05,
@@ -221,13 +88,7 @@ export default function Login(props: loginProps) {
           modalVisible={resetPasswordModal}
           setShowModal={(value) => {
             setResetPasswordModal(value);
-            setOtpVerifyModal(!value);
           }}
-        />
-        <OTPVerify
-          fontFamily={fontFamily}
-          modalVisible={otpVerifyModal}
-          setShowModal={(value) => setOtpVerifyModal(value)}
         />
         <FlatButton
           title="Login"
@@ -260,77 +121,65 @@ export default function Login(props: loginProps) {
             I Don't Have Account?
           </Text>
           <TextButton
-            title="Register"
-            onPressed={() => props.navigation.navigate("SignUp")}
-            color="#008080"
             zIndex={2}
+            title="Register"
+            color="#008080"
             fontWeight="bold"
+            onPressed={() => setShowNewUserModal(true)}
             fontSize={dimensionSetter({
               mobile: screenWidth * 0.035,
               tabPort: screenWidth * 0.025,
               tabLand: screenWidth * 0.015,
             })}
           />
-        </View>
-        <View style={{ zIndex: 2 }}>
-          <TextButton
-            color="#696969"
-            title="Terms & Conditions"
-            zIndex={2}
-            onPressed={() => props.navigation.navigate("Terms")}
-            marginVertical={screenHeight * 0.01}
-            fontSize={dimensionSetter({
-              mobile: screenHeight * 0.015,
-              tabPort: screenWidth * 0.02,
-              tabLand: screenWidth * 0.012,
-            })}
-          />
-        </View>
-        <View
-          style={dimensionSetter({
-            mobile: { alignItems: "center" },
-            tabPort: { alignItems: "center" },
-            tabLand: {
-              zIndex: 1,
-              position: "absolute",
-              alignItems: "center",
-              bottom: screenHeight * 0.01,
-            },
-          })}
-        >
-          <TwoPersons
-            height={dimensionSetter({
-              mobile: screenHeight * 0.22,
-              tabPort: screenHeight * 0.3,
-              tabLand: screenHeight * 0.55,
-            })}
-            width={dimensionSetter({
-              mobile: screenWidth * 0.9,
-              tabPort: screenWidth * 0.95,
-              tabLand: screenWidth * 0.95,
-            })}
-          />
-          <Text
-            style={{
-              zIndex: 1,
-              color: "white",
-              fontFamily: fontFamily,
-              marginVertical: dimensionSetter({
-                mobile: screenHeight * 0.05,
-                tabPort: screenHeight * 0.05,
-                tabLand: screenHeight * 0.02,
-              }),
-              fontSize: dimensionSetter({
-                mobile: screenWidth * 0.04,
-                tabPort: screenWidth * 0.025,
-                tabLand: screenWidth * 0.015,
-              }),
+
+          <NewUserRegistration
+            modalVisible={showNewUserModal}
+            setShowModal={(value) => {
+              if (value == "next") {
+                setShowNewUserModal(false);
+                setShowOTPVerifyModal(true);
+              } else setShowNewUserModal(false);
             }}
-          >
-            ⓒ & 2023 NTech Crop.
-          </Text>
+          />
+          <NewStoreRegistration
+            modalVisible={showNewStoreModal}
+            setShowModal={(value) => {
+              if (value == "register") {
+                setShowNewStoreModal(false);
+                setShowThankModal(true);
+              } else setShowNewStoreModal(false);
+            }}
+          />
+          <ThankyouModal
+            showModal={showThankModal}
+            setShowModal={() => setShowThankModal(false)}
+          />
+          <OTPVerifyModal
+            title="OTP Verify"
+            showModal={showOTPVerifyModal}
+            setShowModal={(value) => {
+              if (value == "verify") {
+                setShowOTPVerifyModal(false);
+                setShowNewStoreModal(true);
+              } else setShowOTPVerifyModal(false);
+            }}
+          />
         </View>
-      </LinearGradient>
+        <TextButton
+          zIndex={2}
+          color="#696969"
+          title="Terms & Conditions"
+          marginVertical={screenHeight * 0.01}
+          onPressed={() => props.navigation.navigate("Terms")}
+          fontSize={dimensionSetter({
+            mobile: screenHeight * 0.015,
+            tabPort: screenWidth * 0.02,
+            tabLand: screenWidth * 0.012,
+          })}
+        />
+        <TwoPersonBg />
+      </GradientView>
     </ScrollView>
   );
 }
