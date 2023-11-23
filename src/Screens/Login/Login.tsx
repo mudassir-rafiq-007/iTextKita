@@ -232,7 +232,7 @@ export default function Login(props: loginProps) {
         <FlatButton
           title="Login"
           zIndex={2}
-          onPressed={() => props.navigation.navigate("Campaign")}
+          onPressed={() => props.navigation.navigate("Marketing")}
           width={dimensionSetter({
             mobile: screenWidth * 0.8,
             tabPort: screenWidth * 0.6,

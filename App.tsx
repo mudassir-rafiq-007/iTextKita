@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Terms from "./src/Screens/Terms/Terms";
 import Login from "./src/Screens/Login/Login";
 import SignUp from "./src/Screens/SignUp/SignUp";
-import Campaign from "./src/Screens/Campaign/Campaign";
+import Marketing from "./src/Screens/Marketing/Marketing";
 import BusinessName from "./src/Screens/BusinessName/BusinessName";
 import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
@@ -95,7 +95,7 @@ export default function App() {
               name={"Store Information"}
               component={StoreInformation}
             />
-            <Stack.Screen name={"Campaign"} component={Campaign} />
+            <Stack.Screen name={"Marketing"} component={Marketing} />
             <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />
             <Stack.Screen
