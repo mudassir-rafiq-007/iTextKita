@@ -8,9 +8,10 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import SelectFromList from "./SelectFromList";
 import Header from "../../Components/Header/Header";
+import ConfirmationModal from "./ConfirmationModal";
 import { shadow } from "../../Components/Constants/Shadow";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
@@ -33,6 +34,9 @@ export default function Marketing(props: propsType) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+
+  const [showModal, setShowModal] = useState<boolean>(true);
+  const [message, setMessage] = useState<string>();
 
   const dummyMsg =
     "Hello David,\nWe are launching our new product called “Isaw ng Manok” and we would like to invited you to join us in our launching day with free entrance!\nSee out poster @\nhttps://testing.com/page";
@@ -131,26 +135,25 @@ export default function Marketing(props: propsType) {
         >
           <TextInput
             multiline={true}
+            scrollEnabled={true}
             placeholder={dummyMsg}
-            onChangeText={(text) => {}}
+            onChangeText={(text) => {
+              setMessage(text);
+            }}
             placeholderTextColor={Colors.primary}
             style={{
-              flex: 1,
               textAlign: "justify",
+              color: Colors.primary,
               fontFamily: fontFamily,
               fontSize: screenHeight * 0.02,
             }}
           />
         </View>
-
         <View style={dropdownViewStyle(5)}>
           <SelectFromList data={stores} placeholder="Select Store" />
         </View>
         <View style={dropdownViewStyle(4)}>
-          <SelectFromList
-            data={customers}
-            placeholder="Select Customer"
-          />
+          <SelectFromList data={customers} placeholder="Select Customer" />
         </View>
         <View style={dropdownViewStyle(3)}>
           <SelectFromList
@@ -159,14 +162,19 @@ export default function Marketing(props: propsType) {
           />
         </View>
         <FlatButton
-          title="Send"
-          onPressed={() => {}}
           zIndex={2}
+          title="Send"
+          onPressed={() => setShowModal(!showModal)}
           width={dimensionSetter({
             mobile: null,
             tabPort: null,
             tabLand: screenWidth * 0.2,
           })}
+        />
+        <ConfirmationModal
+          message={message}
+          modalVisible={showModal}
+          setShowModal={(value) => setShowModal(value)}
         />
         <TwoPersons style={styles.twoPersons} />
       </ScrollView>

@@ -1,11 +1,12 @@
 import { useContext } from "react";
 import { TouchableOpacity, Text, StyleProp, TextStyle } from "react-native";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
+import { Colors } from "../Constants/Colors";
 
 interface propToTextButton {
   style?: StyleProp<TextStyle>;
   title: string;
-  color: string;
+  color?: string;
   margin?: number;
   marginTop?: number;
   marginLeft?: number;
@@ -46,7 +47,7 @@ export default function TextButton(props: propToTextButton) {
         style={[
           props.style,
           {
-            color: props.color,
+            color: props.color || Colors.secondary,
             fontFamily: props.fontFamily || fontFamily,
             textDecorationLine: props.textDecorationLine,
             fontSize:
