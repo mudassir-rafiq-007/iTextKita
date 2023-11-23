@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import UsersList from "./UsersList";
@@ -10,6 +10,7 @@ import FlatButton from "../../../Components/Buttons/FlatButton";
 import TwoPersons from "../../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../../Components/GradientView/GradientView";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
+import AddNewUser from "./AddNewUser/AddNewUser";
 
 type propsType = {
   navigation: {
@@ -27,6 +28,8 @@ export default function StoreInformation(props: propsType) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+
+  const [showNewUserModal, setShowNewUserModal] = useState<boolean>(false);
 
   const storeName = props.route.params.storeName;
 
@@ -65,7 +68,7 @@ export default function StoreInformation(props: propsType) {
         {isTabLandscape && (
           <FlatButton
             title="Log Out"
-            onPressed={() => {}}
+            onPressed={() => props.navigation.navigate("Login")}
             width={dimensionSetter({
               mobile: "90%",
               tabPort: "70%",
@@ -95,11 +98,15 @@ export default function StoreInformation(props: propsType) {
         >
           <FlatButton
             title="Add New User"
-            onPressed={() => {}}
+            onPressed={() => setShowNewUserModal(true)}
             width={isTabLandscape ? "90%" : "100%"}
             marginVertical={isTabLandscape ? null : screenHeight * 0.02}
           />
         </View>
+        <AddNewUser
+          modalVisible={showNewUserModal}
+          setShowModal={() => setShowNewUserModal(false)}
+        />
       </View>
       <TwoPersons style={styles.twoPersons} />
     </GradientView>

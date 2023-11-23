@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 import Stores from "./Stores";
@@ -9,6 +9,7 @@ import FlatButton from "../../../Components/Buttons/FlatButton";
 import TwoPersons from "../../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../../Components/GradientView/GradientView";
 import { DimensionsContext } from "../../../Components/Contexts/DimensionsContext";
+import NewStoreRegistration from "../../NewStoreRegistration/NewStoreRegistration";
 
 type propsType = {
   navigation: {
@@ -25,6 +26,9 @@ export default function Profile(props: propsType) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+
+  const [showStoreRegisterModal, setShowStoreRegisterModal] =
+    useState<boolean>(false);
 
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../../assets/fonts/Poppins-Bold.ttf"),
@@ -93,7 +97,7 @@ export default function Profile(props: propsType) {
         >
           <FlatButton
             title="Add New Store"
-            onPressed={() => {}}
+            onPressed={() => setShowStoreRegisterModal(true)}
             width={isTabLandscape ? "80%" : "100%"}
             marginVertical={isTabLandscape ? null : screenHeight * 0.02}
           />
@@ -101,6 +105,11 @@ export default function Profile(props: propsType) {
             <FlatButton title="Log Out" onPressed={() => {}} />
           )}
         </View>
+        <NewStoreRegistration
+          originScreen="Profile"
+          modalVisible={showStoreRegisterModal}
+          setShowModal={() => setShowStoreRegisterModal(false)}
+        />
       </View>
       <TwoPersons style={styles.twoPersons} />
     </GradientView>
