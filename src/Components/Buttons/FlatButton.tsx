@@ -1,15 +1,26 @@
 import { useContext } from "react";
-import { TouchableOpacity, Text, StyleSheet, Platform } from "react-native";
+import {
+  Text,
+  Platform,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { useFonts } from "expo-font";
 import { shadow } from "../Constants/Shadow";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 interface propType {
+  containerStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   title: string;
   titleColor?: string;
   titleFontSize?: number;
   bgColor?: string;
   width?: any;
+  height?: any;
   margin?: number;
   marginTop?: number;
   marginLeft?: number;
@@ -28,7 +39,7 @@ interface propType {
   onPressed: () => void;
 }
 export default function FlatButton(props: propType) {
-  const { screenHeight, screenWidth, dimensionSetter } =
+  const { isTabLandscape, screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
   const [fontsLoaded] = useFonts({
     "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
@@ -38,6 +49,7 @@ export default function FlatButton(props: propType) {
   return (
     <TouchableOpacity
       style={[
+        props.containerStyle,
         styles.buttonContainer,
         {
           width:
@@ -47,6 +59,9 @@ export default function FlatButton(props: propType) {
               tabPort: screenWidth * 0.7,
               tabLand: screenWidth * 0.4,
             }),
+          height:
+            props.height ||
+            (isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.06),
           borderRadius: screenHeight * 0.1,
           backgroundColor: props.bgColor || "#F6851F",
           margin: props.margin || screenHeight * 0.005,
@@ -62,9 +77,10 @@ export default function FlatButton(props: propType) {
           paddingRight: props.paddingRight,
           paddingBottom: props.paddingBottom,
           paddingVertical:
-            props.paddingVertical || Platform.OS == "android"
+            props.paddingVertical ||
+            (Platform.OS == "android"
               ? screenHeight * 0.002
-              : screenHeight * 0.006,
+              : screenHeight * 0.006),
           paddingHorizontal: props.paddingHorizontal,
           zIndex: props.zIndex,
         },
@@ -76,8 +92,10 @@ export default function FlatButton(props: propType) {
           styles.buttonText,
           {
             color: props.titleColor || "white",
-            fontSize: props.titleFontSize || screenHeight * 0.02,
-            marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
+            fontSize:
+              props.titleFontSize ||
+              (isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02),
+            marginTop: Platform.OS == "android" ? screenHeight * 0.006 : null,
           },
         ]}
       >

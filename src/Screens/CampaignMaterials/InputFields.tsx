@@ -16,15 +16,20 @@ interface propsType {
 }
 
 export default function InputFields(props: propsType) {
-  const { fontFamily, screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    fontFamily,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   function inputLabelStyle(): StyleProp<TextStyle> {
     return {
       color: Colors.primary,
-      fontFamily: fontFamily,
       alignSelf: "flex-start",
-      fontSize: screenHeight * 0.02,
+      fontFamily: isTabLandscape ? "Poppins-Bold" : fontFamily,
+      fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02,
     };
   }
 
@@ -32,18 +37,18 @@ export default function InputFields(props: propsType) {
     return [
       styles.inputField,
       {
+        borderColor: Colors.secondary,
+        borderRadius: screenHeight * 0.005,
+        borderWidth: isTabLandscape ? 2 : 1,
         width: dimensionSetter({
           mobile: "90%",
           tabPort: "70%",
-          tabLand: "40%",
+          tabLand: "90%",
         }),
-        borderWidth: 1,
-        borderColor: Colors.secondary,
-        borderRadius: screenHeight * 0.005,
         height: dimensionSetter({
           mobile: screenHeight * 0.06,
           tabPort: screenHeight * 0.05,
-          tabLand: screenHeight * 0.06,
+          tabLand: screenHeight * 0.07,
         }),
       },
     ];
@@ -101,10 +106,10 @@ export default function InputFields(props: propsType) {
           <View style={inputFieldStyle()}>
             <TextInput
               style={textInputStyle()}
-              placeholder={props.item.placeholder}
               textAlignVertical="center"
-              selectionColor={Colors.secondary}
               placeholderTextColor={"#c7c6c5"}
+              selectionColor={Colors.secondary}
+              placeholder={props.item.placeholder}
             />
           </View>
         </View>

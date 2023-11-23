@@ -1,8 +1,9 @@
-import { TouchableOpacity, Text } from "react-native";
-import { useFonts } from "expo-font/build/FontHooks";
-import { deviceHeight, deviceWidth } from "../Constants/DeviceDimensions";
+import { useContext } from "react";
+import { TouchableOpacity, Text, StyleProp, TextStyle } from "react-native";
+import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 interface propToTextButton {
+  style?: StyleProp<TextStyle>;
   title: string;
   color: string;
   margin?: number;
@@ -13,45 +14,54 @@ interface propToTextButton {
   marginVertical?: number;
   marginHorizontal?: number;
   fontSize?: number;
+  fontFamily?: string;
+  textDecorationLine?:
+    | "none"
+    | "underline"
+    | "line-through"
+    | "underline line-through";
   fontWeight?:
-  | "normal"
-  | "bold"
-  | "100"
-  | "200"
-  | "300"
-  | "400"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900";
+    | "normal"
+    | "bold"
+    | "100"
+    | "200"
+    | "300"
+    | "400"
+    | "500"
+    | "600"
+    | "700"
+    | "800"
+    | "900";
   zIndex?: number;
   onPressed: () => void;
 }
 
 export default function TextButton(props: propToTextButton) {
-  const [fontsLoaded] = useFonts({
-    "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
-    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-  });
+  const { isTabLandscape, screenWidth, screenHeight, fontFamily } =
+    useContext(DimensionsContext);
 
-  if (!fontsLoaded) return null;
   return (
     <TouchableOpacity onPress={props.onPressed}>
       <Text
-        style={{
-          color: props.color,
-          fontFamily: props.fontWeight == "bold" ? "Poppins-Bold" : "Poppins-Regular",
-          fontSize: props.fontSize || deviceWidth * 0.04,
-          margin: props.margin || deviceHeight * 0.01,
-          marginTop: props.marginTop,
-          marginLeft: props.marginLeft,
-          marginRight: props.marginRight,
-          marginBottom: props.marginBottom,
-          marginVertical: props.marginVertical,
-          marginHorizontal: props.marginHorizontal,
-          zIndex: props.zIndex,
-        }}
+        style={[
+          props.style,
+          {
+            color: props.color,
+            fontFamily: props.fontFamily || fontFamily,
+            textDecorationLine: props.textDecorationLine,
+            fontSize:
+              props.fontSize ||
+              (isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02),
+            margin: props.margin || screenHeight * 0.01,
+            marginTop: props.marginTop,
+            marginLeft: props.marginLeft,
+            marginRight: props.marginRight,
+            marginBottom: props.marginBottom,
+            marginVertical: props.marginVertical,
+            marginHorizontal: props.marginHorizontal,
+            zIndex: props.zIndex,
+          },
+        ]}
       >
         {props.title}
       </Text>

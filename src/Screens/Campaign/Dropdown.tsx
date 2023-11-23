@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Platform, View } from "react-native";
+import { Platform } from "react-native";
 import { Colors } from "../../Components/Constants/Colors";
-import MIcon from "react-native-vector-icons/MaterialIcons";
 import { SelectList } from "react-native-dropdown-select-list";
+import DownArrowIcon from "../../Components/DownArrowIcon/DownArrowIcon";
 
 type dimensionSetterProp = {
   mobile: any;
@@ -75,39 +75,7 @@ export default function Dropdown(props: propType) {
           tabLand: props.screenWidth * 0.4,
         }),
       }}
-      arrowicon={
-        <View
-          style={{
-            zIndex: Platform.OS == "android" ? 2 : null,
-            backgroundColor: Colors.secondary,
-            height: props.dimensionSetter({
-              mobile: props.screenHeight * 0.03,
-              tabPort: props.screenHeight * 0.03,
-              tabLand: props.screenHeight * 0.04,
-            }),
-            width: props.dimensionSetter({
-              mobile: props.screenHeight * 0.03,
-              tabPort: props.screenHeight * 0.03,
-              tabLand: props.screenHeight * 0.04,
-            }),
-            borderRadius: props.dimensionSetter({
-              mobile: props.screenHeight * 0.015,
-              tabPort: props.screenHeight * 0.015,
-              tabLand: props.screenHeight * 0.02,
-            }),
-          }}
-        >
-          <MIcon
-            color={Colors.primary}
-            name="keyboard-arrow-down"
-            size={props.dimensionSetter({
-              mobile: props.screenHeight * 0.03,
-              tabPort: props.screenHeight * 0.03,
-              tabLand: props.screenHeight * 0.04,
-            })}
-          />
-        </View>
-      }
+      arrowicon={<DownArrowIcon/>}
       dropdownStyles={{
         zIndex: Platform.OS == "android" ? 3 : null,
         position: "absolute",

@@ -1,16 +1,16 @@
 import { useContext } from "react";
 import { View, Text, TextInput, Platform, StyleSheet } from "react-native";
-import { useFonts } from "expo-font";
 import { Colors } from "../../Components/Constants/Colors";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 export default function InputFields() {
-  const { fontFamily, screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
-
-  const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-  });
+  const {
+    fontFamily,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   function textInputStyle() {
     return [
@@ -37,23 +37,28 @@ export default function InputFields() {
     ];
   }
 
-  if (!fontsLoaded) return null;
-
   return (
     <View
       style={[
         {
           zIndex: 2,
           gap: screenHeight * 0.02,
+          flexDirection: isTabLandscape ? "row" : "column",
+          justifyContent: isTabLandscape ? "center" : null,
           width: dimensionSetter({
             mobile: "90%",
             tabPort: "70%",
-            tabLand: "40%",
+            tabLand: "80%",
           }),
         },
       ]}
     >
-      <View>
+      <View
+        style={{
+          width: isTabLandscape ? "40%" : null,
+          gap: isTabLandscape ? screenHeight * 0.01 : null,
+        }}
+      >
         <Text
           style={{
             color: Colors.primary,
@@ -63,7 +68,17 @@ export default function InputFields() {
         >
           Name
         </Text>
-        <View style={[styles.inputField, { height: screenHeight * 0.06 }]}>
+        <View
+          style={[
+            styles.inputField,
+            {
+              borderWidth: isTabLandscape ? 2 : 1,
+              height: isTabLandscape
+                ? screenHeight * 0.07
+                : screenHeight * 0.06,
+            },
+          ]}
+        >
           <TextInput
             style={textInputStyle()}
             placeholder="John Gates"
@@ -73,7 +88,12 @@ export default function InputFields() {
           />
         </View>
       </View>
-      <View>
+      <View
+        style={{
+          width: isTabLandscape ? "40%" : null,
+          gap: isTabLandscape ? screenHeight * 0.01 : null,
+        }}
+      >
         <Text
           style={{
             color: Colors.primary,
@@ -83,7 +103,17 @@ export default function InputFields() {
         >
           Cell-Phone Number
         </Text>
-        <View style={[styles.inputField, { height: screenHeight * 0.06 }]}>
+        <View
+          style={[
+            styles.inputField,
+            {
+              borderWidth: isTabLandscape ? 2 : 1,
+              height: isTabLandscape
+                ? screenHeight * 0.07
+                : screenHeight * 0.06,
+            },
+          ]}
+        >
           <TextInput
             style={textInputStyle()}
             placeholder="+63 9 Number"
@@ -100,7 +130,6 @@ export default function InputFields() {
 const styles = StyleSheet.create({
   inputField: {
     width: "100%",
-    borderWidth: 1,
     borderRadius: 5,
     alignItems: "center",
     flexDirection: "row",

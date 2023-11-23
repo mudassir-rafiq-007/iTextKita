@@ -18,7 +18,7 @@ export default function TwoPersons(props: propsType) {
         opacity: dimensionSetter({
           mobile: 0.5,
           tabPort: 0.5,
-          tabLand: 0.1,
+          tabLand: 0.2,
         }),
         bottom: dimensionSetter({
           mobile: screenHeight * 0.05,
@@ -32,12 +32,12 @@ export default function TwoPersons(props: propsType) {
   return (
     <View style={mainViewStyle()}>
       <TwoPersonsBg
+        width={screenWidth * 0.8}
         height={dimensionSetter({
           mobile: screenHeight * 0.2,
           tabPort: screenHeight * 0.3,
-          tabLand: screenHeight * 0.6,
+          tabLand: screenHeight * 0.5,
         })}
-        width={screenWidth * 0.8}
       />
     </View>
   );
