@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { Text } from "react-native";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
-import CustomModal from "./CustomModal";
-import { Colors } from "../Constants/Colors";
-import FlatButton from "../Buttons/FlatButton";
-import { DimensionsContext } from "../Contexts/DimensionsContext";
+import CustomModal from "../../Components/CustomModal/CustomModal";
+import { Colors } from "../../Components/Constants/Colors";
+import FlatButton from "../../Components/Buttons/FlatButton";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
   showModal: boolean;

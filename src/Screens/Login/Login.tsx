@@ -6,12 +6,14 @@ import ResetPassword from "../ResetPassword/ResetPassword";
 import ITextKita from "../../../assets/images/iTextKita.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import SuccessfulModal from "../ResetPassword/SuccessfulModal";
+import ThankyouModal from "../NewUserRegistration/ThankyouModal";
+import NewUserOTPModal from "../NewUserRegistration/OTPVerifyModal";
+import ResetPasswordOTPModal from "../ResetPassword/OTPVerifyModal";
 import GradientView from "../../Components/GradientView/GradientView";
-import OTPVerifyModal from "../../Components/CustomModal/OTPVerifyModal";
 import NewUserRegistration from "../NewUserRegistration/NewUserRegistration";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import NewStoreRegistration from "../NewStoreRegistration/NewStoreRegistration";
-import ThankyouModal from "../../Components/CustomModal/ThankyouModal";
 
 type loginProps = {
   navigation: {
@@ -30,8 +32,13 @@ export default function Login(props: loginProps) {
   const [showThankModal, setShowThankModal] = useState<boolean>(false);
   const [showNewUserModal, setShowNewUserModal] = useState<boolean>(false);
   const [showNewStoreModal, setShowNewStoreModal] = useState<boolean>(false);
-  const [showOTPVerifyModal, setShowOTPVerifyModal] = useState<boolean>(false);
   const [resetPasswordModal, setResetPasswordModal] = useState<boolean>(false);
+  const [showSuccessfulModal, setShowSuccussfulModal] =
+    useState<boolean>(false);
+  const [showNewUserOTPModal, setShowNewUserOTPModal] =
+    useState<boolean>(false);
+  const [showResetPasswordOTPModal, setShowResetPasswordOTPModal] =
+    useState<boolean>(false);
 
   return (
     <ScrollView
@@ -84,11 +91,26 @@ export default function Login(props: loginProps) {
           />
         </View>
         <ResetPassword
-          fontFamily={fontFamily}
           modalVisible={resetPasswordModal}
           setShowModal={(value) => {
-            setResetPasswordModal(value);
+            if (value == "submit") {
+              setResetPasswordModal(false);
+              setShowResetPasswordOTPModal(true);
+            } else setResetPasswordModal(false);
           }}
+        />
+        <ResetPasswordOTPModal
+          showModal={showResetPasswordOTPModal}
+          setShowModal={(value) => {
+            if (value == "verify") {
+              setShowResetPasswordOTPModal(false);
+              setShowSuccussfulModal(true);
+            } else setShowResetPasswordOTPModal(false);
+          }}
+        />
+        <SuccessfulModal
+          showModal={showSuccessfulModal}
+          setShowModal={(value) => setShowSuccussfulModal(false)}
         />
         <FlatButton
           title="Login"
@@ -132,14 +154,23 @@ export default function Login(props: loginProps) {
               tabLand: screenWidth * 0.015,
             })}
           />
-
           <NewUserRegistration
             modalVisible={showNewUserModal}
             setShowModal={(value) => {
               if (value == "next") {
                 setShowNewUserModal(false);
-                setShowOTPVerifyModal(true);
+                setShowNewUserOTPModal(true);
               } else setShowNewUserModal(false);
+            }}
+          />
+          <NewUserOTPModal
+            title="OTP Verify"
+            showModal={showNewUserOTPModal}
+            setShowModal={(value) => {
+              if (value == "verify") {
+                setShowNewUserOTPModal(false);
+                setShowNewStoreModal(true);
+              } else setShowNewUserOTPModal(false);
             }}
           />
           <NewStoreRegistration
@@ -154,16 +185,6 @@ export default function Login(props: loginProps) {
           <ThankyouModal
             showModal={showThankModal}
             setShowModal={() => setShowThankModal(false)}
-          />
-          <OTPVerifyModal
-            title="OTP Verify"
-            showModal={showOTPVerifyModal}
-            setShowModal={(value) => {
-              if (value == "verify") {
-                setShowOTPVerifyModal(false);
-                setShowNewStoreModal(true);
-              } else setShowOTPVerifyModal(false);
-            }}
           />
         </View>
         <TextButton
