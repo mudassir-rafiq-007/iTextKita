@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { View, Text } from "react-native";
 import { OtpInput } from "react-native-otp-entry";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import CustomModal from "./CustomModal";
-import { Colors } from "../Constants/Colors";
-import TextButton from "../Buttons/TextButton";
-import FlatButton from "../Buttons/FlatButton";
-import { DimensionsContext } from "../Contexts/DimensionsContext";
+import { Colors } from "../../Components/Constants/Colors";
+import TextButton from "../../Components/Buttons/TextButton";
+import FlatButton from "../../Components/Buttons/FlatButton";
+import CustomModal from "../../Components/CustomModal/CustomModal";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
   title?: string;
