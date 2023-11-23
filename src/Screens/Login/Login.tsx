@@ -10,6 +10,7 @@ import GradientView from "../../Components/GradientView/GradientView";
 import OTPVerifyModal from "../../Components/CustomModal/OTPVerifyModal";
 import NewUserRegistration from "../NewUserRegistration/NewUserRegistration";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import NewStoreRegistration from "../NewStoreRegistration/NewStoreRegistration";
 
 type loginProps = {
   navigation: {
@@ -25,7 +26,9 @@ export default function Login(props: loginProps) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+  const [showThankModal, setShowThankModal] = useState<boolean>(false);
   const [showNewUserModal, setShowNewUserModal] = useState<boolean>(false);
+  const [showNewStoreModal, setShowNewStoreModal] = useState<boolean>(false);
   const [showOTPVerifyModal, setShowOTPVerifyModal] = useState<boolean>(false);
   const [resetPasswordModal, setResetPasswordModal] = useState<boolean>(false);
 
@@ -138,10 +141,24 @@ export default function Login(props: loginProps) {
               } else setShowNewUserModal(false);
             }}
           />
+          <NewStoreRegistration
+            modalVisible={showNewStoreModal}
+            setShowModal={(value) => {
+              if (value == "register") {
+                setShowNewStoreModal(false);
+                setShowThankModal(true);
+              } else setShowNewStoreModal(false);
+            }}
+          />
           <OTPVerifyModal
             title="OTP Verify"
             showModal={showOTPVerifyModal}
-            setShowModal={() => setShowOTPVerifyModal(false)}
+            setShowModal={(value) => {
+              if (value == "verify") {
+                setShowOTPVerifyModal(false);
+                setShowNewStoreModal(true);
+              } else setShowOTPVerifyModal(false);
+            }}
           />
         </View>
         <TextButton

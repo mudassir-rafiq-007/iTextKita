@@ -11,7 +11,7 @@ import { DimensionsContext } from "../Contexts/DimensionsContext";
 interface propsType {
   title?: string;
   showModal: boolean;
-  setShowModal: (value: boolean) => void;
+  setShowModal: (value: "verify" | "resend" | "cancel") => void;
 }
 
 export default function OTPVerifyModal(props: propsType) {
@@ -89,7 +89,7 @@ export default function OTPVerifyModal(props: propsType) {
       >
         <FlatButton
           title="Verify"
-          onPressed={() => props.setShowModal(false)}
+          onPressed={() => props.setShowModal("verify")}
           titleFontSize={dimensionSetter({
             mobile: screenWidth * 0.04,
             tabPort: screenWidth * 0.035,
@@ -106,7 +106,7 @@ export default function OTPVerifyModal(props: propsType) {
           color={Colors.secondary}
           fontSize={screenHeight * 0.02}
           textDecorationLine="underline"
-          onPressed={() => props.setShowModal(false)}
+          onPressed={() => props.setShowModal("resend")}
         />
       </View>
       <View style={{ position: "absolute", top: "3%", right: "3%" }}>
@@ -114,7 +114,7 @@ export default function OTPVerifyModal(props: propsType) {
           name="cancel"
           color={Colors.secondary}
           size={screenHeight * 0.04}
-          onPress={() => props.setShowModal(false)}
+          onPress={() => props.setShowModal("cancel")}
         />
       </View>
     </CustomModal>
