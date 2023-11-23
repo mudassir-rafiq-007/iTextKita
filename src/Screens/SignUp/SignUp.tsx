@@ -210,7 +210,7 @@ export default function SignUp(props: loginProps) {
         <FlatButton
           title="Sign Up"
           zIndex={2}
-          onPressed={() => props.navigation.navigate("Campaign")}
+          onPressed={() => props.navigation.navigate("Marketing")}
           titleFontSize={dimensionSetter({
             mobile: screenWidth * 0.05,
             tabPort: screenWidth * 0.035,

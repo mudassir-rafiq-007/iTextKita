@@ -24,7 +24,7 @@ export default function HeaderMenu() {
   const showMenu = () => setVisible(true);
 
   const menuItems = [
-    "Campaign",
+    "Marketing",
     "Profile",
     "Business Name",
     "Customer Name",
