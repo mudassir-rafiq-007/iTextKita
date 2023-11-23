@@ -35,7 +35,7 @@ export default function Marketing(props: propsType) {
     dimensionSetter,
   } = useContext(DimensionsContext);
 
-  const [showModal, setShowModal] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>();
 
   const dummyMsg =
@@ -98,79 +98,87 @@ export default function Marketing(props: propsType) {
           flexGrow: 1,
           width: screenWidth,
           alignItems: "center",
-          gap: screenHeight * 0.02,
         }}
       >
         <View
-          style={[
-            styles.tileView,
-            {
-              width: "90%",
-              justifyContent: "center",
-              height: screenHeight * 0.06,
-            },
-          ]}
+          style={{
+            zIndex: 2,
+            alignItems: "center",
+            gap: screenHeight * 0.02,
+            width: dimensionSetter({
+              mobile: "100%",
+              tabPort: "100%",
+              tabLand: "60%",
+            }),
+          }}
         >
-          <Text
-            style={{
-              color: "#fff",
-              fontFamily: fontFamily,
-              fontSize: screenHeight * 0.03,
-              paddingTop: Platform.OS == "android" ? "2%" : null,
-            }}
+          <View
+            style={[
+              styles.tileView,
+              {
+                width: "90%",
+                justifyContent: "center",
+                height: screenHeight * 0.06,
+              },
+            ]}
           >
-            Title
-          </Text>
-        </View>
-        <View
-          style={[
-            styles.textInput,
-            {
-              width: "90%",
-              height: "30%",
-              paddingVertical: isTabLandscape ? "3%" : "2%",
-              paddingHorizontal: isTabLandscape ? "2%" : "4%",
-            },
-          ]}
-        >
-          <TextInput
-            multiline={true}
-            scrollEnabled={true}
-            placeholder={dummyMsg}
-            onChangeText={(text) => {
-              setMessage(text);
-            }}
-            placeholderTextColor={Colors.primary}
-            style={{
-              textAlign: "justify",
-              color: Colors.primary,
-              fontFamily: fontFamily,
-              fontSize: screenHeight * 0.02,
-            }}
+            <Text
+              style={{
+                color: "#fff",
+                fontFamily: fontFamily,
+                fontSize: screenHeight * 0.03,
+                paddingTop: Platform.OS == "android" ? "2%" : null,
+              }}
+            >
+              Title
+            </Text>
+          </View>
+          <View
+            style={[
+              styles.textInput,
+              {
+                width: "90%",
+                height: "30%",
+                paddingVertical: isTabLandscape ? "3%" : "2%",
+                paddingHorizontal: isTabLandscape ? "2%" : "4%",
+              },
+            ]}
+          >
+            <TextInput
+              multiline={true}
+              scrollEnabled={true}
+              placeholder={dummyMsg}
+              onChangeText={(text) => {
+                setMessage(text);
+              }}
+              placeholderTextColor={Colors.primary}
+              style={{
+                textAlign: "justify",
+                color: Colors.primary,
+                fontFamily: fontFamily,
+                fontSize: screenHeight * 0.02,
+              }}
+            />
+          </View>
+          <View style={dropdownViewStyle(5)}>
+            <SelectFromList data={stores} placeholder="Select Store" />
+          </View>
+          <View style={dropdownViewStyle(4)}>
+            <SelectFromList data={customers} placeholder="Select Customer" />
+          </View>
+          <View style={dropdownViewStyle(3)}>
+            <SelectFromList
+              data={inputsData}
+              placeholder="Select Campaign Shortlink"
+            />
+          </View>
+          <FlatButton
+            zIndex={2}
+            title="Send"
+            onPressed={() => setShowModal(!showModal)}
+            width={"90%"}
           />
         </View>
-        <View style={dropdownViewStyle(5)}>
-          <SelectFromList data={stores} placeholder="Select Store" />
-        </View>
-        <View style={dropdownViewStyle(4)}>
-          <SelectFromList data={customers} placeholder="Select Customer" />
-        </View>
-        <View style={dropdownViewStyle(3)}>
-          <SelectFromList
-            data={inputsData}
-            placeholder="Select Campaign Shortlink"
-          />
-        </View>
-        <FlatButton
-          zIndex={2}
-          title="Send"
-          onPressed={() => setShowModal(!showModal)}
-          width={dimensionSetter({
-            mobile: null,
-            tabPort: null,
-            tabLand: screenWidth * 0.2,
-          })}
-        />
         <ConfirmationModal
           message={message}
           modalVisible={showModal}

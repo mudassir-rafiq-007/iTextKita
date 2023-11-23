@@ -50,77 +50,106 @@ export default function ConfirmationModal(props: propsType) {
               justifyContent: "center",
               backgroundColor: Colors.primary,
               borderRadius: screenHeight * 0.03,
+              gap: isTabLandscape ? null : screenHeight * 0.02,
               paddingVertical: isTabLandscape ? "3%" : "5%",
-              height: isTabLandscape ? screenHeight * 0.8 : screenHeight * 0.7,
+              height: isTabLandscape ? screenHeight * 0.6 : screenHeight * 0.7,
               width: dimensionSetter({
                 mobile: "90%",
                 tabPort: "80%",
-                tabLand: "60%",
+                tabLand: "80%",
               }),
             },
           ]}
         >
           <View
             style={{
-              width: isTabLandscape ? "70%" : "90%",
-              gap: isTabLandscape ? screenHeight * 0.02 : screenHeight * 0.02,
+              flexDirection: isTabLandscape ? "row" : "column",
+              width: isTabLandscape ? "90%" : "90%",
+              height: isTabLandscape ? "60%" : null,
+              // alignItems: isTabLandscape ? "center" : null,
+              justifyContent: isTabLandscape ? "space-around" : null,
+              gap: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.02,
             }}
           >
-            <View style={{ gap: screenHeight * 0.01 }}>
-              <Text style={textStyle}>Total Credit Cost</Text>
-              <View style={[styles.textView, { height: screenHeight * 0.06 }]}>
-                <TextInput
-                  editable={false}
-                  placeholder="400"
-                  placeholderTextColor={Colors.primary}
-                  style={[
-                    styles.textInputView,
-                    { fontSize: screenHeight * 0.02 },
-                  ]}
-                />
+            <View
+              style={{
+                gap: screenHeight * 0.02,
+                width: isTabLandscape ? "40%" : null,
+              }}
+            >
+              <View style={{ gap: screenHeight * 0.01 }}>
+                <Text style={textStyle}>Total Credit Cost</Text>
+                <View
+                  style={[styles.textView, { height: screenHeight * 0.06 }]}
+                >
+                  <TextInput
+                    editable={false}
+                    placeholder="400"
+                    placeholderTextColor={Colors.primary}
+                    style={[
+                      styles.textInputView,
+                      { fontSize: screenHeight * 0.02 },
+                    ]}
+                  />
+                </View>
+              </View>
+              <View style={{ gap: screenHeight * 0.01 }}>
+                <Text style={textStyle}>Sender ID</Text>
+                <View
+                  style={[styles.textView, { height: screenHeight * 0.06 }]}
+                >
+                  <TextInput
+                    editable={false}
+                    placeholder="#QF4N54GLN"
+                    placeholderTextColor={Colors.primary}
+                    style={[
+                      styles.textInputView,
+                      { fontSize: screenHeight * 0.02 },
+                    ]}
+                  />
+                </View>
               </View>
             </View>
-            <View style={{ gap: screenHeight * 0.01 }}>
-              <Text style={textStyle}>Sender ID</Text>
-              <View style={[styles.textView, { height: screenHeight * 0.06 }]}>
-                <TextInput
-                  editable={false}
-                  placeholder="#QF4N54GLN"
-                  placeholderTextColor={Colors.primary}
+            <View style={{ width: isTabLandscape ? "50%" : null }}>
+              <View style={{ gap: screenHeight * 0.01 }}>
+                <Text style={textStyle}>Message</Text>
+                <ScrollView
                   style={[
-                    styles.textInputView,
-                    { fontSize: screenHeight * 0.02 },
-                  ]}
-                />
-              </View>
-            </View>
-            <View style={{ gap: screenHeight * 0.01 }}>
-              <Text style={textStyle}>Message</Text>
-              <ScrollView
-                style={[styles.textView, { height: screenHeight * 0.25 }]}
-              >
-                <Text
-                  style={[
-                    styles.msgText,
-                    { fontFamily: fontFamily, fontSize: screenHeight * 0.02 },
+                    styles.textView,
+                    {
+                      height: isTabLandscape
+                        ? screenHeight * 0.2
+                        : screenHeight * 0.25,
+                    },
                   ]}
                 >
-                  {props.message || dummyMsg}
-                </Text>
-              </ScrollView>
+                  <Text
+                    style={[
+                      styles.msgText,
+                      { fontFamily: fontFamily, fontSize: screenHeight * 0.02 },
+                    ]}
+                  >
+                    {props.message || dummyMsg}
+                  </Text>
+                </ScrollView>
+              </View>
             </View>
-            <View style={{ alignItems: "center" }}>
-              <FlatButton
-                title="Confirm"
-                onPressed={() => props.setShowModal(false)}
-                width={isTabLandscape ? "70%" : "100%"}
-              />
-              <TextButton
-                title="Cancel"
-                textDecorationLine="underline"
-                onPressed={() => props.setShowModal(false)}
-              />
-            </View>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <FlatButton
+              title="Confirm"
+              onPressed={() => props.setShowModal(false)}
+              width={dimensionSetter({
+                mobile: screenWidth * 0.8,
+                tabPort: screenWidth * 0.7,
+                tabLand: null,
+              })}
+            />
+            <TextButton
+              title="Cancel"
+              textDecorationLine="underline"
+              onPressed={() => props.setShowModal(false)}
+            />
           </View>
         </View>
       </View>

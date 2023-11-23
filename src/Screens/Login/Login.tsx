@@ -174,6 +174,7 @@ export default function Login(props: loginProps) {
             }}
           />
           <NewStoreRegistration
+            originScreen="Login"
             modalVisible={showNewStoreModal}
             setShowModal={(value) => {
               if (value == "register") {

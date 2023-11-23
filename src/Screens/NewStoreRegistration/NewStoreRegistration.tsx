@@ -2,15 +2,16 @@ import { useContext } from "react";
 import { Text, View, StyleSheet, Platform } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "./InputField";
+import SelectFromList from "./SelectFromList";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import SelectFromList from "./SelectFromList";
 
 interface propsType {
   modalVisible: boolean;
-  setShowModal: (value: "register" | "cancel") => void;
+  originScreen: "Profile" | "Login";
+  setShowModal: (value: "register" | "cancel" | undefined) => void;
 }
 
 export default function NewStoreRegistration(props: propsType) {
@@ -21,6 +22,12 @@ export default function NewStoreRegistration(props: propsType) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+
+  function onPressHandle(type: "cancel" | "register") {
+    if (props.originScreen == "Login") {
+      props.setShowModal(type);
+    } else props.setShowModal(undefined);
+  }
 
   const businessCategory = [
     { key: 1, value: "Retail" },
@@ -72,8 +79,8 @@ export default function NewStoreRegistration(props: propsType) {
       </Text>
       <View
         style={{
-          width: isTabLandscape ? "80%" : "90%",
           alignItems: "center",
+          width: isTabLandscape ? "80%" : "90%",
           justifyContent: isTabLandscape ? "center" : null,
           gap: isTabLandscape ? screenWidth * 0.01 : screenHeight * 0.02,
         }}
@@ -95,8 +102,8 @@ export default function NewStoreRegistration(props: propsType) {
         <FlatButton
           zIndex={2}
           title="Register"
-          onPressed={() => props.setShowModal("register")}
           width={isTabLandscape ? "50%" : "100%"}
+          onPressed={() => onPressHandle("register")}
         />
       </View>
       <View style={{ position: "absolute", top: "3%", right: "3%" }}>
@@ -104,7 +111,7 @@ export default function NewStoreRegistration(props: propsType) {
           name="cancel"
           color={Colors.secondary}
           size={screenHeight * 0.04}
-          onPress={() => props.setShowModal("cancel")}
+          onPress={() => onPressHandle("cancel")}
         />
       </View>
     </CustomModal>
