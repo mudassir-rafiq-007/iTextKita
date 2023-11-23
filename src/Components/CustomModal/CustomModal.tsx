@@ -11,7 +11,7 @@ import {
 interface propsType {
   screenHeight: number;
   modalVisible: boolean;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
   children: React.JSX.Element | React.JSX.Element[] | null;
 }
 

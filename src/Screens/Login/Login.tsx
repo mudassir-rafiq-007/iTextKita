@@ -11,6 +11,7 @@ import OTPVerifyModal from "../../Components/CustomModal/OTPVerifyModal";
 import NewUserRegistration from "../NewUserRegistration/NewUserRegistration";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import NewStoreRegistration from "../NewStoreRegistration/NewStoreRegistration";
+import ThankyouModal from "../../Components/CustomModal/ThankyouModal";
 
 type loginProps = {
   navigation: {
@@ -149,6 +150,10 @@ export default function Login(props: loginProps) {
                 setShowThankModal(true);
               } else setShowNewStoreModal(false);
             }}
+          />
+          <ThankyouModal
+            showModal={showThankModal}
+            setShowModal={() => setShowThankModal(false)}
           />
           <OTPVerifyModal
             title="OTP Verify"
