@@ -54,7 +54,7 @@ export default function Profile(props: propsType) {
         {isTabLandscape && (
           <FlatButton
             title="Log Out"
-            onPressed={() => {}}
+            onPressed={() => props.navigation.navigate("Login", {})}
             width={dimensionSetter({
               mobile: "90%",
               tabPort: "70%",
@@ -89,7 +89,10 @@ export default function Profile(props: propsType) {
             marginVertical={isTabLandscape ? null : screenHeight * 0.02}
           />
           {!isTabLandscape && (
-            <FlatButton title="Log Out" onPressed={() => {}} />
+            <FlatButton
+              title="Log Out"
+              onPressed={() => props.navigation.navigate("Login", {})}
+            />
           )}
         </View>
         <NewStoreRegistration

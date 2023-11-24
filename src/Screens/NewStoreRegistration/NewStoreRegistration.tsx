@@ -1,10 +1,8 @@
 import { useContext } from "react";
-import { Text, View, StyleSheet, Platform } from "react-native";
+import { Text, View, StyleSheet, Platform, ScrollView } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import InputField from "./InputField";
-import SelectFromList from "./SelectFromList";
+import Form from "./Form";
 import { Colors } from "../../Components/Constants/Colors";
-import FlatButton from "../../Components/Buttons/FlatButton";
 import CustomModal from "../../Components/CustomModal/CustomModal";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
@@ -55,9 +53,9 @@ export default function NewStoreRegistration(props: propsType) {
           backgroundColor: Colors.primary,
           borderRadius: screenHeight * 0.03,
           paddingVertical: isTabLandscape ? "3%" : "5%",
-          justifyContent: isTabLandscape ? "flex-start" : "center",
+          justifyContent: "center",
           gap: isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02,
-          height: screenHeight * 0.7,
+          height: Platform.OS == "ios" ? screenHeight * 0.8 : null,
           width: dimensionSetter({
             mobile: "90%",
             tabPort: "80%",
@@ -73,41 +71,27 @@ export default function NewStoreRegistration(props: propsType) {
             fontFamily: fontBold,
             fontSize: isTabLandscape
               ? screenHeight * 0.04
-              : screenHeight * 0.02,
+              : screenHeight * 0.025,
           },
         ]}
       >
         Store Information
       </Text>
-      <View
-        style={{
-          alignItems: "center",
-          width: isTabLandscape ? "80%" : "90%",
-          justifyContent: isTabLandscape ? "center" : null,
-          gap: isTabLandscape ? screenWidth * 0.01 : screenHeight * 0.02,
-        }}
-      >
-        <InputField title="Business Name" placeholder="My Store" />
-        <View style={{ zIndex: 3, width: "100%" }}>
-          <Text style={textStyle}>Business Category *</Text>
-          <View
-            style={{
-              width: "100%",
-              height: Platform.OS == "ios" ? screenHeight * 0.06 : null,
-            }}
-          >
-            <SelectFromList placeholder="Retail" data={businessCategory} />
-          </View>
-        </View>
-        <InputField title="Sender ID" placeholder="#QUE$$F$F" />
-        <InputField title="DTI" placeholder="No File Chosen" editable={false} />
-        <FlatButton
-          zIndex={2}
-          title="Register"
-          width={isTabLandscape ? "50%" : "100%"}
-          onPressed={() => onPressHandle("register")}
-        />
-      </View>
+      {Platform.OS == "android" ? (
+        <ScrollView
+          nestedScrollEnabled={true}
+          style={{ width: "100%", height: screenHeight * 0.6 }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Form onPressHandle={(value) => onPressHandle(value)} />
+        </ScrollView>
+      ) : (
+        <Form onPressHandle={(value) => onPressHandle(value)} />
+      )}
       <View style={{ position: "absolute", top: "3%", right: "3%" }}>
         <MaterialIcons
           name="cancel"

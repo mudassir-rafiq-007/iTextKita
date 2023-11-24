@@ -17,6 +17,7 @@ export default function InputFields() {
     return [
       styles.textInput,
       {
+        color: Colors.primary,
         fontFamily: fontRegular,
         width: dimensionSetter({
           mobile: "70%",

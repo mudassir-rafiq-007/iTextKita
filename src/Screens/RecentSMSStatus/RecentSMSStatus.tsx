@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { View, FlatList, StyleSheet, ScrollView } from "react-native";
 import Dropdown from "./Dropdown";
 import Lady from "../../../assets/images/sms.svg";
@@ -17,12 +17,6 @@ type propsType = {
 export default function RecentSMSStatus(props: propsType) {
   const { screenWidth, screenHeight, dimensionSetter, fontRegular, fontBold } =
     useContext(DimensionsContext);
-
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
-
-  function dropdownSwitch() {
-    setShowDropdown((current) => (current ? false : true));
-  }
 
   const customers = ["Jerry", "Matries", "Newman", "Rachel", "Ross", "Jake"];
 

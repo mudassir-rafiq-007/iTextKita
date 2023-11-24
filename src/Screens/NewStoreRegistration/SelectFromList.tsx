@@ -3,6 +3,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { Colors } from "../../Components/Constants/Colors";
 import DownArrowIcon from "../../Components/DownArrowIcon/DownArrowIcon";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { Platform } from "react-native";
 
 interface propsType {
   data: object[];
@@ -37,6 +38,9 @@ export default function SelectFromList(props: propsType) {
       }}
       inputStyles={{
         flex: 1,
+        height: screenHeight * 0.06,
+        lineHeight: Platform.OS == "ios" ? screenHeight * 0.06 : null,
+        textAlignVertical: "center",
         color: Colors.primary,
         fontFamily: fontRegular,
         fontSize: screenHeight * 0.02,

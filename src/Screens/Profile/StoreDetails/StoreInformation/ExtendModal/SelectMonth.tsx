@@ -52,20 +52,20 @@ export default function SelectMonth() {
         fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02,
       }}
       dropdownStyles={{
-        borderColor: "#fff0",
-        backgroundColor: "#fff0",
+        borderColor: Colors.secondary,
+        backgroundColor: "#fff",
         height: screenHeight * 0.2,
         borderRadius: screenHeight * 0.005,
       }}
       dropdownTextStyles={{
-        color: Colors.primary,
+        color: "#fff",
         fontFamily: fontRegular,
         fontSize: screenHeight * 0.02,
       }}
       dropdownItemStyles={{
         borderWidth: 1,
         borderColor: "#fff",
-        backgroundColor: "#fff",
+        backgroundColor: Colors.primary,
         marginBottom: screenHeight * 0.005,
       }}
     />

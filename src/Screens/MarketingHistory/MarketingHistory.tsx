@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Text, View, FlatList, StyleSheet } from "react-native";
-import AntDesignIcons from "react-native-vector-icons/AntDesign";
+import { View, FlatList, StyleSheet } from "react-native";
+import CampaignDetail from "./CampaignDetail";
 import { Colors } from "../../Components/Constants/Colors";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../Components/GradientView/GradientView";
@@ -60,7 +60,8 @@ export default function MarketingHistory(props: propsType) {
     <GradientView style={[styles.container, { gap: screenHeight * 0.02 }]}>
       <FlatList
         data={campaignsData}
-        style={{ zIndex: 2 }}
+        style={{ zIndex: 2, width: "100%" }}
+        contentContainerStyle={{ alignItems: "center" }}
         renderItem={({ item }) => (
           <View
             style={[
@@ -87,81 +88,7 @@ export default function MarketingHistory(props: propsType) {
             >
               <FlatList
                 data={item.details}
-                renderItem={({ item }) => (
-                  <View style={{ marginVertical: screenHeight * 0.005 }}>
-                    {item.key == "Message" ? (
-                      <View>
-                        <View
-                          style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "white",
-                              fontFamily: fontRegular,
-                              fontSize: screenHeight * 0.02,
-                            }}
-                          >
-                            {item.key}
-                          </Text>
-                          <AntDesignIcons
-                            name="down"
-                            color={"white"}
-                            size={screenHeight * 0.03}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            backgroundColor: "#FFF3",
-                            padding: screenHeight * 0.02,
-                            marginTop: screenHeight * 0.01,
-                            borderRadius: screenHeight * 0.01,
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: "white",
-                              textAlign: "justify",
-                              fontFamily: fontRegular,
-                              fontSize: screenHeight * 0.02,
-                            }}
-                          >
-                            {item.value}
-                          </Text>
-                        </View>
-                      </View>
-                    ) : (
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Text
-                          style={{
-                            color: "white",
-                            fontFamily: fontRegular,
-                            fontSize: screenHeight * 0.02,
-                          }}
-                        >
-                          {item.key}
-                        </Text>
-                        <Text
-                          style={{
-                            color: "white",
-                            fontFamily: fontRegular,
-                            fontSize: screenHeight * 0.02,
-                          }}
-                        >
-                          {item.value}
-                        </Text>
-                      </View>
-                    )}
-                  </View>
-                )}
+                renderItem={({ item }) => <CampaignDetail item={item} />}
               />
             </View>
           </View>
