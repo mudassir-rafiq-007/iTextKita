@@ -14,8 +14,14 @@ type propsType = {
 };
 
 export default function CreateCampaign(props: propsType) {
-  const {fontBold, fontRegular, isTabLandscape, screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    fontBold,
+    fontRegular,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   const inputsData = [
     { title: "Campaign Name", placeholder: "My First Campaign" },
@@ -26,52 +32,61 @@ export default function CreateCampaign(props: propsType) {
   ];
 
   return (
-    <GradientView style={styles.main}>
+    <GradientView style={[styles.main, { height: screenHeight }]}>
       <ScrollView
-        style={{ height: screenHeight }}
+        style={{ zIndex: 2 }}
         contentContainerStyle={{
           flexGrow: 1,
+          width: screenWidth,
           alignItems: "center",
           gap: screenHeight * 0.05,
         }}
       >
         <View
           style={{
-            zIndex: 2,
-            height: "75%",
             width: "100%",
-            paddingTop: isTabLandscape ? "2%" : null,
-            flexDirection: isTabLandscape ? "row" : "column",
-            alignItems: isTabLandscape ? "flex-start" : null,
-            justifyContent: isTabLandscape ? "center" : null,
-            gap: isTabLandscape ? null : screenHeight * 0.015,
+            height: screenHeight,
+            alignItems: "center",
+            gap: screenHeight * 0.05,
           }}
         >
           <View
             style={{
-              gap: screenHeight * 0.02,
-              width: isTabLandscape ? "40%" : null,
+              zIndex: 2,
+              width: "100%",
+              paddingTop: isTabLandscape ? "2%" : null,
+              flexDirection: isTabLandscape ? "row" : "column",
+              alignItems: isTabLandscape ? "flex-start" : null,
               justifyContent: isTabLandscape ? "center" : null,
+              gap: isTabLandscape ? null : screenHeight * 0.015,
             }}
           >
-            <InputFields item={inputsData[0]} />
-            <InputFields item={inputsData[1]} />
-            <InputFields item={inputsData[2]} />
+            <View
+              style={{
+                gap: screenHeight * 0.02,
+                width: isTabLandscape ? "40%" : null,
+                justifyContent: isTabLandscape ? "center" : null,
+              }}
+            >
+              <InputFields item={inputsData[0]} />
+              <InputFields item={inputsData[1]} />
+              <InputFields item={inputsData[2]} />
+            </View>
+            <View
+              style={{
+                gap: screenHeight * 0.02,
+                width: isTabLandscape ? "40%" : null,
+                justifyContent: isTabLandscape ? "center" : null,
+              }}
+            >
+              <InputFields item={inputsData[3]} />
+              <InputFields item={inputsData[4]} />
+            </View>
           </View>
-          <View
-            style={{
-              gap: screenHeight * 0.02,
-              width: isTabLandscape ? "40%" : null,
-              justifyContent: isTabLandscape ? "center" : null,
-            }}
-          >
-            <InputFields item={inputsData[3]} />
-            <InputFields item={inputsData[4]} />
-          </View>
+          <FlatButton zIndex={2} title="Create" onPressed={() => {}} />
         </View>
-        <FlatButton zIndex={2} title="Create" onPressed={() => {}} />
-        <TwoPersons style={styles.twoPersons} />
       </ScrollView>
+      <TwoPersons style={styles.twoPersons} />
     </GradientView>
   );
 }
@@ -80,9 +95,6 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     paddingTop: "4%",
-    borderTopWidth: 1,
-    borderColor: "#0003",
-    backgroundColor: "white",
   },
   twoPersons: {
     zIndex: 1,
