@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { View, Text, TextInput } from "react-native";
-import { Colors } from "../../Components/Constants/Colors";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { Colors } from "../../../../../Components/Constants/Colors";
+import { DimensionsContext } from "../../../../../Components/Contexts/DimensionsContext";
 
 interface propsType {
   title: string;
@@ -29,10 +29,9 @@ export default function InputField(props: propsType) {
     <View style={{ width: "100%" }}>
       <Text style={textStyle}>{props.title} *</Text>
       <TextInput
-        selectionColor={Colors.primary}
         placeholder={props.placeholder}
+        selectionColor={Colors.primary}
         secureTextEntry={props.secureTextEntry}
-        textContentType={props.secureTextEntry ? "newPassword" : null}
         placeholderTextColor={Colors.primary}
         style={{
           width: "100%",

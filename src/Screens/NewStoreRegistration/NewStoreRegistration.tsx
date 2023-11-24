@@ -16,7 +16,8 @@ interface propsType {
 
 export default function NewStoreRegistration(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -40,7 +41,7 @@ export default function NewStoreRegistration(props: propsType) {
 
   const textStyle = {
     color: "#fff",
-    fontFamily: fontFamily,
+    fontFamily: fontRegular,
     fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.015,
   };
 
@@ -69,6 +70,7 @@ export default function NewStoreRegistration(props: propsType) {
         style={[
           styles.titleText,
           {
+            fontFamily: fontBold,
             fontSize: isTabLandscape
               ? screenHeight * 0.04
               : screenHeight * 0.02,
@@ -122,6 +124,5 @@ const styles = StyleSheet.create({
   titleText: {
     color: "#fff",
     textAlign: "center",
-    fontFamily: "Poppins-Bold",
   },
 });

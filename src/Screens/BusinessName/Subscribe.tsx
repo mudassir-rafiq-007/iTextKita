@@ -5,7 +5,8 @@ import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 export default function Subscribe() {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -23,7 +24,7 @@ export default function Subscribe() {
       <Text
         style={{
           color: Colors.primary,
-          fontFamily: "Poppins-Bold",
+          fontFamily: fontBold,
           fontSize: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.03,
         }}
       >
@@ -33,7 +34,7 @@ export default function Subscribe() {
         style={{
           textAlign: "center",
           color: Colors.primary,
-          fontFamily: fontFamily,
+          fontFamily: fontRegular,
           fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02,
           width: dimensionSetter({
             mobile: screenWidth * 0.7,

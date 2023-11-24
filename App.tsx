@@ -7,22 +7,19 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Terms from "./src/Screens/Terms/Terms";
 import Login from "./src/Screens/Login/Login";
-import SignUp from "./src/Screens/SignUp/SignUp";
 import Marketing from "./src/Screens/Marketing/Marketing";
+import Profile from "./src/Screens/Profile/AccountProfile";
 import BusinessName from "./src/Screens/BusinessName/BusinessName";
-import CustomerName from "./src/Screens/CustomerName/CustomerName";
 import ResetPassword from "./src/Screens/ResetPassword/ResetPassword";
-import PlanDetails from "./src/Screens/Profile/PlanDetails/PlanDetails";
-import Profile from "./src/Screens/Profile/AccountProfile/AccountProfile";
-import PackagePlans from "./src/Screens/Profile/PackagePlans/PackagePlans";
 import RecentSMSStatus from "./src/Screens/RecentSMSStatus/RecentSMSStatus";
 import CreateCampaign from "./src/Screens/CampaignMaterials/CreateCampaign";
-import OnlineMarketing from "./src/Screens/OnlineMarketing/OnlineMarketing";
 import DimensionsProvider from "./src/Components/Contexts/DimensionsContext";
 import MarketingHistory from "./src/Screens/MarketingHistory/MarketingHistory";
 import CampaignMaterials from "./src/Screens/CampaignMaterials/CampaignMaterials";
-import PurchaseCredits from "./src/Screens/Profile/PurchaseCredits/PurchaseCredits";
-import StoreInformation from "./src/Screens/Profile/StoreInformation/StoreInformation";
+import PlanDetails from "./src/Screens/Profile/UserDetails/ActivePlan/PlanDetails";
+import PurchaseCredits from "./src/Screens/Profile/AvailableCredits/AddMore/PurchaseCredits";
+import StoreInformation from "./src/Screens/Profile/StoreDetails/StoreInformation/StoreInformation";
+import PackagePlans from "./src/Screens/Profile/UserDetails/ActivePlan/UpgradePackage/PackagePlans";
 
 LogBox.ignoreLogs([
   "new NativeEventEmitter()` was called with a non-null argument without the required `addListener` method.",
@@ -78,25 +75,22 @@ export default function App() {
               component={ResetPassword}
             ></Stack.Screen>
             <Stack.Screen
-              name={"SignUp"}
-              component={SignUp}
-              options={{ headerShown: false }}
-            ></Stack.Screen>
-            <Stack.Screen
               name={"Terms"}
               component={Terms}
               options={{ headerShown: false }}
             ></Stack.Screen>
             <Stack.Screen name={"Profile"} component={Profile} />
             <Stack.Screen name={"Plan Details"} component={PlanDetails} />
-            <Stack.Screen name={"Purchase Credits"} component={PurchaseCredits} />
+            <Stack.Screen
+              name={"Purchase Credits"}
+              component={PurchaseCredits}
+            />
             <Stack.Screen name={"Package Plans"} component={PackagePlans} />
             <Stack.Screen
               name={"Store Information"}
               component={StoreInformation}
             />
             <Stack.Screen name={"Marketing"} component={Marketing} />
-            <Stack.Screen name={"Customer Name"} component={CustomerName} />
             <Stack.Screen name={"Business Name"} component={BusinessName} />
             <Stack.Screen
               name={"Marketing History"}
@@ -107,10 +101,6 @@ export default function App() {
               component={CampaignMaterials}
             />
             <Stack.Screen name={"Create Campaign"} component={CreateCampaign} />
-            <Stack.Screen
-              name={"Online Marketing"}
-              component={OnlineMarketing}
-            />
             <Stack.Screen name={"SMS Status"} component={RecentSMSStatus} />
           </Stack.Navigator>
         </NavigationContainer>

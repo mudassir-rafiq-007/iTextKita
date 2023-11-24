@@ -11,7 +11,8 @@ interface propsType {
 
 export default function SelectFromList(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -35,7 +36,12 @@ export default function SelectFromList(props: propsType) {
         borderTopLeftRadius: screenHeight * 0.01,
         borderBottomRightRadius: screenHeight * 0.01,
       }}
-      inputStyles={{ flex: 1, color: "#a7a7a7", fontSize: screenHeight * 0.02 }}
+      inputStyles={{
+        flex: 1,
+        fontFamily: fontRegular,
+        color: "#d9d9d9",
+        fontSize: screenHeight * 0.02,
+      }}
       dropdownStyles={{
         backgroundColor: "#fff",
         height: screenHeight * 0.25,
@@ -44,6 +50,7 @@ export default function SelectFromList(props: propsType) {
       }}
       dropdownTextStyles={{
         color: "#d9d9d9",
+        fontFamily: fontRegular,
         fontSize: screenHeight * 0.02,
       }}
       dropdownItemStyles={{

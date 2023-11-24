@@ -20,7 +20,8 @@ interface propsType {
 
 export default function ConfirmationModal(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -32,7 +33,7 @@ export default function ConfirmationModal(props: propsType) {
 
   const textStyle = {
     color: "#fff",
-    fontFamily: fontFamily,
+    fontFamily: fontRegular,
     fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.015,
   };
 
@@ -63,10 +64,9 @@ export default function ConfirmationModal(props: propsType) {
         >
           <View
             style={{
-              flexDirection: isTabLandscape ? "row" : "column",
               width: isTabLandscape ? "90%" : "90%",
               height: isTabLandscape ? "60%" : null,
-              // alignItems: isTabLandscape ? "center" : null,
+              flexDirection: isTabLandscape ? "row" : "column",
               justifyContent: isTabLandscape ? "space-around" : null,
               gap: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.02,
             }}
@@ -88,7 +88,10 @@ export default function ConfirmationModal(props: propsType) {
                     placeholderTextColor={Colors.primary}
                     style={[
                       styles.textInputView,
-                      { fontSize: screenHeight * 0.02 },
+                      {
+                        fontSize: screenHeight * 0.02,
+                        fontFamily: isTabLandscape ? fontBold : fontRegular,
+                      },
                     ]}
                   />
                 </View>
@@ -104,7 +107,10 @@ export default function ConfirmationModal(props: propsType) {
                     placeholderTextColor={Colors.primary}
                     style={[
                       styles.textInputView,
-                      { fontSize: screenHeight * 0.02 },
+                      {
+                        fontSize: screenHeight * 0.02,
+                        fontFamily: isTabLandscape ? fontBold : fontRegular,
+                      },
                     ]}
                   />
                 </View>
@@ -126,7 +132,10 @@ export default function ConfirmationModal(props: propsType) {
                   <Text
                     style={[
                       styles.msgText,
-                      { fontFamily: fontFamily, fontSize: screenHeight * 0.02 },
+                      {
+                        fontSize: screenHeight * 0.02,
+                        fontFamily: isTabLandscape ? fontBold : fontRegular,
+                      },
                     ]}
                   >
                     {props.message || dummyMsg}
@@ -163,12 +172,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#fff8",
-  },
-  titleText: {
-    color: "#fff",
-    marginBottom: "5%",
-    textAlign: "center",
-    fontFamily: "Poppins-Bold",
   },
   textView: {
     width: "100%",

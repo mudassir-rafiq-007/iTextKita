@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Text } from "react-native";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
-import CustomModal from "../../Components/CustomModal/CustomModal";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import CustomModal from "../../Components/CustomModal/CustomModal";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
@@ -13,7 +13,8 @@ interface propsType {
 
 export default function SuccessfulModal(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -26,9 +27,9 @@ export default function SuccessfulModal(props: propsType) {
       style={{
         alignItems: "center",
         justifyContent: "center",
-        gap: screenHeight * 0.02,
         backgroundColor: Colors.primary,
         borderRadius: screenHeight * 0.02,
+        gap: isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02,
         height: isTabLandscape ? screenHeight * 0.6 : screenHeight * 0.5,
         width: dimensionSetter({
           mobile: screenWidth * 0.9,
@@ -47,7 +48,7 @@ export default function SuccessfulModal(props: propsType) {
           width: "70%",
           color: "#fff",
           textAlign: "center",
-          fontFamily: "Poppins-Bold",
+          fontFamily: fontBold,
           fontSize: screenHeight * 0.04,
         }}
       >
@@ -58,7 +59,7 @@ export default function SuccessfulModal(props: propsType) {
           width: "70%",
           color: "#fff",
           textAlign: "center",
-          fontFamily: fontFamily,
+          fontFamily: fontRegular,
           fontSize: screenHeight * 0.02,
         }}
       >
@@ -66,8 +67,8 @@ export default function SuccessfulModal(props: propsType) {
       </Text>
       <FlatButton
         title="Ok"
-        onPressed={() => props.setShowModal(false)}
         width={"50%"}
+        onPressed={() => props.setShowModal(false)}
       />
     </CustomModal>
   );

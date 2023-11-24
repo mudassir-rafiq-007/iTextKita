@@ -12,11 +12,12 @@ type dimensionSetterProp = {
 };
 
 type DimensionsContextType = {
+  fontBold: string | undefined;
+  fontRegular: string | undefined;
+  screenWidth: number;
+  screenHeight: number;
   isTabPortrait: boolean | undefined;
   isTabLandscape: boolean | undefined;
-  screenHeight: number;
-  screenWidth: number;
-  fontFamily: string;
   dimensionSetter: ({}: dimensionSetterProp) => any;
 };
 
@@ -25,7 +26,8 @@ export const DimensionsContext = createContext<DimensionsContextType>({
   isTabLandscape: undefined,
   screenHeight: deviceHeight,
   screenWidth: deviceWidth,
-  fontFamily: "Poppins-Regular",
+  fontBold: undefined,
+  fontRegular: undefined,
   dimensionSetter({}) {},
 });
 
@@ -51,7 +53,7 @@ export default function DimensionsProvider(props: propsType) {
     }
   }
 
-  async function deviceOrientation() {
+  async function checkDeviceOrientation() {
     const deviceType = await Device.getDeviceTypeAsync();
     if (deviceType == 2) {
       const orientation = await Screen.getOrientationAsync();
@@ -67,18 +69,19 @@ export default function DimensionsProvider(props: propsType) {
 
   const [fontsLoaded] = useFonts({
     "Poppins-Regular": require("../../../assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
   });
 
   useEffect(() => {
     if (counter == 0) {
-      deviceOrientation();
+      checkDeviceOrientation();
       setCounter(1);
     }
-    // Added listener to keep track of Tablet's orientation
+    // Added listener to keep listening for Tablet's orientation
     Dimensions.addEventListener("change", ({ window }) => {
       setScreenHeight(window.height);
       setScreenWidth(window.width);
-      deviceOrientation();
+      checkDeviceOrientation();
     });
   }, []);
 
@@ -91,7 +94,8 @@ export default function DimensionsProvider(props: propsType) {
         screenHeight,
         isTabPortrait,
         isTabLandscape,
-        fontFamily: "Poppins-Regular",
+        fontBold: "Poppins-Bold",
+        fontRegular: "Poppins-Regular",
         dimensionSetter,
       }}
     >

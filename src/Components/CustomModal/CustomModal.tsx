@@ -1,6 +1,7 @@
 import {
   View,
   Modal,
+  Platform,
   StyleProp,
   ViewStyle,
   ScrollView,
@@ -22,7 +23,9 @@ export default function CustomModal(props: propsType) {
       animationType="slide"
       visible={props.modalVisible}
     >
-      <KeyboardAvoidingView behavior="height">
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         >

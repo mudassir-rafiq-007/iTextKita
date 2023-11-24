@@ -16,7 +16,8 @@ interface propsType {
 
 export default function OTPVerifyModal(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -43,7 +44,7 @@ export default function OTPVerifyModal(props: propsType) {
       <Text
         style={{
           color: "#fff",
-          fontFamily: "Poppins-Bold",
+          fontFamily: fontBold,
           fontSize: screenHeight * 0.03,
         }}
       >
@@ -54,7 +55,7 @@ export default function OTPVerifyModal(props: propsType) {
           color: "#fff",
           width: "80%",
           textAlign: "center",
-          fontFamily: fontFamily,
+          fontFamily: fontRegular,
           fontSize: screenHeight * 0.02,
         }}
       >

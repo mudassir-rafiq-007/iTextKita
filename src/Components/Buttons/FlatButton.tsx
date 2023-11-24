@@ -8,7 +8,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { useFonts } from "expo-font";
 import { shadow } from "../Constants/Shadow";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 
@@ -39,13 +38,15 @@ interface propType {
   onPressed: () => void;
 }
 export default function FlatButton(props: propType) {
-  const { isTabLandscape, screenHeight, screenWidth, dimensionSetter } =
-    useContext(DimensionsContext);
-  const [fontsLoaded] = useFonts({
-    "Poppins-Bold": require("../../../assets/fonts/Poppins-Bold.ttf"),
-  });
+  const {
+    fontBold,
+    fontRegular,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
-  if (!fontsLoaded) return null;
   return (
     <TouchableOpacity
       style={[
@@ -91,6 +92,7 @@ export default function FlatButton(props: propType) {
         style={[
           styles.buttonText,
           {
+            fontFamily: fontBold,
             color: props.titleColor || "white",
             fontSize:
               props.titleFontSize ||
@@ -108,7 +110,6 @@ const styles = StyleSheet.create({
   buttonText: {
     ...shadow,
     textAlign: "center",
-    fontFamily: "Poppins-Bold",
   },
 
   buttonContainer: {
