@@ -1,56 +1,73 @@
 import { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import HeaderMenu from "./HeaderMenu";
+import { Colors } from "../Constants/Colors";
 import ITextKita from "../../../assets/images/iTextKita.svg";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type propType = {
   title: string;
+  goBack?: () => void;
+  showBackButton?: boolean;
 };
 
 export default function Header(props: propType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    fontBold,
+    fontRegular,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.main, { paddingTop: insets.top }]}>
       <ITextKita
-        height={dimensionSetter({
-          mobile: screenHeight * 0.08,
-          tabPort: screenHeight * 0.08,
-          tabLand: screenHeight * 0.12,
-        })}
+        height={isTabLandscape ? screenHeight * 0.12 : screenHeight * 0.08}
       />
       <View
         style={[
           styles.header,
           {
-            paddingHorizontal: dimensionSetter({
-              mobile: screenWidth * 0.05,
-              tabPort: screenWidth * 0.05,
-              tabLand: screenWidth * 0.1,
-            }),
+            justifyContent: props.showBackButton ? null : "space-between",
+            paddingHorizontal: isTabLandscape
+              ? screenWidth * 0.1
+              : screenWidth * 0.05,
           },
         ]}
       >
+        {props.showBackButton && (
+          <TouchableOpacity
+            onPress={props.goBack}
+            style={{
+              width: screenHeight * 0.03,
+              height: screenHeight * 0.03,
+            }}
+          >
+            <MaterialIcons
+              name="arrow-back-ios"
+              color={Colors.primary}
+              size={screenHeight * 0.03}
+            />
+          </TouchableOpacity>
+        )}
         <Text
-          style={[
-            styles.title,
-            {
-              fontSize: dimensionSetter({
-                mobile: screenHeight * 0.03,
-                tabPort: screenHeight * 0.03,
-                tabLand: screenHeight * 0.05,
-              }),
-            },
-          ]}
+          style={{
+            color: Colors.primary,
+            fontFamily: fontBold,
+            fontSize: isTabLandscape
+              ? screenHeight * 0.05
+              : screenHeight * 0.03,
+          }}
         >
-          {props.title}
+          {props.title.toLocaleUpperCase()}
         </Text>
-        <HeaderMenu />
+        {!props.showBackButton && <HeaderMenu />}
       </View>
     </View>
   );
@@ -64,10 +81,5 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-  },
-  title: {
-    color: "#084A5B",
-    fontFamily: "Poppins-Bold",
   },
 });

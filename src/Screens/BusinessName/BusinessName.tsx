@@ -1,8 +1,7 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { StyleSheet, ScrollView } from "react-native";
 import Subscribe from "./Subscribe";
 import InputFields from "./InputFields";
-import Header from "../../Components/Header/Header";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../Components/GradientView/GradientView";
@@ -18,12 +17,6 @@ type propsType = {
 export default function BusinessName(props: propsType) {
   const { fontBold, fontRegular, screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="Ka-Tubig" />,
-    });
-  }, []);
 
   return (
     <GradientView style={styles.container}>

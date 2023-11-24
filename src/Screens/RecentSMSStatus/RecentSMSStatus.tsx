@@ -1,22 +1,11 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  FlatList,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import { useFonts } from "expo-font";
-import { LinearGradient } from "expo-linear-gradient";
+import { useContext, useState } from "react";
+import { View, FlatList, StyleSheet, ScrollView } from "react-native";
 import Dropdown from "./Dropdown";
 import Lady from "../../../assets/images/sms.svg";
-import Header from "../../Components/Header/Header";
 import { shadow } from "../../Components/Constants/Shadow";
 import TwoPersons from "../../../assets/images/two-persons.svg";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { Image } from "react-native";
 import GradientView from "../../Components/GradientView/GradientView";
+import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
   navigation: {
@@ -50,12 +39,6 @@ export default function RecentSMSStatus(props: propsType) {
       },
     ];
   }
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="RECENT SMS STATUS" />,
-    });
-  }, []);
 
   return (
     <GradientView style={[styles.main, { height: screenHeight }]}>

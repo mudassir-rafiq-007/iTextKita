@@ -1,7 +1,6 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Text, View, FlatList, StyleSheet } from "react-native";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
-import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../Components/GradientView/GradientView";
@@ -56,12 +55,6 @@ export default function MarketingHistory(props: propsType) {
       ],
     },
   ];
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="MARKETING HISTORY" />,
-    });
-  }, []);
 
   return (
     <GradientView style={[styles.container, { gap: screenHeight * 0.02 }]}>

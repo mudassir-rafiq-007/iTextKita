@@ -1,14 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import Stores from "./StoreDetails/Stores";
 import UserDetails from "./UserDetails/UserDetails";
-import AvailableCredits from "./AvailableCredits/AvailableCredits";
-import Header from "../../Components/Header/Header";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
+import AvailableCredits from "./AvailableCredits/AvailableCredits";
 import GradientView from "../../Components/GradientView/GradientView";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import NewStoreRegistration from "../NewStoreRegistration/NewStoreRegistration";
-import Stores from "./StoreDetails/Stores";
 
 type propsType = {
   navigation: {
@@ -29,12 +28,6 @@ export default function Profile(props: propsType) {
 
   const [showStoreRegisterModal, setShowStoreRegisterModal] =
     useState<boolean>(false);
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="ACCOUNT PROFILE" />,
-    });
-  }, []);
 
   return (
     <GradientView

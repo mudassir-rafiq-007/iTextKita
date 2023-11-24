@@ -7,13 +7,19 @@ import MenuIcon from "../../../assets/images/menu.svg";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 export default function HeaderMenu() {
-  const { screenWidth, screenHeight, fontRegular, fontBold, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    fontBold,
+    fontRegular,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   function menuWidth() {
     return dimensionSetter({
       mobile: screenWidth * 0.6,
-      tabPort: screenWidth * 0.5,
+      tabPort: screenWidth * 0.4,
       tabLand: screenWidth * 0.2,
     });
   }
@@ -35,17 +41,9 @@ export default function HeaderMenu() {
   return (
     <View>
       <MenuIcon
-        height={dimensionSetter({
-          mobile: screenHeight * 0.03,
-          tabPort: screenHeight * 0.03,
-          tabLand: screenHeight * 0.05,
-        })}
-        width={dimensionSetter({
-          mobile: screenHeight * 0.03,
-          tabPort: screenHeight * 0.03,
-          tabLand: screenHeight * 0.05,
-        })}
         onPress={showMenu}
+        width={isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.03}
+        height={isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.03}
       />
       <Menu
         visible={visible}
@@ -53,8 +51,12 @@ export default function HeaderMenu() {
         style={{
           width: menuWidth(),
           position: "absolute",
-          top: screenHeight * 0.13,
           right: screenWidth * 0.05,
+          top: dimensionSetter({
+            mobile: screenHeight * 0.13,
+            tabPort: screenHeight * 0.15,
+            tabLand: screenHeight * 0.22,
+          }),
         }}
       >
         <FlatList
@@ -66,21 +68,18 @@ export default function HeaderMenu() {
           )}
           renderItem={({ item }) => (
             <MenuItem
-              style={{ width: menuWidth() }}
+              textStyle={{
+                width: menuWidth(),
+                color: Colors.primary,
+                fontFamily: fontRegular,
+                fontSize: screenHeight * 0.02,
+              }}
               onPress={() => {
                 hideMenu();
                 navigation.navigate(`${item}` as never);
               }}
             >
-              <Text
-                style={{
-                  color: Colors.primary,
-                  fontSize: screenHeight * 0.02,
-                  fontFamily: fontRegular,
-                }}
-              >
-                {item}
-              </Text>
+              {item}
             </MenuItem>
           )}
         />

@@ -36,7 +36,13 @@ export default function StoreInformation(props: propsType) {
 
   useEffect(() => {
     props.navigation.setOptions({
-      header: () => <Header title={storeName} />,
+      header: (props) => (
+        <Header
+          title={storeName}
+          showBackButton={true}
+          goBack={props.navigation.goBack}
+        />
+      ),
     });
   }, []);
 
