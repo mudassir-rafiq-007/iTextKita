@@ -36,9 +36,9 @@ export default function InputField(props: propsType) {
         style={{
           width: "100%",
           borderWidth: 1,
-          paddingLeft: "4%",
           color: Colors.primary,
           fontFamily: fontRegular,
+          paddingHorizontal: "4%",
           backgroundColor: "#f7f7f7",
           height: screenHeight * 0.06,
           textAlignVertical: "center",

@@ -79,6 +79,11 @@ export default function InputFields(props: propsType) {
           tabPort: "2%",
           tabLand: "2%",
         }),
+        height: dimensionSetter({
+          mobile: screenHeight * 0.06,
+          tabPort: screenHeight * 0.05,
+          tabLand: screenHeight * 0.07,
+        }),
       },
     ];
   }
@@ -95,9 +100,33 @@ export default function InputFields(props: propsType) {
           <Text style={inputLabelStyle()}>{props.item.title}</Text>
           <View style={inputFieldStyle()}>
             <View style={styles.posterView}>
-              <Text style={textInputStyle()}>{props.item.placeholder}</Text>
+              <Text
+                style={[
+                  textInputStyle(),
+                  {
+                    lineHeight:
+                      Platform.OS == "ios"
+                        ? dimensionSetter({
+                            mobile: screenHeight * 0.06,
+                            tabPort: screenHeight * 0.05,
+                            tabLand: screenHeight * 0.07,
+                          })
+                        : null,
+                  },
+                ]}
+              >
+                {props.item.placeholder}
+              </Text>
               <View style={styles.uploadFileView}>
-                <Text style={{ color: "#0484FF" }}>Upload File</Text>
+                <Text
+                  style={{
+                    color: Colors.active,
+                    fontFamily: fontRegular,
+                    fontSize: screenHeight * 0.02,
+                  }}
+                >
+                  Upload File
+                </Text>
               </View>
             </View>
           </View>

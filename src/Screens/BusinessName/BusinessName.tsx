@@ -15,11 +15,23 @@ type propsType = {
 };
 
 export default function BusinessName(props: propsType) {
-  const { fontBold, fontRegular, screenWidth, screenHeight, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    fontBold,
+    fontRegular,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    dimensionSetter,
+  } = useContext(DimensionsContext);
 
   return (
-    <GradientView style={[styles.container, { height: screenHeight }]}>
+    <GradientView
+      style={{
+        flex: 1,
+        height: screenHeight,
+        paddingTop: isTabLandscape ? "2%" : "5%",
+      }}
+    >
       <ScrollView
         keyboardShouldPersistTaps="handled"
         style={{ zIndex: 2 }}
@@ -50,10 +62,6 @@ export default function BusinessName(props: propsType) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: "5%",
-  },
   twoPersons: {
     zIndex: 1,
     opacity: 0.8,
