@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Text } from "react-native";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
-import CustomModal from "../../Components/CustomModal/CustomModal";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
+import CustomModal from "../../Components/CustomModal/CustomModal";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
@@ -13,7 +13,8 @@ interface propsType {
 
 export default function ThankyouModal(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -47,7 +48,7 @@ export default function ThankyouModal(props: propsType) {
           width: "70%",
           color: "#fff",
           textAlign: "center",
-          fontFamily: "Poppins-Bold",
+          fontFamily: fontBold,
           fontSize: screenHeight * 0.04,
         }}
       >
@@ -58,7 +59,7 @@ export default function ThankyouModal(props: propsType) {
           width: "70%",
           color: "#fff",
           textAlign: "center",
-          fontFamily: fontFamily,
+          fontFamily: fontRegular,
           fontSize: screenHeight * 0.02,
         }}
       >

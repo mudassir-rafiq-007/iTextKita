@@ -7,7 +7,8 @@ import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 export default function InputFields() {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -29,7 +30,7 @@ export default function InputFields() {
     return [
       styles.textInput,
       {
-        fontFamily: fontFamily,
+        fontFamily: fontRegular,
         fontSize: screenHeight * 0.02,
         marginTop:
           Platform.OS == "android"
@@ -85,6 +86,7 @@ export default function InputFields() {
           style={textInputStyle()}
           placeholder="User Name"
           textAlignVertical="center"
+          selectionColor={"#fff"}
           placeholderTextColor={"#c7c6c5"}
         />
       </View>
@@ -119,6 +121,7 @@ export default function InputFields() {
               }),
             },
           ]}
+          selectionColor={"#fff"}
           placeholder="Password"
           textAlignVertical="center"
           placeholderTextColor={"#c7c6c5"}

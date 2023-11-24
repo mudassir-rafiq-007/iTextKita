@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react";
-import { Text, View, Image, FlatList, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { Text, View, FlatList, StyleSheet } from "react-native";
 import AntDesignIcons from "react-native-vector-icons/AntDesign";
 import Header from "../../Components/Header/Header";
 import { Colors } from "../../Components/Constants/Colors";
-import TwoPersons from "../../../assets/images/two-persons.svg";
+import TwoPersons from "../../Components/TwoPersons/TwoPersons";
+import GradientView from "../../Components/GradientView/GradientView";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
@@ -15,7 +15,7 @@ type propsType = {
 };
 
 export default function MarketingHistory(props: propsType) {
-  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
+  const { screenHeight, screenWidth, fontRegular, fontBold, dimensionSetter } =
     useContext(DimensionsContext);
 
   const dummyMsg =
@@ -56,7 +56,7 @@ export default function MarketingHistory(props: propsType) {
       ],
     },
   ];
-  
+
   useEffect(() => {
     props.navigation.setOptions({
       header: () => <Header title="MARKETING HISTORY" />,
@@ -64,11 +64,7 @@ export default function MarketingHistory(props: propsType) {
   }, []);
 
   return (
-    <LinearGradient
-      locations={[0.4, 1]}
-      colors={["#FFFFFF", "#008080"]}
-      style={[styles.container, { gap: screenHeight * 0.02 }]}
-    >
+    <GradientView style={[styles.container, { gap: screenHeight * 0.02 }]}>
       <FlatList
         data={campaignsData}
         style={{ zIndex: 2 }}
@@ -80,7 +76,7 @@ export default function MarketingHistory(props: propsType) {
                 width: dimensionSetter({
                   mobile: screenWidth * 0.9,
                   tabPort: screenWidth * 0.8,
-                  tabLand: screenWidth * 0.5,
+                  tabLand: screenWidth * 0.6,
                 }),
                 borderRadius: screenHeight * 0.01,
                 marginVertical: screenHeight * 0.01,
@@ -112,7 +108,7 @@ export default function MarketingHistory(props: propsType) {
                           <Text
                             style={{
                               color: "white",
-                              fontFamily: fontFamily,
+                              fontFamily: fontRegular,
                               fontSize: screenHeight * 0.02,
                             }}
                           >
@@ -136,7 +132,7 @@ export default function MarketingHistory(props: propsType) {
                             style={{
                               color: "white",
                               textAlign: "justify",
-                              fontFamily: fontFamily,
+                              fontFamily: fontRegular,
                               fontSize: screenHeight * 0.02,
                             }}
                           >
@@ -154,7 +150,7 @@ export default function MarketingHistory(props: propsType) {
                         <Text
                           style={{
                             color: "white",
-                            fontFamily: fontFamily,
+                            fontFamily: fontRegular,
                             fontSize: screenHeight * 0.02,
                           }}
                         >
@@ -163,7 +159,7 @@ export default function MarketingHistory(props: propsType) {
                         <Text
                           style={{
                             color: "white",
-                            fontFamily: fontFamily,
+                            fontFamily: fontRegular,
                             fontSize: screenHeight * 0.02,
                           }}
                         >
@@ -178,28 +174,8 @@ export default function MarketingHistory(props: propsType) {
           </View>
         )}
       />
-      <View
-        style={[
-          styles.twoPersons,
-          {
-            bottom: dimensionSetter({
-              mobile: screenHeight * 0.05,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.001,
-            }),
-          },
-        ]}
-      >
-        <TwoPersons
-          height={dimensionSetter({
-            mobile: screenHeight * 0.2,
-            tabPort: screenHeight * 0.3,
-            tabLand: screenHeight * 0.6,
-          })}
-          width={screenWidth * 0.8}
-        />
-      </View>
-    </LinearGradient>
+      <TwoPersons style={styles.twoPersons} />
+    </GradientView>
   );
 }
 

@@ -16,6 +16,7 @@ import { shadow } from "../../Components/Constants/Shadow";
 import TwoPersons from "../../../assets/images/two-persons.svg";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 import { Image } from "react-native";
+import GradientView from "../../Components/GradientView/GradientView";
 
 type propsType = {
   navigation: {
@@ -25,7 +26,7 @@ type propsType = {
 };
 
 export default function RecentSMSStatus(props: propsType) {
-  const { screenWidth, screenHeight, dimensionSetter, fontFamily } =
+  const { screenWidth, screenHeight, dimensionSetter, fontRegular, fontBold } =
     useContext(DimensionsContext);
 
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -57,15 +58,14 @@ export default function RecentSMSStatus(props: propsType) {
   }, []);
 
   return (
-    <ScrollView
-      style={{ height: "100%" }}
-      keyboardShouldPersistTaps={"handled"}
-      contentContainerStyle={{ flexGrow: 1 }}
-    >
-      <LinearGradient
-        style={styles.main}
-        locations={[0.4, 1]}
-        colors={["#FFFFFF", "#008080"]}
+    <GradientView style={[styles.main, { height: screenHeight }]}>
+      <ScrollView
+        keyboardShouldPersistTaps={"handled"}
+        contentContainerStyle={{
+          flexGrow: 1,
+          width: screenWidth,
+          alignItems: "center",
+        }}
       >
         <Lady height={screenHeight * 0.1} width={screenWidth * 0.5} />
         <View style={listViewStyle()}>
@@ -102,8 +102,8 @@ export default function RecentSMSStatus(props: propsType) {
             width={screenWidth * 0.8}
           />
         </View>
-      </LinearGradient>
-    </ScrollView>
+      </ScrollView>
+    </GradientView>
   );
 }
 

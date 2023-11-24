@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import Subscribe from "./Subscribe";
 import InputFields from "./InputFields";
 import Header from "../../Components/Header/Header";
@@ -16,7 +16,7 @@ type propsType = {
 };
 
 export default function BusinessName(props: propsType) {
-  const { fontFamily, screenWidth, screenHeight, dimensionSetter } =
+  const { fontBold, fontRegular, screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
   useEffect(() => {

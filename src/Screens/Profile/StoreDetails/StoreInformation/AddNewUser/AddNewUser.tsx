@@ -1,18 +1,19 @@
 import { useContext } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Platform } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import InputField from "./InputField";
-import { Colors } from "../../Components/Constants/Colors";
-import FlatButton from "../../Components/Buttons/FlatButton";
-import CustomModal from "../../Components/CustomModal/CustomModal";
-import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import { Colors } from "../../../../../Components/Constants/Colors";
+import FlatButton from "../../../../../Components/Buttons/FlatButton";
+import CustomModal from "../../../../../Components/CustomModal/CustomModal";
+import { DimensionsContext } from "../../../../../Components/Contexts/DimensionsContext";
+import SelectFromList from "../../../../NewStoreRegistration/SelectFromList";
 
 interface propsType {
   modalVisible: boolean;
   setShowModal: (value: "next" | "cancel") => void;
 }
 
-export default function NewUserRegistration(props: propsType) {
+export default function AddNewUser(props: propsType) {
   const {
     fontBold,
     fontRegular,
@@ -21,6 +22,21 @@ export default function NewUserRegistration(props: propsType) {
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
+
+  const textStyle = {
+    color: "#fff",
+    fontFamily: fontRegular,
+    fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.015,
+  };
+
+  const roles = [
+    { key: 1, value: "Owner" },
+    { key: 2, value: "General Manager" },
+    { key: 1, value: "Superviser" },
+    { key: 1, value: "Manager" },
+    { key: 1, value: "Assistant" },
+    { key: 1, value: "Sales" },
+  ];
 
   return (
     <CustomModal
@@ -34,7 +50,7 @@ export default function NewUserRegistration(props: propsType) {
           paddingVertical: isTabLandscape ? "3%" : "5%",
           justifyContent: isTabLandscape ? "flex-start" : "center",
           gap: isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02,
-          height: isTabLandscape ? screenHeight * 0.6 : screenHeight * 0.7,
+          height: isTabLandscape ? screenHeight * 0.7 : screenHeight * 0.8,
           width: dimensionSetter({
             mobile: "90%",
             tabPort: "80%",
@@ -58,6 +74,7 @@ export default function NewUserRegistration(props: propsType) {
       </Text>
       <View
         style={{
+          zIndex: 3,
           width: "90%",
           flexDirection: isTabLandscape ? "row" : "column",
           justifyContent: isTabLandscape ? "center" : null,
@@ -84,6 +101,7 @@ export default function NewUserRegistration(props: propsType) {
         </View>
         <View
           style={{
+            zIndex: 3,
             gap: screenHeight * 0.02,
             width: isTabLandscape ? "40%" : null,
             justifyContent: isTabLandscape ? "flex-end" : null,
@@ -104,9 +122,21 @@ export default function NewUserRegistration(props: propsType) {
               secureTextEntry={true}
             />
           )}
+          <View style={{ zIndex: 3, width: "100%" }}>
+            <Text style={textStyle}>Role *</Text>
+            <View
+              style={{
+                width: "100%",
+                height: Platform.OS == "ios" ? screenHeight * 0.06 : null,
+              }}
+            >
+              <SelectFromList placeholder="Manager" data={roles} />
+            </View>
+          </View>
         </View>
       </View>
       <FlatButton
+        zIndex={2}
         title="Next"
         onPressed={() => props.setShowModal("next")}
         width={isTabLandscape ? "50%" : "90%"}

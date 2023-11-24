@@ -7,7 +7,7 @@ import MenuIcon from "../../../assets/images/menu.svg";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 export default function HeaderMenu() {
-  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
+  const { screenWidth, screenHeight, fontRegular, fontBold, dimensionSetter } =
     useContext(DimensionsContext);
 
   function menuWidth() {
@@ -27,10 +27,8 @@ export default function HeaderMenu() {
     "Marketing",
     "Profile",
     "Business Name",
-    "Customer Name",
     "Marketing History",
     "Campaign Materials",
-    "Online Marketing",
     "SMS Status",
   ];
 
@@ -78,7 +76,7 @@ export default function HeaderMenu() {
                 style={{
                   color: Colors.primary,
                   fontSize: screenHeight * 0.02,
-                  fontFamily: fontFamily,
+                  fontFamily: fontRegular,
                 }}
               >
                 {item}

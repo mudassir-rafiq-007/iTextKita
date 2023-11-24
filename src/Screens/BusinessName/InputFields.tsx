@@ -5,7 +5,8 @@ import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 export default function InputFields() {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -16,7 +17,7 @@ export default function InputFields() {
     return [
       styles.textInput,
       {
-        fontFamily: fontFamily,
+        fontFamily: fontRegular,
         width: dimensionSetter({
           mobile: "70%",
           tabPort: "80%",
@@ -62,7 +63,7 @@ export default function InputFields() {
         <Text
           style={{
             color: Colors.primary,
-            fontFamily: "Poppins-Bold",
+            fontFamily: fontBold,
             fontSize: screenHeight * 0.02,
           }}
         >
@@ -83,8 +84,8 @@ export default function InputFields() {
             style={textInputStyle()}
             placeholder="John Gates"
             textAlignVertical="center"
-            placeholderTextColor={"#c7c6c5"}
             selectionColor={Colors.secondary}
+            placeholderTextColor={Colors.primary}
           />
         </View>
       </View>
@@ -97,7 +98,7 @@ export default function InputFields() {
         <Text
           style={{
             color: Colors.primary,
-            fontFamily: "Poppins-Bold",
+            fontFamily: fontBold,
             fontSize: screenHeight * 0.02,
           }}
         >
@@ -118,8 +119,8 @@ export default function InputFields() {
             style={textInputStyle()}
             placeholder="+63 9 Number"
             textAlignVertical="center"
-            placeholderTextColor={"#c7c6c5"}
             selectionColor={Colors.secondary}
+            placeholderTextColor={Colors.primary}
           />
         </View>
       </View>

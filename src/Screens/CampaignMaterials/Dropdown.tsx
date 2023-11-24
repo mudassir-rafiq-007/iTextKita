@@ -22,7 +22,7 @@ interface propsType {
 }
 
 export default function Dropdown(props: propsType) {
-  const { screenWidth, screenHeight, fontFamily } =
+  const { isTabLandscape, screenWidth, screenHeight, fontRegular, fontBold } =
     useContext(DimensionsContext);
   const [showDropdown, setShowDropdown] = useState<boolean>();
 
@@ -38,7 +38,7 @@ export default function Dropdown(props: propsType) {
         <Text
           style={{
             color: Colors.primary,
-            fontFamily: fontFamily,
+            fontFamily: fontRegular,
             fontSize: screenHeight * 0.02,
             marginTop: Platform.OS == "android" ? screenHeight * 0.008 : null,
           }}
@@ -55,7 +55,6 @@ export default function Dropdown(props: propsType) {
         <View
           style={{
             paddingVertical: screenHeight * 0.02,
-            paddingHorizontal: screenWidth * 0.02,
           }}
         >
           <FlatList
@@ -64,7 +63,7 @@ export default function Dropdown(props: propsType) {
               <View
                 style={{
                   flexDirection: "row",
-                  backgroundColor: "#D3D3D3",
+                  backgroundColor: "#F5F5F5",
                   padding: screenHeight * 0.01,
                   justifyContent: "space-between",
                   borderRadius: screenHeight * 0.01,
@@ -74,16 +73,20 @@ export default function Dropdown(props: propsType) {
                 <Text
                   style={{
                     color: "#0008",
-                    fontFamily: fontFamily,
-                    fontSize: screenHeight * 0.015,
+                    fontFamily: fontRegular,
+                    fontSize: isTabLandscape
+                      ? screenHeight * 0.02
+                      : screenHeight * 0.015,
                   }}
                 >
                   {item.key}
                 </Text>
                 <Text
                   style={{
-                    fontFamily: fontFamily,
-                    fontSize: screenHeight * 0.015,
+                    fontFamily: fontRegular,
+                    fontSize: isTabLandscape
+                      ? screenHeight * 0.02
+                      : screenHeight * 0.015,
                     color: item.key == "Short Link" ? "blue" : Colors.secondary,
                   }}
                 >

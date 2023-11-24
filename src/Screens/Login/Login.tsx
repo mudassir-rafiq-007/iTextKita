@@ -23,7 +23,8 @@ type loginProps = {
 
 export default function Login(props: loginProps) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -121,18 +122,13 @@ export default function Login(props: loginProps) {
             tabPort: screenWidth * 0.6,
             tabLand: screenWidth * 0.3,
           })}
-          titleFontSize={dimensionSetter({
-            mobile: screenWidth * 0.05,
-            tabPort: screenWidth * 0.035,
-            tabLand: screenWidth * 0.015,
-          })}
         />
         <View style={styles.registerView}>
           <Text
             style={{
               zIndex: 2,
-              fontFamily: fontFamily,
               color: "#696969",
+              fontFamily: fontRegular,
               fontSize: dimensionSetter({
                 mobile: screenWidth * 0.035,
                 tabPort: screenWidth * 0.025,
@@ -188,19 +184,32 @@ export default function Login(props: loginProps) {
             setShowModal={() => setShowThankModal(false)}
           />
         </View>
-        <TextButton
-          zIndex={2}
-          color="#696969"
-          title="Terms & Conditions"
-          marginVertical={screenHeight * 0.01}
-          onPressed={() => props.navigation.navigate("Terms")}
-          fontSize={dimensionSetter({
-            mobile: screenHeight * 0.015,
-            tabPort: screenWidth * 0.02,
-            tabLand: screenWidth * 0.012,
+        <View style={{ zIndex: 2 }}>
+          <TextButton
+            zIndex={2}
+            color="#696969"
+            title="Terms & Conditions"
+            marginVertical={screenHeight * 0.01}
+            onPressed={() => props.navigation.navigate("Terms")}
+            fontSize={dimensionSetter({
+              mobile: screenHeight * 0.015,
+              tabPort: screenWidth * 0.02,
+              tabLand: screenWidth * 0.012,
+            })}
+          />
+        </View>
+        <TwoPersonBg
+          style={dimensionSetter({
+            mobile: { alignItems: "center" },
+            tabPort: { alignItems: "center" },
+            tabLand: {
+              zIndex: 1,
+              position: "absolute",
+              alignItems: "center",
+              bottom: screenHeight * 0.01,
+            },
           })}
         />
-        <TwoPersonBg />
       </GradientView>
     </ScrollView>
   );

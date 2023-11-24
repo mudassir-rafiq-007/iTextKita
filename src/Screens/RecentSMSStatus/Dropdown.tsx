@@ -7,7 +7,7 @@ type propType = {
 };
 
 export default function Dropdown(props: propType) {
-  const { screenWidth, screenHeight, fontFamily, dimensionSetter } =
+  const { screenWidth, screenHeight, fontRegular, fontBold, dimensionSetter } =
     useContext(DimensionsContext);
 
   const [showDropdown, setShowDropdown] = useState<boolean>();
@@ -30,7 +30,7 @@ export default function Dropdown(props: propType) {
       >
         <Text
           style={{
-            fontFamily: fontFamily,
+            fontFamily: fontRegular,
             fontSize: screenHeight * 0.02,
           }}
         >
@@ -64,7 +64,7 @@ export default function Dropdown(props: propType) {
         >
           <Text
             style={{
-              fontFamily: fontFamily,
+              fontFamily: fontRegular,
               fontSize: screenHeight * 0.02,
             }}
           >
@@ -72,7 +72,7 @@ export default function Dropdown(props: propType) {
           </Text>
           <Text
             style={{
-              fontFamily: fontFamily,
+              fontFamily: fontRegular,
               fontSize: screenHeight * 0.02,
             }}
           >

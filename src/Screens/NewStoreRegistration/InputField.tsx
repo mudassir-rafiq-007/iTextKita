@@ -13,7 +13,8 @@ interface propsType {
 
 export default function InputField(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -22,7 +23,7 @@ export default function InputField(props: propsType) {
 
   const textStyle = {
     color: "#fff",
-    fontFamily: fontFamily,
+    fontFamily: fontRegular,
     fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.015,
   };
 
@@ -43,20 +44,31 @@ export default function InputField(props: propsType) {
         }}
       >
         <TextInput
-          placeholder={props.placeholder}
-          secureTextEntry={props.secureTextEntry}
-          placeholderTextColor={Colors.primary}
           editable={props.editable}
+          selectionColor={Colors.primary}
+          placeholder={props.placeholder}
+          placeholderTextColor={Colors.primary}
+          secureTextEntry={props.secureTextEntry}
+          textContentType={props.secureTextEntry ? "newPassword" : null}
           style={{
             flex: 1,
             paddingLeft: "4%",
             color: Colors.primary,
-            fontFamily: fontFamily,
+            fontFamily: fontRegular,
             textAlignVertical: "center",
             fontSize: screenHeight * 0.02,
           }}
         />
-        {props.title == "DTI" && <FolderIcon />}
+        {props.title == "DTI" && (
+          <View
+            style={{
+              width: screenHeight * 0.03,
+              height: screenHeight * 0.03,
+            }}
+          >
+            <FolderIcon height={"100%"} width={"100%"} />
+          </View>
+        )}
       </View>
     </View>
   );

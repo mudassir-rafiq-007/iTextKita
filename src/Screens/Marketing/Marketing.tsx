@@ -28,15 +28,16 @@ type propsType = {
 
 export default function Marketing(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
     dimensionSetter,
   } = useContext(DimensionsContext);
 
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [message, setMessage] = useState<string>();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const dummyMsg =
     "Hello David,\nWe are launching our new product called “Isaw ng Manok” and we would like to invited you to join us in our launching day with free entrance!\nSee out poster @\nhttps://testing.com/page";
@@ -48,7 +49,7 @@ export default function Marketing(props: propsType) {
         zIndex: zIndex,
         alignItems: "center",
         gap: screenHeight * 0.02,
-        height: screenHeight * 0.06,
+        height: Platform.OS == "ios" ? screenHeight * 0.06 : null,
       },
     ];
   }
@@ -125,7 +126,7 @@ export default function Marketing(props: propsType) {
             <Text
               style={{
                 color: "#fff",
-                fontFamily: fontFamily,
+                fontFamily: fontRegular,
                 fontSize: screenHeight * 0.03,
                 paddingTop: Platform.OS == "android" ? "2%" : null,
               }}
@@ -148,6 +149,7 @@ export default function Marketing(props: propsType) {
               multiline={true}
               scrollEnabled={true}
               placeholder={dummyMsg}
+              selectionColor={Colors.primary}
               onChangeText={(text) => {
                 setMessage(text);
               }}
@@ -155,7 +157,7 @@ export default function Marketing(props: propsType) {
               style={{
                 textAlign: "justify",
                 color: Colors.primary,
-                fontFamily: fontFamily,
+                fontFamily: fontRegular,
                 fontSize: screenHeight * 0.02,
               }}
             />

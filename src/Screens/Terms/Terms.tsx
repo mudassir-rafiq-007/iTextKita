@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { FlatList, View, Text, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import TermsIcon from "../../../assets/images/terms.svg";
 import ShieldIcon from "../../../assets/images/shield.svg";
 import ITextKita from "../../../assets/images/iTextKita.svg";
-import TwoPersons from "../../../assets/images/two-persons.svg";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
+import GradientView from "../../Components/GradientView/GradientView";
+import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 
 type propsType = {
   navigation: {
@@ -16,7 +16,7 @@ type propsType = {
 };
 
 export default function Terms(props: propsType) {
-  const { screenHeight, screenWidth, fontFamily, dimensionSetter } =
+  const {fontBold, fontRegular, screenHeight, screenWidth, dimensionSetter } =
     useContext(DimensionsContext);
 
   const terms = [
@@ -28,9 +28,7 @@ export default function Terms(props: propsType) {
   ];
 
   return (
-    <LinearGradient
-      locations={[0.4, 1]}
-      colors={["#FFFFFF", "#008080"]}
+    <GradientView
       style={{ flex: 1, alignItems: "center" }}
     >
       <ITextKita
@@ -91,7 +89,7 @@ export default function Terms(props: propsType) {
               <ShieldIcon />
               <Text
                 style={{
-                  fontFamily: fontFamily,
+                  fontFamily: fontRegular,
                   fontSize: screenHeight * 0.02,
                   marginHorizontal: screenWidth * 0.02,
                 }}
@@ -113,28 +111,8 @@ export default function Terms(props: propsType) {
         })}
         marginVertical={screenHeight * 0.02}
       />
-      <View
-        style={[
-          styles.twoPersons,
-          {
-            bottom: dimensionSetter({
-              mobile: screenHeight * 0.05,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.001,
-            }),
-          },
-        ]}
-      >
-        <TwoPersons
-          height={dimensionSetter({
-            mobile: screenHeight * 0.2,
-            tabPort: screenHeight * 0.3,
-            tabLand: screenHeight * 0.6,
-          })}
-          width={screenWidth * 0.8}
-        />
-      </View>
-    </LinearGradient>
+      <TwoPersons style={styles.twoPersons}/>
+    </GradientView>
   );
 }
 

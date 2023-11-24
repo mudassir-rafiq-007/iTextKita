@@ -1,14 +1,13 @@
 import {
   Text,
   View,
-  Platform,
   TextInput,
   StyleProp,
   TextStyle,
   ViewStyle,
   StyleSheet,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import EntypeIcons from "react-native-vector-icons/Entypo";
 import { Colors } from "../../Components/Constants/Colors";
 import TextButton from "../../Components/Buttons/TextButton";
@@ -24,7 +23,8 @@ interface propsType {
 export default function ResetPassword(props: propsType) {
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -51,7 +51,7 @@ export default function ResetPassword(props: propsType) {
   function inputLabelStyle(): StyleProp<TextStyle> {
     return {
       color: "white",
-      fontFamily: fontFamily,
+      fontFamily: fontRegular,
       alignSelf: "flex-start",
       fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.015,
     };
@@ -63,7 +63,7 @@ export default function ResetPassword(props: propsType) {
       {
         borderWidth: 1,
         borderColor: Colors.secondary,
-        borderRadius: screenHeight * 0.01,
+        borderRadius: screenHeight * 0.005,
         width: isTabLandscape ? "70%" : "90%",
         paddingHorizontal: screenWidth * 0.02,
         height: isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.06,
@@ -76,20 +76,12 @@ export default function ResetPassword(props: propsType) {
       styles.textInput,
       {
         color: Colors.primary,
-        fontFamily: fontFamily,
+        fontFamily: fontRegular,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.02,
           tabPort: screenHeight * 0.02,
           tabLand: screenHeight * 0.025,
         }),
-        marginTop:
-          Platform.OS == "android"
-            ? dimensionSetter({
-                mobile: screenHeight * 0.01,
-                tabPort: screenHeight * 0.01,
-                tabLand: screenHeight * 0.005,
-              })
-            : null,
         marginHorizontal: dimensionSetter({
           mobile: screenWidth * 0.02,
           tabPort: screenWidth * 0.01,
@@ -108,7 +100,7 @@ export default function ResetPassword(props: propsType) {
       <Text
         style={{
           color: "#fff",
-          fontFamily: "Poppins-Bold",
+          fontFamily: fontBold,
           fontSize: screenHeight * 0.03,
           marginBottom: screenHeight * 0.01,
         }}
@@ -129,7 +121,8 @@ export default function ResetPassword(props: propsType) {
               style={textInputStyle()}
               placeholder="+123 456 7890"
               textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
+              selectionColor={Colors.primary}
+              placeholderTextColor={Colors.primary}
             />
           </View>
         </View>
@@ -140,7 +133,7 @@ export default function ResetPassword(props: propsType) {
               style={textInputStyle()}
               placeholder="Password"
               textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
+              placeholderTextColor={Colors.primary}
             />
             <EntypeIcons
               name={secureTextEntry ? "eye" : "eye-with-line"}
@@ -166,7 +159,8 @@ export default function ResetPassword(props: propsType) {
               style={textInputStyle()}
               placeholder="Confirm Password"
               textAlignVertical="center"
-              placeholderTextColor={"#c7c6c5"}
+              selectionColor={Colors.primary}
+              placeholderTextColor={Colors.primary}
             />
             <EntypeIcons
               name={secureTextEntry ? "eye" : "eye-with-line"}
@@ -188,8 +182,8 @@ export default function ResetPassword(props: propsType) {
       </View>
       <View
         style={{
-          alignItems: "center",
           width: "100%",
+          alignItems: "center",
           gap: screenHeight * 0.01,
         }}
       >

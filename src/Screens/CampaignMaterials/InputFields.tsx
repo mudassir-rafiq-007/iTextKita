@@ -17,7 +17,8 @@ interface propsType {
 
 export default function InputFields(props: propsType) {
   const {
-    fontFamily,
+    fontBold,
+    fontRegular,
     screenWidth,
     screenHeight,
     isTabLandscape,
@@ -28,7 +29,7 @@ export default function InputFields(props: propsType) {
     return {
       color: Colors.primary,
       alignSelf: "flex-start",
-      fontFamily: isTabLandscape ? "Poppins-Bold" : fontFamily,
+      fontFamily: isTabLandscape ? fontBold : fontRegular,
       fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02,
     };
   }
@@ -58,7 +59,7 @@ export default function InputFields(props: propsType) {
     return [
       styles.textInput,
       {
-        fontFamily: fontFamily,
+        fontFamily: fontRegular,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.02,
           tabPort: screenHeight * 0.02,
@@ -110,6 +111,7 @@ export default function InputFields(props: propsType) {
               placeholderTextColor={"#c7c6c5"}
               selectionColor={Colors.secondary}
               placeholder={props.item.placeholder}
+              editable={props.item.placeholder == "Poster" ? false : true}
             />
           </View>
         </View>

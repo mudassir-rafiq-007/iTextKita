@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { TouchableOpacity, Text, StyleProp, TextStyle } from "react-native";
-import { DimensionsContext } from "../Contexts/DimensionsContext";
 import { Colors } from "../Constants/Colors";
+import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 interface propToTextButton {
   style?: StyleProp<TextStyle>;
@@ -38,7 +38,7 @@ interface propToTextButton {
 }
 
 export default function TextButton(props: propToTextButton) {
-  const { isTabLandscape, screenWidth, screenHeight, fontFamily } =
+  const { isTabLandscape, screenWidth, screenHeight, fontRegular, fontBold } =
     useContext(DimensionsContext);
 
   return (
@@ -48,11 +48,11 @@ export default function TextButton(props: propToTextButton) {
           props.style,
           {
             color: props.color || Colors.secondary,
-            fontFamily: props.fontFamily || fontFamily,
+            fontFamily: props.fontFamily || fontRegular,
             textDecorationLine: props.textDecorationLine,
             fontSize:
               props.fontSize ||
-              (isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.02),
+              (isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02),
             margin: props.margin || screenHeight * 0.01,
             marginTop: props.marginTop,
             marginLeft: props.marginLeft,
