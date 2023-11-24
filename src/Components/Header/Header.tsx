@@ -45,14 +45,14 @@ export default function Header(props: propType) {
           <TouchableOpacity
             onPress={props.goBack}
             style={{
-              width: screenHeight * 0.03,
-              height: screenHeight * 0.03,
+              width: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.03,
+              height: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.03,
             }}
           >
             <MaterialIcons
               name="arrow-back-ios"
               color={Colors.primary}
-              size={screenHeight * 0.03}
+              size={isTabLandscape? screenHeight * 0.04 : screenHeight * 0.03}
             />
           </TouchableOpacity>
         )}

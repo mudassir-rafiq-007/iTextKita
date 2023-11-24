@@ -52,7 +52,7 @@ export default function InputField(props: propsType) {
           textContentType={props.secureTextEntry ? "newPassword" : null}
           style={{
             flex: 1,
-            paddingLeft: "4%",
+            paddingHorizontal: "4%",
             color: Colors.primary,
             fontFamily: fontRegular,
             textAlignVertical: "center",

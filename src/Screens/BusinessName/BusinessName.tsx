@@ -1,5 +1,10 @@
 import { useContext } from "react";
-import { StyleSheet, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import Subscribe from "./Subscribe";
 import InputFields from "./InputFields";
 import FlatButton from "../../Components/Buttons/FlatButton";
@@ -20,21 +25,25 @@ export default function BusinessName(props: propsType) {
 
   return (
     <GradientView style={styles.container}>
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        style={{ height: screenHeight }}
-        contentContainerStyle={{
-          flexGrow: 1,
-          width: screenWidth,
-          alignItems: "center",
-          gap: screenHeight * 0.05,
-        }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-        <Subscribe />
-        <InputFields />
-        <FlatButton title="Subscribe Now" onPressed={() => {}} zIndex={2} />
-        <TwoPersons style={styles.twoPersons} />
-      </ScrollView>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          style={{ height: screenHeight }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            width: screenWidth,
+            alignItems: "center",
+            gap: screenHeight * 0.05,
+          }}
+        >
+          <Subscribe />
+          <InputFields />
+          <FlatButton title="Subscribe Now" onPressed={() => {}} zIndex={2} />
+          <TwoPersons style={styles.twoPersons} />
+        </ScrollView>
+      </KeyboardAvoidingView>
     </GradientView>
   );
 }

@@ -37,8 +37,8 @@ export default function InputField(props: propsType) {
         style={{
           width: "100%",
           borderWidth: 1,
-          paddingLeft: "4%",
           color: Colors.primary,
+          paddingHorizontal: "4%",
           fontFamily: fontRegular,
           backgroundColor: "#f7f7f7",
           height: screenHeight * 0.06,

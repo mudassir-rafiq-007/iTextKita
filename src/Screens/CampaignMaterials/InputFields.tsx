@@ -59,6 +59,7 @@ export default function InputFields(props: propsType) {
     return [
       styles.textInput,
       {
+        color: Colors.primary,
         fontFamily: fontRegular,
         fontSize: dimensionSetter({
           mobile: screenHeight * 0.02,
