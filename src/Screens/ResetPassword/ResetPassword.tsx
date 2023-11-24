@@ -74,7 +74,8 @@ export default function ResetPassword(props: propsType) {
   function textInputStyle() {
     return [
       styles.textInput,
-      {
+      {  
+        height: isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.06,
         color: Colors.primary,
         fontFamily: fontRegular,
         fontSize: dimensionSetter({
@@ -133,6 +134,7 @@ export default function ResetPassword(props: propsType) {
               style={textInputStyle()}
               placeholder="Password"
               textAlignVertical="center"
+              selectionColor={Colors.primary}
               placeholderTextColor={Colors.primary}
             />
             <EntypeIcons

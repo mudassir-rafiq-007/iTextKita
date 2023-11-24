@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import HeaderMenu from "./HeaderMenu";
@@ -45,8 +45,9 @@ export default function Header(props: propType) {
           <TouchableOpacity
             onPress={props.goBack}
             style={{
-              width: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.03,
-              height: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.03,
+              alignItems: "center", justifyContent: Platform.OS == "ios" ? "center" : null,
+              width: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.035,
+              height: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.035,
             }}
           >
             <MaterialIcons

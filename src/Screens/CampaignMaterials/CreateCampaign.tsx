@@ -100,5 +100,6 @@ const styles = StyleSheet.create({
     zIndex: 1,
     opacity: 0.8,
     position: "absolute",
+    alignSelf: "center"
   },
 });

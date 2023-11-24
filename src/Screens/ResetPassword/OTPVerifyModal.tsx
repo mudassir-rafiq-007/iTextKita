@@ -71,6 +71,7 @@ export default function OTPVerifyModal(props: propsType) {
             justifyContent: "center",
           },
           pinCodeTextStyle: {
+            fontFamily: fontBold,
             color: Colors.primary,
           },
           pinCodeContainerStyle: {

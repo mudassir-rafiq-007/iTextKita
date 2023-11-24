@@ -36,7 +36,7 @@ export default function Form(props: propsType) {
   return (
     <View
       style={{
-        zIndex: 3,
+        zIndex: 2,
         width: "100%",
         alignItems: "center",
         gap: isTabLandscape ? screenHeight * 0.04 : screenHeight * 0.02,
@@ -44,6 +44,7 @@ export default function Form(props: propsType) {
     >
       <View
         style={{
+          zIndex: 3,
           width: "90%",
           flexDirection: isTabLandscape ? "row" : "column",
           gap: isTabLandscape ? screenWidth * 0.05 : screenHeight * 0.02,

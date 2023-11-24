@@ -86,7 +86,7 @@ export default function PackagePlans(props: propsType) {
         }}
       >
         {/* Basic Package View */}
-        <View style={packageViewStyle(screenHeight * 0.25)}>
+        <View style={packageViewStyle(screenHeight * 0.3)}>
           <PackageTitle title="Basic" price={29.99} />
           {borderLine}
           <PackagePerks perks={basicPackagePerks} />
