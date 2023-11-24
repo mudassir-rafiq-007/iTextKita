@@ -1,10 +1,5 @@
 import { useContext } from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import Subscribe from "./Subscribe";
 import InputFields from "./InputFields";
 import FlatButton from "../../Components/Buttons/FlatButton";
@@ -24,16 +19,22 @@ export default function BusinessName(props: propsType) {
     useContext(DimensionsContext);
 
   return (
-    <GradientView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
+    <GradientView style={[styles.container, { height: screenHeight }]}>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        style={{ zIndex: 2 }}
+        contentContainerStyle={{
+          flexGrow: 1,
+          width: screenWidth,
+          alignItems: "center",
+          gap: screenHeight * 0.05,
+        }}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          style={{ height: screenHeight }}
-          contentContainerStyle={{
-            flexGrow: 1,
-            width: screenWidth,
+        <View
+          style={{
+            zIndex: 2,
+            width: "100%",
+            height: screenHeight,
             alignItems: "center",
             gap: screenHeight * 0.05,
           }}
@@ -41,9 +42,9 @@ export default function BusinessName(props: propsType) {
           <Subscribe />
           <InputFields />
           <FlatButton title="Subscribe Now" onPressed={() => {}} zIndex={2} />
-          <TwoPersons style={styles.twoPersons} />
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </View>
+      </ScrollView>
+      <TwoPersons style={styles.twoPersons} />
     </GradientView>
   );
 }
@@ -52,14 +53,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: "5%",
-    borderTopWidth: 1,
-    borderColor: "#0003",
-    alignItems: "center",
-    backgroundColor: "#fff",
   },
   twoPersons: {
     zIndex: 1,
     opacity: 0.8,
+    alignSelf: "center",
     position: "absolute",
   },
 });
