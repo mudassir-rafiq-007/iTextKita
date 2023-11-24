@@ -1,8 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { StyleSheet } from "react-native";
 import AmountSelection from "./AmountSelection";
 import PurchaseHistory from "./PurchaseHistory";
-import Header from "../../../../Components/Header/Header";
 import FlatButton from "../../../../Components/Buttons/FlatButton";
 import TwoPersons from "../../../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../../../Components/GradientView/GradientView";
@@ -25,11 +24,6 @@ export default function PurchaseCredits(props: propsType) {
     dimensionSetter,
   } = useContext(DimensionsContext);
 
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="Purchase Credits" />,
-    });
-  }, []);
   return (
     <GradientView
       style={[

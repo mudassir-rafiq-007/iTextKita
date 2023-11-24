@@ -8,9 +8,8 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useEffect, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import SelectFromList from "./SelectFromList";
-import Header from "../../Components/Header/Header";
 import ConfirmationModal from "./ConfirmationModal";
 import { shadow } from "../../Components/Constants/Shadow";
 import { Colors } from "../../Components/Constants/Colors";
@@ -83,12 +82,6 @@ export default function Marketing(props: propsType) {
     { value: "Facebook ID", key: 4 },
     { value: "Duration", key: 5 },
   ];
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="Marketing" />,
-    });
-  }, []);
 
   return (
     <GradientView style={[styles.container, { paddingTop: "2%" }]}>

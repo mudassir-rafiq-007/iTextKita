@@ -1,7 +1,6 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import InputFields from "./InputFields";
-import Header from "../../Components/Header/Header";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../Components/GradientView/GradientView";
@@ -15,7 +14,7 @@ type propsType = {
 };
 
 export default function CreateCampaign(props: propsType) {
-  const { isTabLandscape, screenWidth, screenHeight, dimensionSetter } =
+  const {fontBold, fontRegular, isTabLandscape, screenWidth, screenHeight, dimensionSetter } =
     useContext(DimensionsContext);
 
   const inputsData = [
@@ -26,11 +25,6 @@ export default function CreateCampaign(props: propsType) {
     { title: "Duration", placeholder: "7 Days" },
   ];
 
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="CREATE CAMPAIGN" />,
-    });
-  }, []);
   return (
     <GradientView style={styles.main}>
       <ScrollView

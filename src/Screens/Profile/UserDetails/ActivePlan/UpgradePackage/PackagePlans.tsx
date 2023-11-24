@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { View, Text, Platform, StyleSheet, ScrollView } from "react-native";
 import PackageTitle from "./PackageTitle";
 import PackagePerks from "./PackagePerks";
-import Header from "../../../../../Components/Header/Header";
 import { Colors } from "../../../../../Components/Constants/Colors";
 import TwoPersons from "../../../../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../../../../Components/GradientView/GradientView";
@@ -75,11 +74,6 @@ export default function PackagePlans(props: propsType) {
     ];
   }
 
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="PACKAGE PLANS" />,
-    });
-  }, []);
   return (
     <GradientView style={styles.main}>
       <ScrollView

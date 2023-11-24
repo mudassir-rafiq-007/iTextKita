@@ -1,8 +1,7 @@
+import { useContext } from "react";
 import { StyleSheet } from "react-native";
-import React, { useContext, useEffect } from "react";
 import PackageType from "./PackageType";
 import PurchaseHistory from "./PurchaseHistory";
-import Header from "../../../../Components/Header/Header";
 import TwoPersons from "../../../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../../../Components/GradientView/GradientView";
 import { DimensionsContext } from "../../../../Components/Contexts/DimensionsContext";
@@ -24,11 +23,6 @@ export default function PlanDetails(props: propsType) {
     dimensionSetter,
   } = useContext(DimensionsContext);
 
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="PLAN DETAILS" />,
-    });
-  }, []);
   return (
     <GradientView
       style={[

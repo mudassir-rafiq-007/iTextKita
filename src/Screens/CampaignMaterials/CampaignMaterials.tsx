@@ -1,7 +1,6 @@
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import Dropdown from "./Dropdown";
-import Header from "../../Components/Header/Header";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../Components/GradientView/GradientView";
@@ -50,12 +49,6 @@ export default function CampaignMaterials(props: propsType) {
       ],
     },
   ];
-
-  useEffect(() => {
-    props.navigation.setOptions({
-      header: () => <Header title="CAMPAIGN MATERIALS" />,
-    });
-  }, []);
 
   return (
     <GradientView
