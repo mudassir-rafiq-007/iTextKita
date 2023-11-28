@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
+import { moderateVerticalScale } from "react-native-size-matters";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TextButton from "../../Components/Buttons/TextButton";
@@ -19,14 +20,8 @@ interface propsType {
 }
 
 export default function ConfirmationModal(props: propsType) {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
+  const { fontRegular, screenWidth, isTabLandscape, dimensionSetter } =
+    useContext(DimensionsContext);
 
   const dummyMsg =
     "Hello David,\nWe are launching our new product called “Isaw ng Manok” and we would like to invited you to join us in our launching day with free entrance!\nSee out poster @\nhttps://testing.com/page";
@@ -34,7 +29,7 @@ export default function ConfirmationModal(props: propsType) {
   const textStyle = {
     color: "#fff",
     fontFamily: fontRegular,
-    fontSize: isTabLandscape ? screenHeight * 0.025 : screenHeight * 0.015,
+    fontSize: moderateVerticalScale(12),
   };
 
   return (
@@ -50,10 +45,12 @@ export default function ConfirmationModal(props: propsType) {
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: Colors.primary,
-              borderRadius: screenHeight * 0.03,
-              gap: isTabLandscape ? null : screenHeight * 0.02,
+              borderRadius: moderateVerticalScale(20),
               paddingVertical: isTabLandscape ? "3%" : "5%",
-              height: isTabLandscape ? screenHeight * 0.6 : screenHeight * 0.7,
+              gap: isTabLandscape ? null : moderateVerticalScale(10),
+              height: isTabLandscape
+                ? moderateVerticalScale(350)
+                : moderateVerticalScale(520, 0.8),
               width: dimensionSetter({
                 mobile: "90%",
                 tabPort: "80%",
@@ -64,23 +61,26 @@ export default function ConfirmationModal(props: propsType) {
         >
           <View
             style={{
-              width: isTabLandscape ? "90%" : "90%",
+              width: "90%",
+              gap: moderateVerticalScale(10),
               height: isTabLandscape ? "60%" : null,
               flexDirection: isTabLandscape ? "row" : "column",
               justifyContent: isTabLandscape ? "space-around" : null,
-              gap: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.02,
             }}
           >
             <View
               style={{
-                gap: screenHeight * 0.02,
+                gap: moderateVerticalScale(10),
                 width: isTabLandscape ? "40%" : null,
               }}
             >
-              <View style={{ gap: screenHeight * 0.01 }}>
+              <View style={{ gap: moderateVerticalScale(5) }}>
                 <Text style={textStyle}>Total Credit Cost</Text>
                 <View
-                  style={[styles.textView, { height: screenHeight * 0.06 }]}
+                  style={[
+                    styles.textView,
+                    { height: moderateVerticalScale(40) },
+                  ]}
                 >
                   <TextInput
                     editable={false}
@@ -89,17 +89,20 @@ export default function ConfirmationModal(props: propsType) {
                     style={[
                       styles.textInputView,
                       {
-                        fontSize: screenHeight * 0.02,
-                        fontFamily: isTabLandscape ? fontBold : fontRegular,
+                        fontSize: moderateVerticalScale(14),
+                        fontFamily: fontRegular,
                       },
                     ]}
                   />
                 </View>
               </View>
-              <View style={{ gap: screenHeight * 0.01 }}>
+              <View style={{ gap: moderateVerticalScale(5) }}>
                 <Text style={textStyle}>Sender ID</Text>
                 <View
-                  style={[styles.textView, { height: screenHeight * 0.06 }]}
+                  style={[
+                    styles.textView,
+                    { height: moderateVerticalScale(40) },
+                  ]}
                 >
                   <TextInput
                     editable={false}
@@ -108,8 +111,8 @@ export default function ConfirmationModal(props: propsType) {
                     style={[
                       styles.textInputView,
                       {
-                        fontSize: screenHeight * 0.02,
-                        fontFamily: isTabLandscape ? fontBold : fontRegular,
+                        fontSize: moderateVerticalScale(14),
+                        fontFamily: fontRegular,
                       },
                     ]}
                   />
@@ -117,15 +120,15 @@ export default function ConfirmationModal(props: propsType) {
               </View>
             </View>
             <View style={{ width: isTabLandscape ? "50%" : null }}>
-              <View style={{ gap: screenHeight * 0.01 }}>
+              <View style={{ gap: moderateVerticalScale(5) }}>
                 <Text style={textStyle}>Message</Text>
                 <ScrollView
                   style={[
                     styles.textView,
                     {
                       height: isTabLandscape
-                        ? screenHeight * 0.2
-                        : screenHeight * 0.25,
+                        ? moderateVerticalScale(120)
+                        : moderateVerticalScale(200),
                     },
                   ]}
                 >
@@ -133,8 +136,8 @@ export default function ConfirmationModal(props: propsType) {
                     style={[
                       styles.msgText,
                       {
-                        fontSize: screenHeight * 0.02,
-                        fontFamily: isTabLandscape ? fontBold : fontRegular,
+                        fontSize: moderateVerticalScale(14),
+                        fontFamily: fontRegular,
                       },
                     ]}
                   >

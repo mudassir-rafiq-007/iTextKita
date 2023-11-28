@@ -1,9 +1,10 @@
 import { useContext } from "react";
+import { Platform, StyleSheet } from "react-native";
 import { SelectList } from "react-native-dropdown-select-list";
+import { moderateVerticalScale } from "react-native-size-matters";
 import { Colors } from "../../Components/Constants/Colors";
 import DownArrowIcon from "../../Components/DownArrowIcon/DownArrowIcon";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
-import { Platform } from "react-native";
 
 interface propsType {
   data: object[];
@@ -11,14 +12,7 @@ interface propsType {
 }
 
 export default function SelectFromList(props: propsType) {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
+  const { fontRegular } = useContext(DimensionsContext);
 
   return (
     <SelectList
@@ -27,43 +21,48 @@ export default function SelectFromList(props: propsType) {
       search={false}
       arrowicon={<DownArrowIcon />}
       placeholder={props.placeholder}
-      boxStyles={{
-        width: "90%",
-        borderRadius: 0,
-        alignItems: "center",
-        height: screenHeight * 0.06,
-        borderColor: Colors.primary,
-        backgroundColor: Colors.primary,
-        borderTopLeftRadius: screenHeight * 0.01,
-        borderBottomRightRadius: screenHeight * 0.01,
-      }}
+      boxStyles={styles.box}
       inputStyles={{
         flex: 1,
-        height: screenHeight * 0.06,
         alignItems: "center",
-        lineHeight: Platform.OS == "ios" ? screenHeight * 0.06: null,
         fontFamily: fontRegular,
-        color: "#d9d9d9",
+        color: Colors.placeholder,
         textAlignVertical: "center",
-        fontSize: screenHeight * 0.02,
+        height: moderateVerticalScale(40),
+        fontSize: moderateVerticalScale(14),
+        lineHeight: Platform.OS == "ios" ? moderateVerticalScale(40) : null,
       }}
-      dropdownStyles={{
-        backgroundColor: "#fff",
-        height: screenHeight * 0.25,
-        borderColor: Colors.primary,
-        borderRadius: screenHeight * 0.005,
-      }}
+      dropdownStyles={styles.dropdown}
+      dropdownItemStyles={styles.dropdownItem}
       dropdownTextStyles={{
-        color: "#d9d9d9",
+        color: Colors.secondary,
         fontFamily: fontRegular,
-        fontSize: screenHeight * 0.02,
-      }}
-      dropdownItemStyles={{
-        borderWidth: 1,
-        borderColor: "#fff",
-        backgroundColor: Colors.primary,
-        marginBottom: screenHeight * 0.005,
+        fontSize: moderateVerticalScale(14),
       }}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  box: {
+    width: "100%",
+    borderRadius: 0,
+    alignItems: "center",
+    borderColor: Colors.primary,
+    backgroundColor: Colors.primary,
+    height: moderateVerticalScale(40),
+    borderTopLeftRadius: moderateVerticalScale(8),
+    borderBottomRightRadius: moderateVerticalScale(8),
+  },
+  dropdown: {
+    borderColor: "#fff",
+    backgroundColor: "#fff",
+    height: moderateVerticalScale(120),
+    borderRadius: moderateVerticalScale(5),
+  },
+  dropdownItem: {
+    backgroundColor: "#fff",
+    borderBottomColor: Colors.secondary,
+    borderBottomWidth: moderateVerticalScale(1),
+  },
+});

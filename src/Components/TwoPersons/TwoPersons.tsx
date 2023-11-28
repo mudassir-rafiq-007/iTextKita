@@ -4,7 +4,8 @@ import { DimensionsContext } from "../Contexts/DimensionsContext";
 import TwoPersonsBg from "../../../assets/images/two-persons.svg";
 
 interface propsType {
-  style: StyleProp<ViewStyle> | undefined;
+  style?: StyleProp<ViewStyle>;
+  opacity?: number
 }
 
 export default function TwoPersons(props: propsType) {
@@ -15,7 +16,7 @@ export default function TwoPersons(props: propsType) {
     return [
       props.style,
       {
-        opacity: dimensionSetter({
+        opacity: props.opacity || dimensionSetter({
           mobile: 0.5,
           tabPort: 0.5,
           tabLand: 0.2,

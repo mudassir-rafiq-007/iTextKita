@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { TouchableOpacity, Text, StyleProp, TextStyle } from "react-native";
+import { moderateVerticalScale } from "react-native-size-matters";
 import { Colors } from "../Constants/Colors";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 
@@ -22,8 +23,6 @@ interface propToTextButton {
     | "line-through"
     | "underline line-through";
   fontWeight?:
-    | "normal"
-    | "bold"
     | "100"
     | "200"
     | "300"
@@ -38,8 +37,7 @@ interface propToTextButton {
 }
 
 export default function TextButton(props: propToTextButton) {
-  const { isTabLandscape, screenWidth, screenHeight, fontRegular, fontBold } =
-    useContext(DimensionsContext);
+  const { fontRegular } = useContext(DimensionsContext);
 
   return (
     <TouchableOpacity onPress={props.onPressed}>
@@ -50,10 +48,8 @@ export default function TextButton(props: propToTextButton) {
             color: props.color || Colors.secondary,
             fontFamily: props.fontFamily || fontRegular,
             textDecorationLine: props.textDecorationLine,
-            fontSize:
-              props.fontSize ||
-              (isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02),
-            margin: props.margin || screenHeight * 0.01,
+            fontSize: props.fontSize || moderateVerticalScale(14),
+            margin: props.margin || moderateVerticalScale(10),
             marginTop: props.marginTop,
             marginLeft: props.marginLeft,
             marginRight: props.marginRight,

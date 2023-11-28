@@ -10,6 +10,11 @@ import {
 } from "react-native";
 import { shadow } from "../Constants/Shadow";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
+import {
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
+import { Colors } from "../Constants/Colors";
 
 interface propType {
   containerStyle?: StyleProp<ViewStyle>;
@@ -20,6 +25,7 @@ interface propType {
   bgColor?: string;
   width?: any;
   height?: any;
+  borderRadius?: number;
   margin?: number;
   marginTop?: number;
   marginLeft?: number;
@@ -38,34 +44,21 @@ interface propType {
   onPressed: () => void;
 }
 export default function FlatButton(props: propType) {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
+  const { fontBold } = useContext(DimensionsContext);
 
   return (
     <TouchableOpacity
+      onPress={props.onPressed}
       style={[
         props.containerStyle,
         styles.buttonContainer,
         {
-          width:
-            props.width ||
-            dimensionSetter({
-              mobile: screenWidth * 0.9,
-              tabPort: screenWidth * 0.7,
-              tabLand: screenWidth * 0.4,
-            }),
-          height:
-            props.height ||
-            (isTabLandscape ? screenHeight * 0.07 : screenHeight * 0.06),
-          borderRadius: screenHeight * 0.1,
-          backgroundColor: props.bgColor || "#F6851F",
-          margin: props.margin || screenHeight * 0.005,
+          zIndex: props.zIndex,
+          width: props.width || moderateScale(300),
+          height: props.height || moderateVerticalScale(40),
+          borderRadius: props.borderRadius || moderateVerticalScale(20),
+          backgroundColor: props.bgColor || Colors.secondary,
+          margin: props.margin || moderateVerticalScale(10),
           marginTop: props.marginTop,
           marginLeft: props.marginLeft,
           marginRight: props.marginRight,
@@ -77,16 +70,10 @@ export default function FlatButton(props: propType) {
           paddingLeft: props.paddingLeft,
           paddingRight: props.paddingRight,
           paddingBottom: props.paddingBottom,
-          paddingVertical:
-            props.paddingVertical ||
-            (Platform.OS == "android"
-              ? screenHeight * 0.002
-              : screenHeight * 0.006),
+          paddingVertical: props.paddingVertical,
           paddingHorizontal: props.paddingHorizontal,
-          zIndex: props.zIndex,
         },
       ]}
-      onPress={props.onPressed}
     >
       <Text
         style={[
@@ -94,10 +81,7 @@ export default function FlatButton(props: propType) {
           {
             fontFamily: fontBold,
             color: props.titleColor || "white",
-            fontSize:
-              props.titleFontSize ||
-              (isTabLandscape ? screenHeight * 0.03 : screenHeight * 0.02),
-            marginTop: Platform.OS == "android" ? screenHeight * 0.006 : null,
+            fontSize: props.titleFontSize || moderateVerticalScale(16),
           },
         ]}
       >
@@ -107,14 +91,14 @@ export default function FlatButton(props: propType) {
   );
 }
 const styles = StyleSheet.create({
-  buttonText: {
-    ...shadow,
-    textAlign: "center",
-  },
-
   buttonContainer: {
     ...shadow,
     alignItems: "center",
     justifyContent: "center",
+  },
+  buttonText: {
+    ...shadow,
+    textAlign: "center",
+    marginTop: Platform.OS == "android" ? moderateVerticalScale(4) : null,
   },
 });

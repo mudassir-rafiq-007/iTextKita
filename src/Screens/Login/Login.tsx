@@ -1,12 +1,17 @@
 import { useState, useContext } from "react";
-import { Text, View, StyleSheet, ScrollView } from "react-native";
-import TwoPersonBg from "./TwoPersonBg";
+import { Text, View, StyleSheet } from "react-native";
+import {
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import InputFields from "./InputFields";
 import ResetPassword from "../ResetPassword/ResetPassword";
 import ITextKita from "../../../assets/images/iTextKita.svg";
 import TextButton from "../../Components/Buttons/TextButton";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import SuccessfulModal from "../ResetPassword/SuccessfulModal";
+import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import ThankyouModal from "../NewUserRegistration/ThankyouModal";
 import NewUserOTPModal from "../NewUserRegistration/OTPVerifyModal";
 import ResetPasswordOTPModal from "../ResetPassword/OTPVerifyModal";
@@ -22,14 +27,7 @@ type loginProps = {
 };
 
 export default function Login(props: loginProps) {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
+  const { fontRegular, isTabLandscape } = useContext(DimensionsContext);
   const [showThankModal, setShowThankModal] = useState<boolean>(false);
   const [showNewUserModal, setShowNewUserModal] = useState<boolean>(false);
   const [showNewStoreModal, setShowNewStoreModal] = useState<boolean>(false);
@@ -42,34 +40,21 @@ export default function Login(props: loginProps) {
     useState<boolean>(false);
 
   return (
-    <ScrollView
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={{ flexGrow: 1, height: screenHeight }}
-    >
-      <GradientView
-        style={
-          isTabLandscape
-            ? [styles.container, { justifyContent: "flex-start" }]
-            : styles.container
-        }
+    <GradientView style={{ flex: 1 }}>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
+        contentContainerStyle={{ flexGrow: 1, alignItems: "center" }}
       >
         <ITextKita
-          height={dimensionSetter({
-            mobile: screenHeight * 0.18,
-            tabPort: screenHeight * 0.15,
-            tabLand: screenHeight * 0.2,
-          })}
-          width={dimensionSetter({
-            mobile: screenWidth * 0.6,
-            tabPort: screenWidth * 0.5,
-            tabLand: screenWidth * 0.3,
-          })}
+          height={
+            isTabLandscape
+              ? moderateVerticalScale(60)
+              : moderateVerticalScale(100)
+          }
           style={{
-            marginTop: dimensionSetter({
-              mobile: screenHeight * 0.1,
-              tabPort: screenHeight * 0.1,
-              tabLand: screenHeight * 0.07,
-            }),
+            marginTop: isTabLandscape
+              ? moderateVerticalScale(50)
+              : moderateVerticalScale(100),
           }}
         />
         <InputFields />
@@ -78,17 +63,8 @@ export default function Login(props: loginProps) {
             zIndex={2}
             color="#696969"
             title="Reset Password"
+            marginVertical={moderateVerticalScale(15)}
             onPressed={() => setResetPasswordModal(true)}
-            fontSize={dimensionSetter({
-              mobile: screenWidth * 0.05,
-              tabPort: screenWidth * 0.03,
-              tabLand: screenWidth * 0.02,
-            })}
-            marginVertical={dimensionSetter({
-              mobile: screenHeight * 0.03,
-              tabPort: screenHeight * 0.03,
-              tabLand: screenHeight * 0.02,
-            })}
           />
         </View>
         <ResetPassword
@@ -114,14 +90,10 @@ export default function Login(props: loginProps) {
           setShowModal={(value) => setShowSuccussfulModal(false)}
         />
         <FlatButton
-          title="Login"
           zIndex={2}
+          title="Login"
+          width={moderateScale(280)}
           onPressed={() => props.navigation.navigate("Marketing")}
-          width={dimensionSetter({
-            mobile: screenWidth * 0.8,
-            tabPort: screenWidth * 0.6,
-            tabLand: screenWidth * 0.3,
-          })}
         />
         <View style={styles.registerView}>
           <Text
@@ -129,11 +101,7 @@ export default function Login(props: loginProps) {
               zIndex: 2,
               color: "#696969",
               fontFamily: fontRegular,
-              fontSize: dimensionSetter({
-                mobile: screenWidth * 0.035,
-                tabPort: screenWidth * 0.025,
-                tabLand: screenWidth * 0.015,
-              }),
+              fontSize: moderateVerticalScale(12),
             }}
           >
             I Don't Have Account?
@@ -142,13 +110,7 @@ export default function Login(props: loginProps) {
             zIndex={2}
             title="Register"
             color="#008080"
-            fontWeight="bold"
             onPressed={() => setShowNewUserModal(true)}
-            fontSize={dimensionSetter({
-              mobile: screenWidth * 0.035,
-              tabPort: screenWidth * 0.025,
-              tabLand: screenWidth * 0.015,
-            })}
           />
           <NewUserRegistration
             modalVisible={showNewUserModal}
@@ -189,61 +151,38 @@ export default function Login(props: loginProps) {
             zIndex={2}
             color="#696969"
             title="Terms & Conditions"
-            marginVertical={screenHeight * 0.01}
+            fontSize={moderateVerticalScale(10)}
             onPressed={() => props.navigation.navigate("Terms")}
-            fontSize={dimensionSetter({
-              mobile: screenHeight * 0.015,
-              tabPort: screenWidth * 0.02,
-              tabLand: screenWidth * 0.012,
-            })}
           />
         </View>
-        <TwoPersonBg
-          style={dimensionSetter({
-            mobile: { alignItems: "center" },
-            tabPort: { alignItems: "center" },
-            tabLand: {
-              zIndex: 1,
-              position: "absolute",
-              alignItems: "center",
-              bottom: screenHeight * 0.01,
-            },
-          })}
-        />
-      </GradientView>
-    </ScrollView>
+        <View
+          style={[
+            styles.twoPersons,
+            { gap: isTabLandscape ? moderateVerticalScale(10) : null },
+          ]}
+        >
+          <TwoPersons opacity={isTabLandscape ? 0.7 : 1} />
+          <Text style={styles.brandText}>ⓒ & 2023 NTech Corp.</Text>
+        </View>
+      </KeyboardAwareScrollView>
+    </GradientView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "#fff",
-    justifyContent: "center",
-  },
-  form: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputField: {
-    width: "100%",
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: "#084A5B",
-    textAlignVertical: "center",
-  },
-  textInput: {
-    flex: 1,
-    width: "100%",
-    color: "#c7c6c5",
-    justifyContent: "center",
-    textAlignVertical: "center",
-  },
   registerView: {
     zIndex: 2,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+  },
+  twoPersons: {
+    position: "absolute",
+    alignItems: "center",
+    bottom: moderateVerticalScale(20),
+  },
+  brandText: {
+    color: "#fff",
+    fontSize: moderateVerticalScale(14),
   },
 });

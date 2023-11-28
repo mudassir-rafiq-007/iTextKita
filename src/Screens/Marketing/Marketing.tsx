@@ -1,14 +1,10 @@
-import {
-  Text,
-  View,
-  Platform,
-  TextInput,
-  StyleProp,
-  ViewStyle,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
 import { useContext, useState } from "react";
+import { Text, View, Platform, TextInput, StyleSheet } from "react-native";
+import {
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SelectFromList from "./SelectFromList";
 import ConfirmationModal from "./ConfirmationModal";
 import { shadow } from "../../Components/Constants/Shadow";
@@ -26,32 +22,14 @@ type propsType = {
 };
 
 export default function Marketing(props: propsType) {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
+  const { fontRegular, screenWidth, isTabPortrait, isTabLandscape } =
+    useContext(DimensionsContext);
 
   const [message, setMessage] = useState<string>();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const dummyMsg =
     "Hello David,\nWe are launching our new product called “Isaw ng Manok” and we would like to invited you to join us in our launching day with free entrance!\nSee out poster @\nhttps://testing.com/page";
-
-  function dropdownViewStyle(zIndex: number): StyleProp<ViewStyle> {
-    return [
-      {
-        width: "100%",
-        zIndex: zIndex,
-        alignItems: "center",
-        gap: screenHeight * 0.02,
-        height: Platform.OS == "ios" ? screenHeight * 0.06 : null,
-      },
-    ];
-  }
 
   const stores = [
     { key: 1, value: "iTextKita" },
@@ -84,8 +62,9 @@ export default function Marketing(props: propsType) {
   ];
 
   return (
-    <GradientView style={[styles.container, { paddingTop: "2%" }]}>
-      <ScrollView
+    <GradientView style={{ flex: 1, paddingTop: isTabPortrait ? "8%" : "2%" }}>
+      <KeyboardAwareScrollView
+        enableOnAndroid={true}
         style={{ height: "100%" }}
         keyboardShouldPersistTaps={"handled"}
         contentContainerStyle={{
@@ -94,47 +73,19 @@ export default function Marketing(props: propsType) {
           alignItems: "center",
         }}
       >
-        <View
-          style={{
-            zIndex: 2,
-            alignItems: "center",
-            gap: screenHeight * 0.02,
-            width: dimensionSetter({
-              mobile: "100%",
-              tabPort: "100%",
-              tabLand: "60%",
-            }),
-          }}
-        >
-          <View
-            style={[
-              styles.tileView,
-              {
-                width: "90%",
-                justifyContent: "center",
-                height: screenHeight * 0.06,
-              },
-            ]}
-          >
-            <Text
-              style={{
-                color: "#fff",
-                fontFamily: fontRegular,
-                fontSize: screenHeight * 0.03,
-                paddingTop: Platform.OS == "android" ? "2%" : null,
-              }}
-            >
+        <View style={styles.main}>
+          <View style={styles.tileView}>
+            <Text style={[styles.title, { fontFamily: fontRegular }]}>
               Title
             </Text>
           </View>
           <View
             style={[
-              styles.textInput,
+              styles.textInputView,
               {
-                width: "90%",
-                height: "30%",
-                paddingVertical: isTabLandscape ? "3%" : "2%",
-                paddingHorizontal: isTabLandscape ? "2%" : "4%",
+                height: isTabLandscape
+                  ? moderateVerticalScale(120)
+                  : moderateVerticalScale(150),
               },
             ]}
           >
@@ -143,25 +94,18 @@ export default function Marketing(props: propsType) {
               scrollEnabled={true}
               placeholder={dummyMsg}
               selectionColor={Colors.primary}
-              onChangeText={(text) => {
-                setMessage(text);
-              }}
               placeholderTextColor={Colors.primary}
-              style={{
-                textAlign: "justify",
-                color: Colors.primary,
-                fontFamily: fontRegular,
-                fontSize: screenHeight * 0.02,
-              }}
+              onChangeText={(text) => setMessage(text)}
+              style={[styles.textInput, { fontFamily: fontRegular }]}
             />
           </View>
-          <View style={dropdownViewStyle(5)}>
+          <View style={[styles.dropdownView, { zIndex: 5 }]}>
             <SelectFromList data={stores} placeholder="Select Store" />
           </View>
-          <View style={dropdownViewStyle(4)}>
+          <View style={[styles.dropdownView, { zIndex: 4 }]}>
             <SelectFromList data={customers} placeholder="Select Customer" />
           </View>
-          <View style={dropdownViewStyle(3)}>
+          <View style={[styles.dropdownView, { zIndex: 3 }]}>
             <SelectFromList
               data={inputsData}
               placeholder="Select Campaign Shortlink"
@@ -170,8 +114,8 @@ export default function Marketing(props: propsType) {
           <FlatButton
             zIndex={2}
             title="Send"
+            width={moderateScale(300)}
             onPressed={() => setShowModal(!showModal)}
-            width={"90%"}
           />
         </View>
         <ConfirmationModal
@@ -180,22 +124,27 @@ export default function Marketing(props: propsType) {
           setShowModal={(value) => setShowModal(value)}
         />
         <TwoPersons style={styles.twoPersons} />
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </GradientView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
+  main: {
+    zIndex: 2,
+    alignItems: "center",
+    width: moderateScale(300),
+    gap: moderateVerticalScale(10),
   },
   tileView: {
     ...shadow,
+    width: "100%",
     alignItems: "center",
-    borderTopLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    justifyContent: "center",
     backgroundColor: Colors.primary,
+    height: moderateVerticalScale(40),
+    borderTopLeftRadius: moderateVerticalScale(8),
+    borderBottomRightRadius: moderateVerticalScale(8),
   },
   tileText: {
     zIndex: 2,
@@ -203,17 +152,29 @@ const styles = StyleSheet.create({
     color: "white",
     textAlignVertical: "center",
   },
-  textInput: {
-    ...shadow,
-    color: Colors.primary,
-    borderTopLeftRadius: 30,
-    backgroundColor: "#D9D9D9",
-    borderBottomRightRadius: 30,
+  title: {
+    color: "#fff",
+    fontSize: moderateVerticalScale(20),
+    paddingTop: Platform.OS == "android" ? "2%" : null,
   },
-  dropdownIcon: {
-    zIndex: 2,
-    borderRadius: 100,
-    backgroundColor: "#F6851F",
+  textInputView: {
+    ...shadow,
+    width: "100%",
+    color: Colors.primary,
+    backgroundColor: "#D9D9D9",
+    padding: moderateScale(15),
+    borderTopLeftRadius: moderateVerticalScale(25),
+    borderBottomRightRadius: moderateVerticalScale(25),
+  },
+  textInput: {
+    textAlign: "justify",
+    color: Colors.primary,
+    fontSize: moderateVerticalScale(14),
+  },
+  dropdownView: {
+    width: "100%",
+    alignItems: "center",
+    height: Platform.OS == "ios" ? moderateVerticalScale(40) : null,
   },
   twoPersons: {
     zIndex: 1,

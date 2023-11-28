@@ -1,5 +1,9 @@
 import { useState, useContext } from "react";
-import { Text, View, FlatList } from "react-native";
+import { View, FlatList, StyleSheet } from "react-native";
+import {
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
 import { useNavigation } from "@react-navigation/native";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { Colors } from "../Constants/Colors";
@@ -7,22 +11,7 @@ import MenuIcon from "../../../assets/images/menu.svg";
 import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 export default function HeaderMenu() {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
-
-  function menuWidth() {
-    return dimensionSetter({
-      mobile: screenWidth * 0.6,
-      tabPort: screenWidth * 0.4,
-      tabLand: screenWidth * 0.2,
-    });
-  }
+  const { fontRegular } = useContext(DimensionsContext);
 
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
@@ -42,37 +31,24 @@ export default function HeaderMenu() {
     <View>
       <MenuIcon
         onPress={showMenu}
-        width={isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.03}
-        height={isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.03}
+        width={moderateVerticalScale(20)}
+        height={moderateVerticalScale(20)}
       />
-      <Menu
-        visible={visible}
-        onRequestClose={hideMenu}
-        style={{
-          width: menuWidth(),
-          position: "absolute",
-          right: screenWidth * 0.05,
-          top: dimensionSetter({
-            mobile: screenHeight * 0.13,
-            tabPort: screenHeight * 0.15,
-            tabLand: screenHeight * 0.22,
-          }),
-        }}
-      >
+      <Menu visible={visible} style={styles.menu} onRequestClose={hideMenu}>
         <FlatList
           data={menuItems}
           ItemSeparatorComponent={() => (
-            <View style={{ width: menuWidth() }}>
+            <View style={{ width: "100%" }}>
               <MenuDivider color={Colors.secondary} />
             </View>
           )}
           renderItem={({ item }) => (
             <MenuItem
               textStyle={{
-                width: menuWidth(),
                 color: Colors.primary,
                 fontFamily: fontRegular,
-                fontSize: screenHeight * 0.02,
+                width: moderateScale(200),
+                fontSize: moderateVerticalScale(14),
               }}
               onPress={() => {
                 hideMenu();
@@ -87,3 +63,12 @@ export default function HeaderMenu() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  menu: {
+    position: "absolute",
+    width: moderateScale(200),
+    right: moderateScale(20),
+    top: moderateVerticalScale(100),
+  },
+});

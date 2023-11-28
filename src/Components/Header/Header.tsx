@@ -1,5 +1,15 @@
 import { useContext } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from "react-native";
+import {
+  View,
+  Text,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import {
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import HeaderMenu from "./HeaderMenu";
@@ -14,46 +24,27 @@ type propType = {
 };
 
 export default function Header(props: propType) {
-  const {
-    fontBold,
-    fontRegular,
-    screenWidth,
-    screenHeight,
-    isTabLandscape,
-    dimensionSetter,
-  } = useContext(DimensionsContext);
+  const { fontBold } = useContext(DimensionsContext);
 
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.main, { paddingTop: insets.top }]}>
-      <ITextKita
-        height={isTabLandscape ? screenHeight * 0.12 : screenHeight * 0.08}
-      />
+    <View style={{ paddingTop: insets.top, alignItems: "center" }}>
+      <ITextKita height={moderateVerticalScale(60)} />
       <View
         style={[
           styles.header,
           {
             justifyContent: props.showBackButton ? null : "space-between",
-            paddingHorizontal: isTabLandscape
-              ? screenWidth * 0.1
-              : screenWidth * 0.05,
           },
         ]}
       >
         {props.showBackButton && (
-          <TouchableOpacity
-            onPress={props.goBack}
-            style={{
-              alignItems: "center", justifyContent: Platform.OS == "ios" ? "center" : null,
-              width: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.035,
-              height: isTabLandscape ? screenHeight * 0.05 : screenHeight * 0.035,
-            }}
-          >
+          <TouchableOpacity onPress={props.goBack} style={styles.backButton}>
             <MaterialIcons
               name="arrow-back-ios"
               color={Colors.primary}
-              size={isTabLandscape? screenHeight * 0.04 : screenHeight * 0.03}
+              size={moderateVerticalScale(20)}
             />
           </TouchableOpacity>
         )}
@@ -61,9 +52,7 @@ export default function Header(props: propType) {
           style={{
             color: Colors.primary,
             fontFamily: fontBold,
-            fontSize: isTabLandscape
-              ? screenHeight * 0.05
-              : screenHeight * 0.03,
+            fontSize: moderateVerticalScale(20),
           }}
         >
           {props.title.toLocaleUpperCase()}
@@ -75,12 +64,16 @@ export default function Header(props: propType) {
 }
 
 const styles = StyleSheet.create({
-  main: {
-    alignItems: "center",
-  },
   header: {
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: moderateScale(20),
+  },
+  backButton: {
+    alignItems: "center",
+    width: moderateScale(30),
+    height: moderateScale(30),
+    justifyContent: Platform.OS == "ios" ? "center" : null,
   },
 });
