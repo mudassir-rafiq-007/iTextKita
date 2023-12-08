@@ -1,4 +1,9 @@
-import { ViewStyle, StyleProp } from "react-native";
+import {
+  Keyboard,
+  ViewStyle,
+  StyleProp,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 interface propsType {
@@ -8,12 +13,14 @@ interface propsType {
 
 export default function GradientView(props: propsType) {
   return (
-    <LinearGradient
-      style={props.style}
-      locations={[0.5, 1]}
-      colors={["#FFFFFF", "#008080"]}
-    >
-      {props.children}
-    </LinearGradient>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <LinearGradient
+        style={props.style}
+        locations={[0.5, 1]}
+        colors={["#FFFFFF", "#008080"]}
+      >
+        {props.children}
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   );
 }

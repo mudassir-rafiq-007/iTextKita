@@ -1,16 +1,10 @@
 import { useContext } from "react";
-import {
-  Text,
-  View,
-  Modal,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-} from "react-native";
-import { moderateScale, moderateVerticalScale, scale, verticalScale} from "react-native-size-matters";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
+import { moderateVerticalScale } from "react-native-size-matters";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
-import TextButton from "../../Components/Buttons/TextButton";
+import InputField from "../../Components/InputField/InputField";
+import CustomModal from "../../Components/CustomModal/CustomModal";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 interface propsType {
@@ -20,8 +14,15 @@ interface propsType {
 }
 
 export default function ConfirmationModal(props: propsType) {
-  const { fontRegular, screenWidth, isTabLandscape, isTabPortrait, dimensionSetter } =
-    useContext(DimensionsContext);
+  const {
+    fontRegular,
+    screenWidth,
+    screenHeight,
+    isTabLandscape,
+    isTabPortrait,
+    isMobile,
+    valueFor,
+  } = useContext(DimensionsContext);
 
   const dummyMsg =
     "Hello David,\nWe are launching our new product called “Isaw ng Manok” and we would like to invited you to join us in our launching day with free entrance!\nSee out poster @\nhttps://testing.com/page";
@@ -29,175 +30,109 @@ export default function ConfirmationModal(props: propsType) {
   const textStyle = {
     color: "#fff",
     fontFamily: fontRegular,
-    fontSize: moderateVerticalScale(12),
+    fontSize: isMobile ? moderateVerticalScale(14) : moderateVerticalScale(11),
   };
 
   return (
-    <Modal
-      transparent={true}
-      animationType="slide"
-      visible={props.modalVisible}
+    <CustomModal
+      modalVisible={props.modalVisible}
+      screenHeight={screenHeight}
+      style={[
+        styles.main,
+        {
+          gap: isTabLandscape ? null : moderateVerticalScale(10),
+          height: valueFor({
+            mobile: moderateVerticalScale(480),
+            tabPortrait: moderateVerticalScale(480),
+            tabLandscape: moderateVerticalScale(300),
+          }),
+          width: valueFor({
+            mobile: moderateVerticalScale(320),
+            tabPortrait: moderateVerticalScale(400),
+            tabLandscape: moderateVerticalScale(500),
+          }),
+        },
+      ]}
     >
-      <View style={styles.main}>
+      <View
+        style={{
+          width: "90%",
+          gap: moderateVerticalScale(10),
+          height: isTabLandscape ? "60%" : null,
+          flexDirection: isTabLandscape ? "row" : "column",
+          justifyContent: isTabLandscape ? "space-around" : null,
+        }}
+      >
         <View
-          style={[
-            {
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: Colors.primary,
-              borderRadius: moderateVerticalScale(20),
-              // paddingVertical: isTabLandscape ? "3%" : "5%",
-              gap: isTabLandscape ? null : moderateVerticalScale(10),
-              height: (isTabPortrait ? moderateVerticalScale(500, 0.5):(isTabLandscape ? moderateVerticalScale(300, 0.5): moderateVerticalScale(480,0.5))),
-              width: (isTabPortrait ? moderateVerticalScale(450, 0.5):(isTabLandscape ? moderateVerticalScale(550, 0.5): moderateVerticalScale(320,0.5))),
-              // height: isTabLandscape
-              //   ? moderateVerticalScale(350)
-              //   : moderateVerticalScale(520, 0.8),
-              // width: dimensionSetter({
-              //   mobile: "90%",
-              //   tabPort: "80%",
-              //   tabLand: "80%",
-              // }),
-            },
-          ]}
+          style={{
+            gap: moderateVerticalScale(10),
+            width: isTabLandscape ? "40%" : null,
+          }}
         >
-          <View
-            style={{
-              width: "90%",
-              gap: moderateVerticalScale(10),
-              height: isTabLandscape ? "60%" : null,
-              flexDirection: isTabLandscape ? "row" : "column",
-              justifyContent: isTabLandscape ? "space-around" : null,
-            }}
-          >
-            <View
-              style={{
-                gap: moderateVerticalScale(10),
-                width: isTabLandscape ? "40%" : null,
-              }}
+          <InputField
+            title="Total Credit Cost"
+            placeholder="400"
+            optional={true}
+          />
+          <InputField
+            title="Sender ID"
+            placeholder="#QF4N54GLN"
+            optional={true}
+          />
+        </View>
+        <View style={{ width: isTabLandscape ? "50%" : null }}>
+          <View style={{ gap: moderateVerticalScale(5) }}>
+            <Text style={textStyle}>Message</Text>
+            <ScrollView
+              style={[
+                styles.textView,
+                {
+                  height: isTabLandscape
+                    ? moderateVerticalScale(120)
+                    : moderateVerticalScale(200),
+                },
+              ]}
             >
-              <View style={{ gap: moderateVerticalScale(5) }}>
-                <Text style={textStyle}>Total Credit Cost</Text>
-                <View
-                  style={[
-                    styles.textView,
-                    { height: moderateVerticalScale(40) },
-                  ]}
-                >
-                  <TextInput
-                    editable={false}
-                    placeholder="400"
-                    placeholderTextColor={Colors.primary}
-                    style={[
-                      styles.textInputView,
-                      {
-                        fontSize: (isTabPortrait ? moderateVerticalScale(12, 0.5):(isTabLandscape ? moderateVerticalScale(12, 0.5): moderateVerticalScale(15,0.5))),
-                        fontFamily: fontRegular,
-                      },
-                    ]}
-                  />
-                </View>
-              </View>
-              <View style={{ gap: moderateVerticalScale(5) }}>
-                <Text style={textStyle}>Sender ID</Text>
-                <View
-                  style={[
-                    styles.textView,
-                    { height: moderateVerticalScale(40) },
-                  ]}
-                >
-                  <TextInput
-                    editable={false}
-                    placeholder="#QF4N54GLN"
-                    placeholderTextColor={Colors.primary}
-                    style={[
-                      styles.textInputView,
-                      {
-                        fontSize: (isTabPortrait ? moderateVerticalScale(12, 0.5):(isTabLandscape ? moderateVerticalScale(12, 0.5): moderateVerticalScale(15,0.5))),
-                        fontFamily: fontRegular,
-                      },
-                    ]}
-                  />
-                </View>
-              </View>
-            </View>
-            <View style={{ width: isTabLandscape ? "50%" : null }}>
-              <View style={{ gap: moderateVerticalScale(5) }}>
-                <Text style={textStyle}>Message</Text>
-                <ScrollView
-                  style={[
-                    styles.textView,
-                    {
-                      height: isTabLandscape
-                        ? moderateVerticalScale(120)
-                        : moderateVerticalScale(200),
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.msgText,
-                      {
-                        fontSize: (isTabPortrait ? moderateVerticalScale(12, 0.5):(isTabLandscape ? moderateVerticalScale(12, 0.5): moderateVerticalScale(15,0.5))),
-                        fontFamily: fontRegular,
-                      },
-                    ]}
-                  >
-                    {props.message || dummyMsg}
-                  </Text>
-                </ScrollView>
-              </View>
-            </View>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            {/* <FlatButton
-              title="Confirm"
-              onPressed={() => props.setShowModal(false)}
-              width={dimensionSetter({
-                mobile: screenWidth * 0.8,
-                tabPort: screenWidth * 0.7,
-                tabLand: null,
-              })}
-            /> */}
-
-            <FlatButton
-              // zIndex={2}
-              title="Confirm"
-              width={(isTabPortrait ? moderateVerticalScale(400, 0.5):(isTabLandscape ? moderateVerticalScale(450, 0.5): moderateVerticalScale(280,0.5)))}
-              height={moderateVerticalScale(40, 0.05)}
-              onPressed={() => props.setShowModal(false)}
-              titleFontSize={(isTabPortrait ? moderateVerticalScale(12, 0.5):(isTabLandscape ? moderateVerticalScale(12, 0.5): moderateVerticalScale(15,0.5)))}
-            />
-            {/* <TextButton
-              title="Cancel"
-              textDecorationLine="underline"
-              onPressed={() => props.setShowModal(false)}
-            /> */}
+              <Text
+                style={[
+                  styles.msgText,
+                  {
+                    fontFamily: fontRegular,
+                    fontSize: isMobile
+                      ? moderateVerticalScale(15)
+                      : moderateVerticalScale(12),
+                  },
+                ]}
+              >
+                {props.message || dummyMsg}
+              </Text>
+            </ScrollView>
           </View>
         </View>
       </View>
-    </Modal>
+      <View style={{ alignItems: "center", width: "100%" }}>
+        <FlatButton
+          title="Confirm"
+          width={"85%"}
+          onPressed={() => props.setShowModal(false)}
+        />
+      </View>
+    </CustomModal>
   );
 }
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#fff8",
+    backgroundColor: Colors.primary,
+    borderRadius: moderateVerticalScale(20),
   },
   textView: {
     width: "100%",
     borderWidth: 1,
-    backgroundColor: "#D7D7D7",
+    backgroundColor: "#fff",
     borderColor: Colors.secondary,
-  },
-  textInputView: {
-    flex: 1,
-    paddingLeft: "4%",
-    backgroundColor: "#D7D7D7",
-    textAlignVertical: "center",
   },
   msgText: {
     padding: "4%",

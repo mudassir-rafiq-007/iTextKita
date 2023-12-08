@@ -5,26 +5,22 @@ import TwoPersonsBg from "../../../assets/images/two-persons.svg";
 
 interface propsType {
   style?: StyleProp<ViewStyle>;
-  opacity?: number
+  opacity?: number;
 }
 
 export default function TwoPersons(props: propsType) {
-  const { screenWidth, screenHeight, dimensionSetter } =
+  const { screenWidth, screenHeight, valueFor, isTabLandscape } =
     useContext(DimensionsContext);
 
   function mainViewStyle() {
     return [
       props.style,
       {
-        opacity: props.opacity || dimensionSetter({
-          mobile: 0.5,
-          tabPort: 0.5,
-          tabLand: 0.2,
-        }),
-        bottom: dimensionSetter({
+        opacity: props.opacity || isTabLandscape ? 0.2 : 0.5,
+        bottom: valueFor({
           mobile: screenHeight * 0.05,
-          tabPort: screenHeight * 0.03,
-          tabLand: screenHeight * 0.001,
+          tabPortrait: screenHeight * 0.03,
+          tabLandscape: screenHeight * 0.001,
         }),
       },
     ];
@@ -34,10 +30,10 @@ export default function TwoPersons(props: propsType) {
     <View style={mainViewStyle()}>
       <TwoPersonsBg
         width={screenWidth * 0.8}
-        height={dimensionSetter({
+        height={valueFor({
           mobile: screenHeight * 0.2,
-          tabPort: screenHeight * 0.3,
-          tabLand: screenHeight * 0.5,
+          tabPortrait: screenHeight * 0.3,
+          tabLandscape: screenHeight * 0.5,
         })}
       />
     </View>

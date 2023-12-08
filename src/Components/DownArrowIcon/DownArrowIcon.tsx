@@ -1,15 +1,22 @@
+import { useContext } from "react";
 import { View, Platform } from "react-native";
-import { moderateVerticalScale } from "react-native-size-matters";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import {
+  moderateScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
 import { Colors } from "../Constants/Colors";
+import { DimensionsContext } from "../Contexts/DimensionsContext";
 
 export default function DownArrowIcon() {
+  const { isMobile } = useContext(DimensionsContext);
+  
   return (
     <View
       style={{
         backgroundColor: Colors.secondary,
-        width: moderateVerticalScale(20),
-        height: moderateVerticalScale(20),
+        width: isMobile ? moderateScale(18) : moderateScale(12),
+        height: isMobile ? moderateScale(18) : moderateScale(12),
         borderRadius: moderateVerticalScale(10),
         zIndex: Platform.OS == "android" ? 2 : null,
       }}
@@ -17,7 +24,7 @@ export default function DownArrowIcon() {
       <MaterialIcons
         color={Colors.primary}
         name="keyboard-arrow-down"
-        size={moderateVerticalScale(20)}
+        size={isMobile ? moderateScale(18) : moderateScale(12)}
       />
     </View>
   );

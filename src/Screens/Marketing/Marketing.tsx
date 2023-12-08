@@ -1,14 +1,17 @@
 import { useContext, useState } from "react";
 import { Text, View, Platform, TextInput, StyleSheet } from "react-native";
-import { moderateScale, moderateVerticalScale, scale, verticalScale} from "react-native-size-matters";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import SelectFromList from "./SelectFromList";
+import {
+  moderateScale,
+  verticalScale,
+  moderateVerticalScale,
+} from "react-native-size-matters";
 import ConfirmationModal from "./ConfirmationModal";
 import { shadow } from "../../Components/Constants/Shadow";
 import { Colors } from "../../Components/Constants/Colors";
 import FlatButton from "../../Components/Buttons/FlatButton";
 import TwoPersons from "../../Components/TwoPersons/TwoPersons";
 import GradientView from "../../Components/GradientView/GradientView";
+import SelectFromList from "../../Components/SelectFromList/SelectFromList";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 type propsType = {
@@ -19,7 +22,7 @@ type propsType = {
 };
 
 export default function Marketing(props: propsType) {
-  const { fontRegular, screenWidth, isTabPortrait, isTabLandscape } =
+  const { isMobile, fontRegular, isTabPortrait, valueFor } =
     useContext(DimensionsContext);
 
   const [message, setMessage] = useState<string>();
@@ -59,80 +62,107 @@ export default function Marketing(props: propsType) {
   ];
 
   return (
-    <GradientView style={{ flex: 1, paddingTop: isTabPortrait ? "8%" : "2%" }}>
-      <KeyboardAwareScrollView
-        enableOnAndroid={true}
-        style={{ height: "100%" }}
-        keyboardShouldPersistTaps={"handled"}
-        contentContainerStyle={{
-          flexGrow: 1,
-          width: screenWidth,
-          alignItems: "center",
-        }}
+    <GradientView
+      style={{
+        flex: 1,
+        alignItems: "center",
+        paddingTop: isTabPortrait ? "8%" : "2%",
+      }}
+    >
+      <View
+        style={[
+          styles.main,
+          {
+            width: valueFor({
+              mobile: moderateVerticalScale(300),
+              tabPortrait: moderateVerticalScale(500),
+              tabLandscape: moderateVerticalScale(400),
+            }),
+          },
+        ]}
       >
-        <View style={styles.main}>
-          <View style={[styles.tileView,{width:(isTabPortrait ? moderateVerticalScale(500, 0.5):(isTabLandscape ? moderateVerticalScale(400, 0.5): moderateVerticalScale(300,0.5)))} ]}>
-            <TextInput style={[styles.title, { fontFamily: fontRegular, fontSize: (isTabPortrait ? moderateVerticalScale(15, 0.5):(isTabLandscape ? moderateVerticalScale(15, 0.5): moderateVerticalScale(17,0.5))) }]}>
-              Buy 1 Take One Promo
-            </TextInput>
-          </View>
-          <View
+        <View style={styles.tileView}>
+          <Text
             style={[
-              styles.textInputView,
+              styles.title,
               {
-                height: (isTabPortrait ? moderateVerticalScale(230, 0.5):(isTabLandscape ? moderateVerticalScale(190, 0.5): moderateVerticalScale(220,0.5))),
-                width: (isTabPortrait ? moderateVerticalScale(500, 0.5):(isTabLandscape ? moderateVerticalScale(400, 0.5): moderateVerticalScale(300,0.5)))
-                // height: isTabLandscape
-                //   ? moderateVerticalScale(170)
-                //   : moderateVerticalScale(230),
+                fontFamily: fontRegular,
+                fontSize: isMobile
+                  ? moderateVerticalScale(17)
+                  : moderateVerticalScale(17),
               },
             ]}
           >
-            <TextInput
-              multiline={true}
-              scrollEnabled={true}
-              placeholder={dummyMsg}
-              selectionColor={Colors.primary}
-              placeholderTextColor={Colors.primary}
-              onChangeText={(text) => setMessage(text)}
-              style={[styles.textInput, { fontFamily: fontRegular, fontSize: (isTabPortrait ? moderateVerticalScale(12, 0.5):(isTabLandscape ? moderateVerticalScale(12, 0.5): moderateVerticalScale(14.5,0.5))) }]}
-            />
-          </View>
-          <View style={[styles.dropdownView, { zIndex: 5 }]}>
-            <SelectFromList data={stores} placeholder="Select Store" />
-          </View>
-          <View style={[styles.dropdownView, { zIndex: 4 }]}>
-            <SelectFromList data={customers} placeholder="Select Customer" />
-          </View>
-          <View style={[styles.dropdownView, { zIndex: 3 }]}>
-            <SelectFromList
-              data={inputsData}
-              placeholder="Select Campaign Shortlink"
-            />
-          </View>
-          {/* <FlatButton
-            zIndex={2}
-            title="Send"
-            height={moderateScale(30, 0.5)}
-            width={moderateScale(320, 0.5)}
-            onPressed={() => setShowModal(!showModal)}
-          /> */}
+            Buy 1 Take One Promo
+          </Text>
+        </View>
+        <View
+          style={[
+            styles.textInputView,
+            {
+              height: valueFor({
+                mobile: moderateVerticalScale(220),
+                tabPortrait: moderateVerticalScale(230),
+                tabLandscape: moderateVerticalScale(190),
+              }),
+            },
+          ]}
+        >
+          <TextInput
+            multiline={true}
+            scrollEnabled={true}
+            placeholder={dummyMsg}
+            selectionColor={Colors.primary}
+            placeholderTextColor={Colors.primary}
+            onChangeText={(text) => setMessage(text)}
+            style={[
+              styles.textInput,
+              {
+                fontFamily: fontRegular,
+                fontSize: isMobile
+                  ? moderateVerticalScale(14.5)
+                  : moderateVerticalScale(12),
+              },
+            ]}
+          />
+        </View>
+        <SelectFromList
+          zIndex={5}
+          data={stores}
+          boxTextColor="#fff"
+          boxBorderColor="#fff0"
+          placeholder="Select Store"
+          boxColor={Colors.primary}
+        />
+        <SelectFromList
+          zIndex={4}
+          data={customers}
+          boxTextColor="#fff"
+          boxBorderColor="#fff0"
+          boxColor={Colors.primary}
+          placeholder="Select Customer"
+        />
+        <SelectFromList
+          zIndex={3}
+          data={inputsData}
+          boxTextColor="#fff"
+          boxBorderColor="#fff0"
+          boxColor={Colors.primary}
+          placeholder="Select Campaign Shortlink"
+        />
         <FlatButton
           zIndex={2}
           title="Send"
-          width={(isTabPortrait ? moderateVerticalScale(480, 0.5):(isTabLandscape ? moderateVerticalScale(400, 0.5): moderateVerticalScale(300,0.5)))}
-          height={moderateVerticalScale(40, 0.05)}
+          width={isTabPortrait ? "95%" : "100%"}
           onPressed={() => setShowModal(!showModal)}
-          titleFontSize={(isTabPortrait ? moderateVerticalScale(12, 0.5):(isTabLandscape ? moderateVerticalScale(12, 0.5): moderateVerticalScale(15,0.5)))}
         />
-        </View>
-        <ConfirmationModal
-          message={message}
-          modalVisible={showModal}
-          setShowModal={(value) => setShowModal(value)}
-        />
-        <TwoPersons style={styles.twoPersons} />
-      </KeyboardAwareScrollView>
+      </View>
+      <ConfirmationModal
+        message={message}
+        modalVisible={showModal}
+        setShowModal={(value) => setShowModal(value)}
+      />
+      <TwoPersons style={styles.twoPersons} />
     </GradientView>
   );
 }
@@ -141,12 +171,11 @@ const styles = StyleSheet.create({
   main: {
     zIndex: 2,
     alignItems: "center",
-    width: scale(300),
     gap: moderateScale(10),
   },
   tileView: {
     ...shadow,
-    // width: "90%",
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Colors.primary,
@@ -154,15 +183,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: moderateScale(8),
     borderBottomRightRadius: moderateScale(8),
   },
-  tileText: {
-    zIndex: 2,
-    opacity: 0.5,
-    color: "white",
-    textAlignVertical: "center",
-  },
   title: {
     color: "#fff",
-    fontSize: moderateScale(13),
     paddingTop: Platform.OS == "android" ? "2%" : null,
   },
   textInputView: {
@@ -177,12 +199,6 @@ const styles = StyleSheet.create({
   textInput: {
     textAlign: "justify",
     color: Colors.primary,
-    // fontSize: moderateVerticalScale(13),
-  },
-  dropdownView: {
-    width: "100%",
-    alignItems: "center",
-    height: Platform.OS == "ios" ? moderateScale(40, .05) : null,
   },
   twoPersons: {
     zIndex: 1,

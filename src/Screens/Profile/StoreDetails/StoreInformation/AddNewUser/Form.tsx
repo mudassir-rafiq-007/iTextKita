@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { View, Text, Platform } from "react-native";
 import InputField from "./InputField";
 import FlatButton from "../../../../../Components/Buttons/FlatButton";
-import SelectFromList from "../../../../NewStoreRegistration/SelectFromList";
 import { DimensionsContext } from "../../../../../Components/Contexts/DimensionsContext";
+import SelectFromList from "../../../../../Components/SelectFromList/SelectFromList";
 
 interface propsType {
   setShowModal: (value: "next") => void;
@@ -16,7 +16,7 @@ export default function Form(props: propsType) {
     screenWidth,
     screenHeight,
     isTabLandscape,
-    dimensionSetter,
+    // dimensionSetter,
   } = useContext(DimensionsContext);
 
   const textStyle = {

@@ -44,7 +44,7 @@ interface propType {
   onPressed: () => void;
 }
 export default function FlatButton(props: propType) {
-  const { fontBold } = useContext(DimensionsContext);
+  const { fontBold, isMobile } = useContext(DimensionsContext);
 
   return (
     <TouchableOpacity
@@ -81,7 +81,10 @@ export default function FlatButton(props: propType) {
           {
             fontFamily: fontBold,
             color: props.titleColor || "white",
-            fontSize: props.titleFontSize || moderateVerticalScale(15, 0.5),
+            fontSize:
+              props.titleFontSize || isMobile
+                ? moderateVerticalScale(15)
+                : moderateVerticalScale(12),
           },
         ]}
       >

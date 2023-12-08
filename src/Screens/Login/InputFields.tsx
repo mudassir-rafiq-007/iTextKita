@@ -14,7 +14,7 @@ import { Colors } from "../../Components/Constants/Colors";
 import { DimensionsContext } from "../../Components/Contexts/DimensionsContext";
 
 export default function InputFields() {
-  const { fontRegular, isTabLandscape, isTabPortrait } = useContext(DimensionsContext);
+  const { fontRegular, isMobile } = useContext(DimensionsContext);
 
   const [secureTextEntry, setSecureTextEntry] = useState<boolean>(true);
 
@@ -29,8 +29,15 @@ export default function InputFields() {
           placeholder="User Name"
           selectionColor={"#fff"}
           placeholderTextColor={Colors.placeholder}
-          style={[styles.textInput, { fontFamily: fontRegular, 
-            fontSize: (isTabPortrait ? moderateVerticalScale(11, 0.5):(isTabLandscape ? moderateVerticalScale(11, 0.5): moderateVerticalScale(14,0.5))), }]}
+          style={[
+            styles.textInput,
+            {
+              fontFamily: fontRegular,
+              fontSize: isMobile
+                ? moderateVerticalScale(14)
+                : moderateVerticalScale(11),
+            },
+          ]}
         />
       </View>
       <View style={styles.inputField}>
@@ -45,8 +52,13 @@ export default function InputFields() {
           placeholderTextColor={Colors.placeholder}
           style={[
             styles.textInput,
-            { fontFamily: fontRegular, width: moderateScale(200),
-              fontSize: (isTabPortrait ? moderateVerticalScale(11, 0.5):(isTabLandscape ? moderateVerticalScale(11, 0.5): moderateVerticalScale(14,0.5))), },
+            {
+              fontFamily: fontRegular,
+              width: moderateScale(205, 0.6),
+              fontSize: isMobile
+                ? moderateVerticalScale(14)
+                : moderateVerticalScale(11),
+            },
           ]}
         />
         <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>

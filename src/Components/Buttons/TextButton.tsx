@@ -37,7 +37,7 @@ interface propToTextButton {
 }
 
 export default function TextButton(props: propToTextButton) {
-  const { fontRegular } = useContext(DimensionsContext);
+  const { fontRegular, isMobile } = useContext(DimensionsContext);
 
   return (
     <TouchableOpacity onPress={props.onPressed}>
@@ -48,7 +48,10 @@ export default function TextButton(props: propToTextButton) {
             color: props.color || Colors.secondary,
             fontFamily: props.fontFamily || fontRegular,
             textDecorationLine: props.textDecorationLine,
-            fontSize: props.fontSize || moderateVerticalScale(14),
+            fontSize:
+              props.fontSize || isMobile
+                ? moderateVerticalScale(14)
+                : moderateVerticalScale(11),
             margin: props.margin || moderateVerticalScale(10),
             marginTop: props.marginTop,
             marginLeft: props.marginLeft,
